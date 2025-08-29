@@ -213,7 +213,10 @@ public class Test2 {
 - 添加的内容大于16 会扩容（原来的容量*2+2）
 - 如果扩容后还不够，以实际长度为准
 
+---
 
+ ## 补充内容
+ `startsWith("String") 或 startsWith("String",begin,end)`检测字符串（范围）开头
 
 
 
