@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 209.5,
-    "collapsed": true
+    "width": 209.5
   },
   "right": {
     "id": "bd07fa8dcbd53024",
@@ -179,8 +178,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -196,14 +194,14 @@
   },
   "active": "78398ea0f94ee979",
   "lastOpenFiles": [
+    "Pasted image 20260121174538.png",
+    "06-API.md",
     "image/06-3.png",
     "image/72fac4d1-419a-420e-a1e4-f6944f1e88cc.png",
-    "Pasted image 20260121174538.png",
     "01-基本语法.md",
     "00-基础知识拓展.md",
     "image/06-2.png",
     "image/06-1.png",
-    "06-API.md",
     "README.md",
     "03-字符串.md",
     "02-面向对象.md"
