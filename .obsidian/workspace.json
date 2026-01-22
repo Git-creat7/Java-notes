@@ -20,21 +20,8 @@
               "icon": "lucide-file",
               "title": "06-API"
             }
-          },
-          {
-            "id": "1d4ca0d38120dd6e",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.11.5"
-              },
-              "icon": "lucide-book-up",
-              "title": "版本说明 1.11.5"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -91,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 209.5
+    "width": 209.5,
+    "collapsed": true
   },
   "right": {
     "id": "bd07fa8dcbd53024",
@@ -191,7 +179,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -205,7 +194,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "1d4ca0d38120dd6e",
+  "active": "78398ea0f94ee979",
   "lastOpenFiles": [
     "Pasted image 20260121174538.png",
     "06-API.md",
