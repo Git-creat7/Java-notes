@@ -8,10 +8,14 @@ API就是别人写好的东西，我们不需要自己编写，直接使用即�
 
 - Java API：JDK中提供的各种功能的Java类
 
+---
+
 ## System
 `public static void exit(int status) 终止当前运行的Java虚拟机`
 `public static long currentTimeMillis() 返回当前系统的时间（毫秒）`
 `public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）`
+
+---
 
 ## Runtime
 **Runtime表示当前虚拟机的运行环境**  
@@ -22,6 +26,8 @@ API就是别人写好的东西，我们不需要自己编写，直接使用即�
 `public long	totalMemory()JVM已经从系统中获取总内存大小byte`  
 `public long 	freeMemory() JVM剩余内存大小byte`
 `public Process exec(String command)	运行cmd命令`
+
+---
 
 ## Object
 `public boolean		equals(Objects obj) 比较地址值`  
@@ -54,6 +60,8 @@ API就是别人写好的东西，我们不需要自己编写，直接使用即�
         	return (this == obj);
     	}
 ```
+
+---
 
 ### 克隆clone
 对象克隆：把A对象的属性值完全拷贝给B对象，也叫对象拷贝，对象复制
@@ -104,6 +112,8 @@ public static void main(String[] args) throws CloneNotSupportedException {
 
 ![深克隆与浅克隆](image/06-3.png)
 
+---
+
 ## Objects
 `public static boolean equals(Object a,Object b)`**先做非空判断**，比较两个对象
 `public static boolean isNull(Object obj)`判断对象是否为null，null->true
@@ -125,6 +135,8 @@ public class TestDemo {
 }
 ```
 
+---
+
 ## BigInteger和BigDecimal
 #### BigInteger的构造方法
 `public BigInteger(int num,Random rnd)`获取随机大整数，范围:[0~2的num次方-1]
@@ -143,6 +155,8 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ##### BigInteger的成员方法
 ![成员方法](06-5.png)
 
+---
+
 #### BigDemical
 **常用方法**
 - 表示的数字不大(没有超出double) -> 使用静态方法
@@ -153,3 +167,7 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 >如果传递的是[0,10]之间的数，那么方法会返回已经创建好的对象（不会new）
 
 ![常用方法](06-6.png)
+
+> [!NOTE]
+> 注：divide除法方法必须除尽，否则会报错
+
