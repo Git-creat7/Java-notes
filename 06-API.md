@@ -109,4 +109,19 @@ public static void main(String[] args) throws CloneNotSupportedException {
 `public static boolean isNull(Object obj)`判断对象是否为null，null->true
 `public static boolean nonNull(Object obj)`判断对象是否为null，与isNull的结果相反 
 
+```Java
+import java.util.Objects;  
+public class TestDemo {  
+    public static void main(String[] args) throws CloneNotSupportedException {  
+       Student s1 = null;  
+       var s2 = new Student("zhangsan",23);  
+       boolean res = Objects.equals(s1,s2);  
+       System.out.println(res);  
+       //方法的底层会判断n1 ?= null，如果为null，直接返回false  
+       //如果s1不为null，那么就利用s1再次调用equals方法  
+       //此时s1是Student类型，所以最终还是会调用Student中的equals方法  
+       //未重写->比较地址值  重写->比较属性值  
+    }  
+}
+```
     
