@@ -124,6 +124,7 @@ public class TestDemo {
     }  
 }
 ```
+
 ## BigInteger和BigDecimal
 #### BigInteger的构造方法
 `public BigInteger(int num,Random rnd)`获取随机大整数，范围:[0~2的num次方-1]
@@ -141,4 +142,14 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ![BigInteger](06-4.png)
 ##### BigInteger的成员方法
 ![成员方法](06-5.png)
+
 #### BigDemical
+**常用方法**
+- 表示的数字不大(没有超出double) -> 使用静态方法
+`public static BigDecimal valueOf(double val)`
+- 表示的数字比较大(超出double) -> 使用构造方法
+`BigDecimal bd = new BigDecimal(String val)`
+>[!NOTE]
+>如果传递的是[0,10]之间的数，那么方法会返回已经创建好的对象（不会new）
+
+![常用方法](06-6.png)
