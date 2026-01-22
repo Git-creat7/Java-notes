@@ -141,4 +141,4 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ![BigInteger](06-4.png)
 ##### BigInteger的成员方法
 ![成员方法](06-5.png)
-#### BigInteger
+#### BigDemical

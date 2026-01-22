@@ -180,7 +180,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -194,7 +195,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "c1120729a9253d27",
+  "active": "e29a4561770ef5e5",
   "lastOpenFiles": [
     "README.md",
     "image/06-5.png",
