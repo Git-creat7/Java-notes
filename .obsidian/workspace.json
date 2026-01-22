@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 209.5
+    "width": 209.5,
+    "collapsed": true
   },
   "right": {
     "id": "bd07fa8dcbd53024",
@@ -179,8 +180,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -194,7 +194,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "e51f44757841f42a",
+  "active": "c1120729a9253d27",
   "lastOpenFiles": [
     "image/06-9.png",
     "image/06-8.png",
