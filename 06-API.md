@@ -124,4 +124,10 @@ public class TestDemo {
     }  
 }
 ```
-    
+## BigInteger和BigDecimal
+#### BigInteger的构造方法
+`public BigInteger(int num,Random rnd)`获取随机大整数，范围:[0~2的num次方-1]
+`public BigInteger(String val)` 获取指定的大整数
+`public BigInteger(String val,int radix)`获取指定进制的大整数
+
+ 

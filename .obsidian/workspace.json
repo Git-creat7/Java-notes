@@ -95,6 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "06-API.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +105,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "06-API 的反向链接列表"
             }
           },
           {
@@ -113,12 +114,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "01-基本语法.md",
+                "file": "06-API.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "01-基本语法 的出链列表"
+              "title": "06-API 的出链列表"
             }
           },
           {
@@ -175,11 +176,11 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 200,
     "collapsed": true
   },
   "left-ribbon": {
@@ -196,14 +197,14 @@
   },
   "active": "78398ea0f94ee979",
   "lastOpenFiles": [
-    "Pasted image 20260121174538.png",
+    "image/06-1.png",
     "06-API.md",
+    "Pasted image 20260121174538.png",
     "image/06-3.png",
     "image/72fac4d1-419a-420e-a1e4-f6944f1e88cc.png",
     "01-基本语法.md",
     "00-基础知识拓展.md",
     "image/06-2.png",
-    "image/06-1.png",
     "README.md",
     "03-字符串.md",
     "02-面向对象.md"
