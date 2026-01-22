@@ -129,5 +129,14 @@ public class TestDemo {
 `public BigInteger(int num,Random rnd)`获取随机大整数，范围:[0~2的num次方-1]
 `public BigInteger(String val)` 获取指定的大整数
 `public BigInteger(String val,int radix)`获取指定进制的大整数
-
- 
+`public static BigInteger valueOf(long val)`静态方法获取BigInteger的对象，内部有优化(-1~16,1~16)
+>[!NOTE]
+>对象一旦创建，内部的数据不能发生改变
+```Java
+BigInteger bd1 = new BigInteger.valueOf(1);
+BigInteger bd2 = new BigInteger.valueOf(2);
+BigInteger res  = bd1.add(bd2);//产生一个新对象
+//res = 3;
+```
+![BigInteger](06-4.png)
+##### BigInteger的成员方法
