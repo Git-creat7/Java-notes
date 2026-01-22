@@ -105,6 +105,8 @@ public static void main(String[] args) throws CloneNotSupportedException {
 ![深克隆与浅克隆](image/06-3.png)
 
 ## Objects
-
+`public static boolean equals(Object a,Object b)`**先做非空判断**，比较两个对象
+`public static boolean isNull(Object obj)`判断对象是否为null，null->true
+`public static boolean nonNull(Object obj)`判断对象是否为null，与isNull的结果相反 
 
     
