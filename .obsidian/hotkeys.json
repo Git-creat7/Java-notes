@@ -16,5 +16,13 @@
       ],
       "key": "P"
     }
+  ],
+  "hotkey-helper:open-settings": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "."
+    }
   ]
 }

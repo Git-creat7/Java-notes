@@ -194,10 +194,10 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ---
 ### Date时间类
 ```Java
+	//简单时间类
 	Date d1 = new Date();//获取当前时间
-	Date d2 = new Date(0L)//Thu Jan 01 08:00:00 CST 1970
-	d2.getTime().sout //·
-	Date d3 = new Date(1000L)//Thu Jan 01 08:00:01 CST 1970
-	
-	
+	Date d2 = new Date(0L)//获取初始时间+0ms后的时间Thu Jan 01 08:00:00 CST 1970
+	d2.getTime().sout;//0
+	Date d3 = new Date(1000L)//获取初始时间+1000ms后的时间Thu Jan 01 08:00:01 CST 1970
+	d3.getTime().sout;//1000
 ```
