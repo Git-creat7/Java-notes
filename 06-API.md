@@ -216,13 +216,36 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ```
 - ==`public SimpleDateFormat(String Pattern)` 使用指定格式==
 ```Java
-	SimpleDateFormat sdf = new  SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss E"); 
+	SimpleDateFormat sdf = new  SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss EEEE"); 
 	Date  date = new Date(0L);  
 	String str = sdf.format(date);  
 	System.out.println(str);
 	
-	指定格式：1970年01月01日 08:00:00 周四
+	指定格式：1970年01月01日 08:00:00 星期四
 ```
+
+| 字母    | 描述 (Description)   | 示例 (Output)    | 备注 (Note)                 |
+| ----- | ------------------ | -------------- | ------------------------- |
+| **G** | 年代标志 (Era)         | AD (公元)        | 通常用于历史日期                  |
+| **y** | 年 (Year)           | 2026; 26       | `yy` 是两位年，`yyyy` 是四位年     |
+| **u** | 纪元年 (Year)         | 2026           | 在 `java.time` 中比 `y` 更严谨  |
+| **M** | **月份 (Month)**     | 07; Jul; July  | **大写**；`MM` 为数字，`MMM` 为缩写 |
+| **L** | 独立月份 (Month)       | 7; July        | 常用于特定语言环境的格式化             |
+| **d** | **月中天数 (Day)**     | 10; 05         | **小写**；该月中的第几天            |
+| **D** | 年中天数 (Day)         | 189            | 该年中的第几天 (1-366)           |
+| **E** | 星期 (Day in week)   | Tue; Tuesday   | 星期几的文本描述                  |
+| **e** | 星期数字 (Day of week) | 2              | 1 (周一) 到 7 (周日)           |
+| **a** | 上下午标记 (AM/PM)      | PM             | 上午或下午                     |
+| **H** | **24小时制小时**        | 0-23           | **大写**；常用于服务器日志           |
+| **h** | **12小时制小时**        | 1-12           | **小写**；需配合 `a` 使用         |
+| **m** | **分钟 (Minute)**    | 30             | **小写**；不要和月份 `M` 搞混       |
+| **s** | **秒 (Second)**     | 55             | 秒数                        |
+| **S** | 毫秒 (Fraction)      | 978            | 毫秒或纳秒的零头                  |
+| **n** | 纳秒 (Nano)          | 500000         | 仅限 Java 8+ 的 `java.time`  |
+| **z** | 时区 (Time Zone)     | CST; PST       | 通用时区名称                    |
+| **Z** | 时区偏移 (Offset)      | +0800          | RFC 822 格式                |
+| **X** | ISO 8601 时区        | Z; +08; +08:00 | 现代 API 推荐使用的时区格式          |
+
 ##### 常用方法
 - ==`public final String format(Date date)` 格式化（日期对象 -> 字符串)==
 - ==`public Date parse(String source)` 解析（字符串 -> 日期对象）==
