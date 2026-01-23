@@ -151,9 +151,9 @@ BigInteger bd2 = new BigInteger.valueOf(2);
 BigInteger res  = bd1.add(bd2);//产生一个新对象
 //res = 3;
 ```
-![BigInteger](06-4.png)
+![BigInteger](image/06-4.png)
 ##### BigInteger的成员方法
-![成员方法](06-5.png)
+![成员方法](image/06-5.png)
 
 ---
 
@@ -166,7 +166,7 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 >[!NOTE]
 >如果传递的是[0,10]之间的数，那么方法会返回已经创建好的对象（不会new）
 
-![常用方法](06-6.png)
+![常用方法](image/06-6.png)
 
 > [!NOTE]
 > 注：divide除法方法必须除尽，否则会报错
@@ -182,8 +182,8 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ---
 
 ## 正则表达式（regex）
-![[06-7.png]]
-![[image/06-8.png]]
+![regex](image/06-7.png)
+![regex](image/06-8.png)
 
 
 - `(?i)abcd`会忽略abcd的大小写
@@ -253,12 +253,14 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 #### Calendar类
 - Calendar代表了系统当前时间的日历对象，可以单独修改、获取事件中的年月日
 - Calendar是一个抽象类，不能直接创建对象，需要通过一个静态方法获取到子类对象
-![[06-10.png]]
+![[image/06-10.png]]
 
-##### get方法
+##### get/set/add方法
 ```Java
 	Calandar c = Calandar.getInstance();
-	c.get(YEAR);
+	c.get(Calandar.YEAR);
+	c.set(Calandar.YEAR,11)//实际为12月
+	c.add(Calandar.YEAR,1)//实际为次年1月
 ```
 
 | 数字  | 常量名                          | 含义  | 注意事项                  |
@@ -271,3 +273,7 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 | 12  | Calendar.MINUTE              | 分钟  | -                     |
 | 13  | Calendar.SECOND              | 秒   | -                     |
 | 7   | Calendar.DAY_OF_WEEK         | 星期  | 周日是1，周一是2，周六是7。       |
+
+---
+### LocalDateTime
+
