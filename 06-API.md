@@ -202,8 +202,8 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 	d3.getTime().sout;//1000
 ```
 ### SimpleDateFormat类
-- 格式化：把时间转换成指定格式
-- 解析：把字符串表示的时间变成Date对象
+- format格式化：把时间转换成指定格式
+- parse解析：把字符串表示的时间变成Date对象
 ##### 构造方法
 - ==`public SimpleDateFormat()`  使用默认格式==
 ```Java
