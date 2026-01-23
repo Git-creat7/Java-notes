@@ -193,3 +193,11 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 
 ---
 ### Date时间类
+```Java
+	Date d1 = new Date();//获取当前时间
+	Date d2 = new Date(0L)//Thu Jan 01 08:00:00 CST 1970
+	d2.getTime().sout //
+	Date d3 = new Date(1000L)//Thu Jan 01 08:00:01 CST 1970
+	
+	
+```
