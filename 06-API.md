@@ -190,8 +190,8 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 - `a(?i)bcd`会忽略bcd的大小写
 - `a((?i)b)cd`会忽略b的大小写
 
-
 ---
+
 ### Date时间类
 ```Java
 	//简单时间类
@@ -201,3 +201,29 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 	Date d3 = new Date(1000L)//获取初始时间+1000ms后的时间Thu Jan 01 08:00:01 CST 1970
 	d3.getTime().sout;//1000
 ```
+### SimpleDateFormat类
+- 格式化：把时间转换成指定格式
+- 解析：把字符串表示的时间变成Date对象
+##### 构造方法
+- ==`public SimpleDateFormat()`  使用默认格式==
+```Java
+	SimpleDateFormat sdf = new  SimpleDateFormat();  
+	Date  date = new Date(0L);
+	String str = sdf.format(date);  
+	System.out.println(str);
+	
+	默认格式：1970/1/1 08:00 
+```
+- ==`public SimpleDateFormat(String Pattern)` 使用指定格式==
+```Java
+	SimpleDateFormat sdf = new  SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss E"); 
+	Date  date = new Date(0L);  
+	String str = sdf.format(date);  
+	System.out.println(str);
+	
+	指定格式：1970年01月01日 08:00:00 周四
+```
+##### 常用方法
+- ==`public final String format(Date date)` 格式化（日期对象 -> 字符串)==
+- ==`public Date parse(String source)` 解析（字符串 -> 日期对象）==
+ 
