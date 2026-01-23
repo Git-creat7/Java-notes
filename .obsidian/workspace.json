@@ -181,7 +181,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -198,8 +199,10 @@
   },
   "active": "5f2bdb13350cf0a6",
   "lastOpenFiles": [
-    "02-面向对象.md",
+    "image/06-10.png",
+    "Pasted image 20260123210045.png",
     "06-API.md",
+    "02-面向对象.md",
     "未命名.canvas",
     "未命名.base",
     "image/06-9.png",
@@ -212,8 +215,6 @@
     "image/未命名.base",
     "image/Snipaste_2026-01-22_15-24-58.png",
     "image/06-4 1.png",
-    "image/06-3.png",
-    "image/06-2.png",
     "未命名",
     "image/未命名.canvas",
     "01-基本语法.md",
