@@ -255,4 +255,19 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 - Calendar是一个抽象类，不能直接创建对象，需要通过一个静态方法获取到子类对象
 ![[06-10.png]]
 
- 
+##### get方法
+```Java
+	Calandar c = Calandar.getInstance();
+	c.get(YEAR);
+```
+
+| 数字  | 常量名                          | 含义  | 注意事项                  |
+| :-- | :--------------------------- | :-- | :-------------------- |
+| 1   | Calendar.YEAR                | 年   | -                     |
+| 2   | Calendar.MONTH               | 月   | 从 0 开始。0表示1月，11表示12月。 |
+| 5   | Calendar.DATE / DAY_OF_MONTH | 日   | 两个常量效果一样。             |
+| 10  | Calendar.HOUR                | 小时  | 12小时制。                |
+| 11  | Calendar.HOUR_OF_DAY         | 小时  | 24小时制。                |
+| 12  | Calendar.MINUTE              | 分钟  | -                     |
+| 13  | Calendar.SECOND              | 秒   | -                     |
+| 7   | Calendar.DAY_OF_WEEK         | 星期  | 周日是1，周一是2，周六是7。       |
