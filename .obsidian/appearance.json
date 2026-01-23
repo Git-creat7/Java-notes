@@ -2,5 +2,5 @@
   "theme": "obsidian",
   "baseFontSize": 16,
   "nativeMenus": false,
-  "showRibbon": true
+  "showRibbon": false
 }

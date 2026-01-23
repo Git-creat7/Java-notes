@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 209.5,
+    "width": 200,
     "collapsed": true
   },
   "right": {
@@ -157,12 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "06-API.md",
                 "followCursor": true,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "06-API 的大纲"
             }
           },
           {
@@ -176,12 +177,11 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -198,8 +198,10 @@
   },
   "active": "5f2bdb13350cf0a6",
   "lastOpenFiles": [
-    "未命名.base",
+    "02-面向对象.md",
     "06-API.md",
+    "未命名.canvas",
+    "未命名.base",
     "image/06-9.png",
     "image/06-8.png",
     "image/06-7.png",
@@ -216,7 +218,6 @@
     "image/未命名.canvas",
     "01-基本语法.md",
     "00-基础知识拓展.md",
-    "03-字符串.md",
-    "02-面向对象.md"
+    "03-字符串.md"
   ]
 }

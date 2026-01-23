@@ -181,7 +181,7 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 
 ---
 
-### 正则表达式（regex）
+## 正则表达式（regex）
 ![[06-7.png]]
 ![[image/06-8.png]]
 
@@ -192,7 +192,7 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 
 ---
 
-### Date时间类
+## Date时间类
 ```Java
 	//简单时间类
 	Date d1 = new Date();//获取当前时间
@@ -201,7 +201,7 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 	Date d3 = new Date(1000L)//获取初始时间+1000ms后的时间Thu Jan 01 08:00:01 CST 1970
 	d3.getTime().sout;//1000
 ```
-### SimpleDateFormat类
+#### SimpleDateFormat类
 - format格式化：把时间转换成指定格式
 - parse解析：把字符串表示的时间变成Date对象
 ##### 构造方法
@@ -250,3 +250,6 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 - ==`public final String format(Date date)` 格式化（日期对象 -> 字符串)==
 - ==`public Date parse(String source)` 解析（字符串 -> 日期对象）==
  
+#### Calendar类
+- Calendar代表了系统当前时间的日历对象，可以单独修改、获取事件中的年月日
+- Calendar是一个抽象类，不能直接创建对象
