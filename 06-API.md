@@ -288,3 +288,11 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ##### JDK5以后
 - 自动装箱、自动拆箱
 - 直接赋值获取对象
+- 计算时不需要new，不需要调用方法，直接赋值即可
+```Java
+	Integer i1 = 10;
+	Integer i2 = 20;
+	Integer i3 = i1 + i2;//底层：先拆箱 -> 计算 -> 再装箱赋值给i3
+```
+
+##### Integer成员方法
