@@ -1,6 +1,9 @@
 {
   "theme": "obsidian",
-  "baseFontSize": 16,
+  "baseFontSize": 15,
   "nativeMenus": false,
-  "showRibbon": false
+  "showRibbon": false,
+  "accentColor": "",
+  "cssTheme": "",
+  "baseFontSizeAction": true
 }
