@@ -356,11 +356,28 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 	- 0    ：一样大，放在后面
 ```Java
 	Integer[] a =  {2,7,5,4,5,6,7,8,9,31};  
-Arrays.sort(a,new0000000000000000000000000000000000000000000000 Comparator<Integer>() {  
+Arrays.sort(a,newComparator<Integer>() {  
 	@Override  
 	public int compare(Integer o1, Integer o2) {  
 		return o1-o2;  
 	}  
 });
 ```
+## Lambda表达式
+- ( )对应方法的形参
+- -> 固定格式
+- { } 对应方法体
+- ```Java
+	Integer[] a =  {2,7,5,4,5,6,7,8,9,31};  
+Arrays.sort(a,(Integer o1, Integer o2) -> {  
+		return o1-o2;  
+	}  
+);
+```
+>[!NOTE]
+>lambda 表达式可以用来简化匿名内部类的书写（不是所有）
+>lambda 表达式只能简化函数式接口的匿名内部类写法
+>
+>函数式接口：
+>- **有且仅有一个抽象方法的接口**，接口上方可以加@FunctionalInterface的注解
 

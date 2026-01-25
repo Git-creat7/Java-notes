@@ -178,11 +178,12 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -196,7 +197,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "c1120729a9253d27",
+  "active": "06b6001cef013179",
   "lastOpenFiles": [
     "05-面向对象进阶.md",
     "04-ArrList集合.md",
