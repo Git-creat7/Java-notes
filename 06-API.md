@@ -394,7 +394,7 @@ Arrays.sort(a,(Integer o1, Integer o2) -> {
 	}  
 );
 
-     ```
+```
 ---
 ```Java
 package MyTestDemo2;  
