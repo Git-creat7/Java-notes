@@ -178,12 +178,11 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -197,14 +196,18 @@
       "bases:新建数据库": false
     }
   },
-  "active": "06b6001cef013179",
+  "active": "c1120729a9253d27",
   "lastOpenFiles": [
-    "image/06-12.png",
-    "07-基本算法.md",
-    "06-API.md",
-    "Pasted image 20260125123046.png",
-    "02-面向对象.md",
+    "05-面向对象进阶.md",
+    "04-ArrList集合.md",
     "03-字符串.md",
+    "02-面向对象.md",
+    "01-基本语法.md",
+    "00-基础知识拓展.md",
+    "06-API.md",
+    "07-基本算法.md",
+    "image/06-12.png",
+    "Pasted image 20260125123046.png",
     "07-基本算法.canvas",
     "README.md",
     "image/06-11.md",
@@ -217,11 +220,8 @@
     "image/06-7.png",
     "image/06-6.png",
     "image/06-5.png",
-    "image/06-4.png",
     "image/未命名.base",
     "未命名",
-    "image/未命名.canvas",
-    "01-基本语法.md",
-    "00-基础知识拓展.md"
+    "image/未命名.canvas"
   ]
 }
