@@ -381,3 +381,36 @@ Arrays.sort(a,(Integer o1, Integer o2) -> {
 >函数式接口：
 >- **有且仅有一个抽象方法的接口**，接口上方可以加@FunctionalInterface的注解
 
+```Java
+	Integer[] a =  {2,7,5,4,5,6,7,8,9,31};  
+Arrays.sort(a,(Integer o1, Integer o2) -> {  
+		return o1-o2;  
+	}  
+);
+
+     ```
+---
+```Java
+package MyTestDemo2;  
+public class TestDemo{  
+    public static void main(String[] args){  
+        method(()->{  
+            System.out.println("lambda:");  
+            System.out.println("swimming");  
+        });  
+    }  
+    public static void method(swim s){  
+        s.swimming();  
+    }  
+}  
+@FunctionalInterface
+interface swim{  
+    public void swimming();  
+}
+```
+##### 可推导，可省略
+```Java
+	Integer[] a =  {2,7,5,4,5,6,7,8,9,31};  
+	Arrays.sort(a,(o1,o2) -> o1-o2);//升序
+	Arrays.sort(a,(o1,o2) -> o2-o1);//倒序
+```
