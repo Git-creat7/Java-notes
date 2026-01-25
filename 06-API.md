@@ -300,13 +300,54 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 
 
 
+---
 ## Arrays
 ![[06-12.png]]
+##### Arrays.binarySearch()
+- 查找的元素存在，就返回真实的索引
+- 查找的元素不存在，就返回( -插入点 - 1 )
+```Java
+	int[] a =  {1,2,3,4,5,6,7,8,9,10};
+	Arrays.binarySearch(arr,10);//9
+	Arrays.binarySearch(arr,100)//-11
+```
 
+---
 
+##### Arrrays.copyOf()
+- if(新数组len < 老数组len) 会部分拷贝
+- if(新数组len = 老数组len) 会完全拷贝
+- if(新数组len > 老数组len) 会补上默认初始值(int[] 补0)
+```Java
+	int[] a =  {1,2,3,4,5,6,7,8,9,10};
+	int[] newa = Arrays.copyOf(a);
+```
 
+---
 
+#### Arrrays.copyOfRange()
+- 包左不包右（左闭右开）
+```Java
+	int[] a =  {1,2,3,4,5,6,7,8,9,10};
+	int[] newa = Arrays.copyOfRange(a,0,9);
+	//1 2 3 4 5 6 7 8 9
+```
 
+---
+#### Arrays.fill()
+```Java
+	int[] a =  {1,2,3,4,5,6,7,8,9,10};	
+	Arrays.fill(a,100);//100 100 100 ...
+```
+
+---
+#### Arrays.sort()
+- 对基本类型快速排序
+```Java
+	Arrays.sort(a);//升序
+```
+###### 重载
+- 只能对引用数据类型排序
 
 
 
