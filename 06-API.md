@@ -297,3 +297,25 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 
 ##### Integer成员方法
 ![[06-11.png]]
+
+
+
+## Arrays
+![[06-12.png]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
