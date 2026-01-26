@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "08-集合进阶.md",
+                "file": "06-API.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "08-集合进阶"
+              "title": "06-API"
             }
           }
         ]
@@ -79,8 +79,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "bd07fa8dcbd53024",
@@ -199,10 +198,10 @@
   },
   "active": "7981758540b7bb57",
   "lastOpenFiles": [
+    "08-集合进阶.md",
     "07-基本算法.md",
     "image/06-12.png",
     "image/08-1.png",
-    "08-集合进阶.md",
     "06-API.md",
     "05-面向对象进阶.md",
     "04-ArrList集合.md",
