@@ -177,12 +177,11 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -197,8 +196,9 @@
       "translate:Open translation view": false
     }
   },
-  "active": "7869aa6bd3fd99ff",
+  "active": "c1120729a9253d27",
   "lastOpenFiles": [
+    "新建 文本文档.txt",
     "04-ArrList集合.md",
     "05-面向对象进阶.md",
     "03-字符串.md",
