@@ -7,5 +7,6 @@
   "smartIndentList": true,
   "rightToLeft": false,
   "autoPairMarkdown": true,
-  "readableLineLength": true
+  "readableLineLength": true,
+  "trashOption": "none"
 }
