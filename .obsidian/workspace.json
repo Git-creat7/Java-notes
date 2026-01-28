@@ -79,8 +79,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "bd07fa8dcbd53024",
@@ -199,12 +198,15 @@
   },
   "active": "83133367b5924802",
   "lastOpenFiles": [
-    "09-数据结构.md",
+    "image/08-4.png",
     "08-集合进阶.md",
-    "image/08-3.png",
-    "image/08-2.png",
+    "09-数据结构.md",
+    "00-基础知识拓展.md",
+    "README.md",
     "06-API.md",
     "07-基本算法.md",
+    "image/08-3.png",
+    "image/08-2.png",
     "image/06-12.png",
     "image/08-1.png",
     "05-面向对象进阶.md",
@@ -212,17 +214,13 @@
     "03-字符串.md",
     "02-面向对象.md",
     "01-基本语法.md",
-    "00-基础知识拓展.md",
     "Pasted image 20260125123046.png",
     "07-基本算法.canvas",
-    "README.md",
     "image/06-11.md",
     "image/06-11.png",
     "image/06-10.png",
     "Pasted image 20260123210045.png",
     "未命名.base",
-    "image/06-9.png",
-    "image/06-8.png",
     "image/未命名.base",
     "未命名",
     "image/未命名.canvas"
