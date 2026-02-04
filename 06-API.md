@@ -1,3 +1,9 @@
+---
+title: "06-API"
+date: 2026-02-03
+draft: false
+---
+
 # API
 
 **应用程序编程接口**  
@@ -255,11 +261,11 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ##### 常用方法
 - ==`public final String format(Date date)` 格式化（日期对象 -> 字符串)==
 - ==`public Date parse(String source)` 解析（字符串 -> 日期对象）==
- 
+
 #### Calendar类
 - Calendar代表了系统当前时间的日历对象，可以单独修改、获取事件中的年月日
 - Calendar是一个抽象类，不能直接创建对象，需要通过一个静态方法获取到子类对象
-![[image/06-10.png]]
+![](image/06-10.png)
 
 ##### get/set/add方法
 ```Java
@@ -301,13 +307,13 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ```
 
 ##### Integer成员方法
-![[06-11.png]]
+![](image/06-11.png)
 
 
 
 ---
 ## Arrays
-![[06-12.png]]
+![](image/06-12.png)
 ##### Arrays.binarySearch()
 - 查找的元素存在，就返回真实的索引
 - 查找的元素不存在，就返回( -插入点 - 1 )
@@ -374,10 +380,10 @@ Arrays.sort(a,newComparator<Integer>() {
 - { } 对应方法体
 - ```Java
 	Integer[] a =  {2,7,5,4,5,6,7,8,9,31};  
-Arrays.sort(a,(Integer o1, Integer o2) -> {  
+	Arrays.sort(a,(Integer o1, Integer o2) -> {  
 		return o1-o2;  
 	}  
-);
+	);
 ```
 >[!NOTE]
 >lambda 表达式可以用来简化匿名内部类的书写（不是所有）
@@ -419,3 +425,4 @@ interface swim{
 	Arrays.sort(a,(o1,o2) -> o1-o2);//升序
 	Arrays.sort(a,(o1,o2) -> o2-o1);//倒序
 ```
+
