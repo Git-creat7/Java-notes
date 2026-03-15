@@ -201,7 +201,7 @@ class Daily extends Parent {
 ```
 ## 其他调用方式
 
-### 使用类名引用成员方法 `类名::成员方法`
+### 类名引用成员方法 `类名::成员方法`
 >**独有的规则**
 >
 >被引用方法的形参，需要跟抽象方法的第二个形参到最后一个形参保持一致，返回值需要保持一致 
@@ -215,14 +215,36 @@ class Daily extends Parent {
 >**第二个参数到最后一个参数：**
 >	跟被引用方法的形参保持一致，<u>如果没有第二个参数，说明被引用的方法需要时无参的成员方法</u>
 
+**例子：`String::substring(int beginIndex)`**
 
+- 这个方法括号里只有 **1 个** 参数。
+    
+- 但它是一个成员方法，需要 **1 个** 调用者。
+    
+- 所以这个方法引用，要求 Lambda 必须提供 **2 个** 参数：
+    
+    - 第一个参数：必须是 `String`（调用者）。
+        
+    - 第二个参数：必须是 `int`（对应 `beginIndex`）。
+        
+- **Lambda 原型**：`(String s, int i) -> s.substring(i)`
+
+**总结：** “类名::成员方法”之所以看起来参数少了一个，是因为第一个参数被拿去“点”那个方法了。
 
 ```Java
 	ArrayList<String> list = new ArrayList();  
 	Collections.addAll(list, "aaa", "bbb", "ccc", "ddd");  
 	list.stream()  
-	        .map(String::toUpperCase)  
+			//拿着流里面的每一个数据，去调用String类中的方法
+	        .map(String::toUpperCase) //s -> s.toUpperCase()
 	        .forEach(System.out::println);
 ```
 
-### 引用数组的构造方法 ``
+### 引用数组的构造方法 `数据类型[]::new`
+```Java
+	Integer[] array = list.stream()
+		.toArray(Integer[]::new);//v -> new Integer[v]
+```
+>[!IMPORTANT]
+>数组的类型，需要跟流中数据一致
+
