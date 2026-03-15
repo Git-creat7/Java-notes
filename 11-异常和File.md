@@ -24,3 +24,40 @@ Throwable（所有异常/错误的根类）
       ├─ SQLException（数据库操作异常，如SQL语法错误/连接失败）
       └─ InterruptedException（线程中断异常，如休眠线程被打断）
 ```
+## 捕获异常`try-catch`
+```Java
+	int[] arr = {1,2,3};  
+	try{  
+		//程序创建异常，与catch（）中的异常对比，可捕获 -> 执行catch{..}
+		//当catch{..}执行完毕，继续向下执行
+	    System.out.println(arr[10]);     
+	}catch (ArrayIndexOutOfBoundsException e){  
+	    System.out.println("数组越界了");  
+	}  
+	System.out.println("执行！");
+```
+### 常见问题
+#### 如果`try`中没有遇到问题，怎么办？
+
+> 会把`try`中的所有代码全部执行完毕，**不会执行**`catch`中的代码
+> 
+> **注意：** 只有出现了异常，才会执行`catch`
+
+#### 如果`try`中可能遇到多个问题，怎么办？
+
+>写多个`catch`与之对应
+>
+>**注意：** 如果捕获多个异常，父类一定要写在下面
+>
+>JDK7以后，可以用`catch`捕获多个异常，中间用`|`隔开
+
+
+#### 如果`try`中遇到的问题没有被捕获，怎么办？
+
+>JVM虚拟机默认处理异常
+>
+>
+#### 如果`try`中遇到了问题，那么`try`下面的其他代码块还会执行吗？
+
+>
+>
