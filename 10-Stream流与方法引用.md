@@ -181,3 +181,48 @@ class Daily extends Parent {
     }  
 }
 ```
+
+## 构造方法的引用
+```Java
+
+	ArrayList<String> list = new ArrayList();  
+	Collections.addAll(list, "张三,13", "李四,46", "王五,15");  
+	List<Student> list1 = 
+		list.stream()  
+			//这里必须在Student中新建一个构造方法
+			.map(Student::new)  
+			.collect(Collectors.toList());
+    /*在Student中
+	*    public Student(String s){  
+	*	    this.name = s.split(",")[0];  
+	*	    this.age = Integer.parseInt(s.split(",")[1]);
+	*	 }
+    */
+```
+## 其他调用方式
+
+### 使用类名引用成员方法 `类名::成员方法`
+>**独有的规则**
+>
+>被引用方法的形参，需要跟抽象方法的第二个形参到最后一个形参保持一致，返回值需要保持一致 
+
+>**抽象方法形参的详解：**
+>**第一个参数：** 
+>	表示被引用方法的调用者，决定了可以引用那些类中的方法
+>	在`Stream`流当中，第一个参数一般都表示流里面的每一个数据
+>	假设流里面的数据是字符串，那么使用这种方式进行方法引用，只能引用`String`这个类中的方法
+>
+>**第二个参数到最后一个参数：**
+>	跟被引用方法的形参保持一致，<u>如果没有第二个参数，说明被引用的方法需要时无参的成员方法</u>
+
+
+
+```Java
+	ArrayList<String> list = new ArrayList();  
+	Collections.addAll(list, "aaa", "bbb", "ccc", "ddd");  
+	list.stream()  
+	        .map(String::toUpperCase)  
+	        .forEach(System.out::println);
+```
+
+### 引用数组的构造方法 ``
