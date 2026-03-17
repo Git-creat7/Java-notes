@@ -101,5 +101,62 @@ Throwable（所有异常/错误的根类）
 |        | `mkdirs()`          | `boolean` | **递归**创建文件夹    | 建议永远用带 s 的这个                   |
 | **删除** | `delete()`          | `boolean` | 删除文件/空文件夹      | **不走回收站**，直接消失                 |
 >**综合练习：** 统计各种文件的数量
-```
+```Java
+
+    /**
+     * 递归方法：统计指定目录下所有文件的后缀名数量（包含子目录）
+     * @param src 要统计的目标目录File对象
+     * @return 后缀名-数量的HashMap，键为后缀名/无后缀，值为对应数量
+     */
+public static HashMap<String,Integer> getCount(File src){
+	HashMap<String,Integer>hm = new HashMap<>();
+	File[] fs = src.listFiles();
+	// 判空：避免目录为空/无访问权限导致空指针
+	
+	if (fs != null) {
+		for (File f : fs) {
+			if (f.isFile()) {
+				// 按"."分割文件名，用于提取后缀名（注意转义符\\.）
+				String[] split = f.getName().split("\\.");
+				
+				// 分割后长度>=2说明有后缀名（如test.txt分割后是[test,txt]）
+				if(split.length >= 2){
+					// 取分割数组最后一个元素作为后缀名
+					String endName = split[split.length-1];
+					
+					if(!hm.containsKey(endName))
+						hm.put(endName,1);
+					else
+						hm.put(endName,hm.get(endName)+1);
+
+				}else{
+					// 分割后长度<2说明无后缀名（如readme、.gitignore）
+					// 首次统计"无后缀"：初始化为1
+					
+					if(!hm.containsKey("无后缀"))
+						hm.put("无后缀",1);
+					else
+						hm.put("无后缀",hm.get("无后缀")+1);
+				}
+			}else{
+				// 当前File是子目录：递归调用getCount统计子目录的后缀名
+				HashMap<String,Integer> dfs = getCount(f);
+				// 遍历子目录的统计结果，合并到当前目录的HashMap中
+				
+				for (String k : dfs.keySet()){
+					// 当前目录未统计过该后缀：直接赋值子目录的统计数
+					if(!hm.containsKey(k))
+						hm.put(k,dfs.get(k));
+					// 当前目录已统计过该后缀：累加子目录的统计数
+					else
+						hm.put(k,hm.get(k)+dfs.get(k));
+				}
+
+			}
+		}
+
+	}
+	// 返回当前目录（含子目录）的最终统计结果
+	return hm;
+}
 ```
