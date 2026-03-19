@@ -1,5 +1,5 @@
 # 异常
-```mewmaid
+```mermaid
 Throwable（所有异常/错误的根类）
 |
 ├─ Error（系统级致命错误，程序无法恢复）
