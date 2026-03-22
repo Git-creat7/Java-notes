@@ -37,7 +37,7 @@ public class MyThread extends Thread {
 	优点:代码简单，直接 `this` 就能获取线程名。
 	缺点：Java 是单继承，继承了 Thread 就不能继承别的类了。
 ```
-## 实现`Runnable`方法
+## 实现`Runnable`接口
 ```Java
 public class MyRun implements Runnable {
     @Override
@@ -48,3 +48,4 @@ public class MyRun implements Runnable {
 	// 启动：new Thread(new MyRun()).start();
 	优点：扩展性强，可以实现接口的同时继承别的类；适合多个线程处理同一个资源。
 ```
+## 实现`Callable`接口
