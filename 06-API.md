@@ -97,7 +97,7 @@ public static void main(String[] args) throws CloneNotSupportedException {
 		3.创建原对象调用clone	*/
 ```
 
-![浅克隆](image/06-1.png)
+![浅克隆](06-1.png)
 
 >[!NOTE]
 >浅克隆（引用数据类型）用的是相同的地址值，当其中一个对象修改该引用类型字段的内容时
@@ -109,14 +109,14 @@ public static void main(String[] args) throws CloneNotSupportedException {
 - 引用数据类型会重新创建新的
 
 
-![深克隆](image/06-2.png)
+![深克隆](06-2.png)
 >[!NOTE]
 >基本数据类型 ： 直接克隆对象
 >引用数据类型 ： 创建一个新的对象
 >注：String 深克隆时用串池地址（原地址），只有在改变后才会创建新String对象，因为String本身不可变
 >**此时的data记录新数据的地址值**
 
-![深克隆与浅克隆](image/06-3.png)
+![深克隆与浅克隆](06-3.png)
 
 ---
 
@@ -163,9 +163,9 @@ BigInteger bd2 = new BigInteger.valueOf(2);
 BigInteger res  = bd1.add(bd2);//产生一个新对象
 //res = 3;
 ```
-![BigInteger](image/06-4.png)
+![BigInteger](06-4.png)
 ##### BigInteger的成员方法
-![成员方法](image/06-5.png)
+![成员方法](06-5.png)
 
 ---
 
@@ -178,7 +178,7 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 >[!NOTE]
 >如果传递的是[0,10]之间的数，那么方法会返回已经创建好的对象（不会new）
 
-![常用方法](image/06-6.png)
+![常用方法](06-6.png)
 
 > [!NOTE]
 > 注：divide除法方法必须除尽，否则会报错
@@ -194,8 +194,8 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ---
 
 ## 正则表达式（regex）
-![regex](image/06-7.png)
-![regex](image/06-8.png)
+![regex](06-7.png)
+![regex](06-8.png)
 
 
 - `(?i)abcd`会忽略abcd的大小写
@@ -265,7 +265,7 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 #### Calendar类
 - Calendar代表了系统当前时间的日历对象，可以单独修改、获取事件中的年月日
 - Calendar是一个抽象类，不能直接创建对象，需要通过一个静态方法获取到子类对象
-![](image/06-10.png)
+![](06-10.png)
 
 ##### get/set/add方法
 ```Java
@@ -307,13 +307,13 @@ BigInteger res  = bd1.add(bd2);//产生一个新对象
 ```
 
 ##### Integer成员方法
-![](image/06-11.png)
+![](06-11.png)
 
 
 
 ---
 ## Arrays
-![](image/06-12.png)
+![](06-12.png)
 ##### Arrays.binarySearch()
 - 查找的元素存在，就返回真实的索引
 - 查找的元素不存在，就返回( -插入点 - 1 )
