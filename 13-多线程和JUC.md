@@ -23,4 +23,28 @@ categories = []
 ![](13-多线程和JUC-1.png)
 ## 实现方式
 
-### `Thread`
+### 继承`Thread`类
+```Java
+public class MyThread extends Thread {
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println(getName() + " 在运行: " + i);
+        }
+    }
+}
+	// 启动：new MyThread().start();
+	优点:代码简单，直接 `this` 就能获取线程名。
+	缺点：Java 是单继承，继承了 Thread 就不能继承别的类了。
+```
+## 实现`Runnable`方法
+```Java
+public class MyRun implements Runnable {
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getName() + " 执行中");
+    }
+}
+	// 启动：new Thread(new MyRun()).start();
+	优点：扩展性强，可以实现接口的同时继承别的类；适合多个线程处理同一个资源。
+```
