@@ -68,13 +68,12 @@ public class MyCallable implements Callable<Integer> {
 | **`getPriority()`**        | 获取线程优先级         | 范围 1-10，默认 5              |
 | **`setPriority(int p)`**   | 设置线程优先级         | 优先级越高，抢到 CPU 时间片的**概率**越大 |
 | **`currentThread()`**      | **静态方法**，获取当前线程 | 哪条线程执行这行代码，就返回谁           |
-
-
-
-
-
-
-
+>**给线程设置名字：** 
+>	可以用`set`也可以用构造方法
+>	
+> 
+>`currentThread()`:
+>	当`JVM`虚拟机启动之后，会自动启动多条线程，其中一条是`main`线程，它的作用是调用`main`方法，并执行里面的代码。
 
 
 ### 状态控制方法
