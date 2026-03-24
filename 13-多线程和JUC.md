@@ -118,6 +118,13 @@ public class MyCallable implements Callable<Integer> {
 ## 生命周期
 ![](img/13-多线程和JUC-2.png)
 ## 线程安全
+### 三大特性
+- **原子性 (Atomicity)**：一个操作要么全部执行成功，要么全部失败，中间不能被中断。
+    
+- **可见性 (Visibility)**：一个线程修改了共享变量的值，其他线程能够立即看到。
+    
+- **有序性 (Ordering)**：程序执行的顺序按照代码的先后顺序执行（防止指令重排）。
+
 ### 为什么会出现线程不安全？
 
 线程安全问题发生的**三个必要条件**（缺一不可）：
@@ -128,4 +135,52 @@ public class MyCallable implements Callable<Integer> {
     
 3. **写操作**：至少有一个线程在修改这个变量。
 
-### 解决方案
+### 解决方案1: 同步代码块 `(synchronized)`
+
+- **在实例方法中，通常用 `this`；在静态方法中，通常用 `类名.class`。**
+
+```Java
+public class MyThread extends Thread {  
+    static int sum = 0;  
+    //锁对象，一定要是唯一的
+    static final Object obj = new Object();  
+  
+    @Override  
+    public void run() {  
+        while (true) {  
+            synchronized (obj) {  
+                // 核心：在锁内部再次判断，保证原子性  
+                if (sum < 100) {  
+                    try {  
+                        Thread.sleep(100); // 模拟网络延迟或出票时间  
+                    } catch (InterruptedException e) {  
+                        e.printStackTrace();  
+                    }  
+                    sum++;  
+                    System.out.println(getName()+"正在卖第"+sum+"张票!");  
+                } else {  
+                    // 票卖完了，跳出死循环  
+                    break;  
+                }  
+            }  
+        }  
+    }  
+}
+```
+#### 🛠️ 卖票案例避坑指南
+
+1. **锁的唯一性**：用了 `static final Object obj`，这确保了无论创建多少个 `MyThread` 对象，它们抢的都是同一把锁。
+    
+2. **判断逻辑的位置**：
+    
+    - 如果判断在 `synchronized` 外面，会有“判断通过但由于抢锁延迟导致数据过期”的风险。
+        
+    - **金律**：对共享变量的**判断**和**修改**，必须包裹在同一个 `synchronized` 块内。
+        
+3. **Sleep 的位置**：
+    
+    - `sleep` 放在同步块里会**“抱着锁睡觉”**，其他线程只能干等，效率低。
+        
+    - 在这个练习中，它是为了放大问题。在实际开发中，应尽量缩短同步块的代码量。
+
+### 解决方案2: 同步方法
