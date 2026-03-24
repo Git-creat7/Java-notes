@@ -251,12 +251,55 @@ public class MyThread extends Thread {
 
 ## 等待唤醒机制
 
-
- 
-
+- **生产者 (Producer)**：负责准备数据（比如从网络下载图片、计算游戏解法）。
+    
+- **消费者 (Consumer)**：负责使用数据（比如把图片渲染到屏幕、执行步数）。
+    
+- **仓库 (Buffer)**：中间存储数据的变量或容器。
 
 | **方法名**           | **作用**                      | **状态切换** |
 | ----------------- | --------------------------- | -------- |
 | **`wait()`**      | 让当前线程释放锁，进入等待池，直到被唤醒        | 运行 -> 等待 |
 | **`notify()`**    | 随机唤醒**一个**在该锁上等待的线程         | 等待 -> 就绪 |
 | **`notifyAll()`** | 唤醒在**这把锁**上等待的**所有**线程（更安全） | 等待 -> 就绪 |
+```Java
+//定义中间控制类（Buffer）
+public class Desk {
+    // 0: 没有饭, 1: 有饭
+    public static int foodFlag = 0;
+    // 锁对象
+    public static final Object lock = new Object();
+}
+
+//消费者
+public void run() {
+    while (true) {
+        synchronized (Desk.lock) {
+            if (Desk.foodFlag == 0) {
+                try { Desk.lock.wait(); } catch (Exception e) {} // 没饭就等
+            } else {
+                System.out.println("吃货：开炫！");
+                Desk.foodFlag = 0; // 吃完了
+                Desk.lock.notifyAll(); // 叫醒厨师再做点
+            }
+        }
+    }
+}
+
+//生产者
+public void run() {
+    while (true) {
+        synchronized (Desk.lock) {
+            if (Desk.foodFlag == 1) {
+                try { Desk.lock.wait(); } catch (Exception e) {} // 有饭就歇着
+            } else {
+                System.out.println("厨师：出锅一份回锅肉！");
+                Desk.foodFlag = 1; // 饭好了
+                Desk.lock.notifyAll(); // 叫醒吃货开饭
+            }
+        }
+    }
+}
+```
+
+### 阻塞队列
