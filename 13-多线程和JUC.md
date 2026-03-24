@@ -248,3 +248,5 @@ public class MyThread extends Thread {
     }
 }
 ```
+
+## 等待唤醒机制
