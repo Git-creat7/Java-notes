@@ -211,3 +211,40 @@ public class MyThread extends Thread {
 >单线程用`StringBuilder`，多线程要**考虑线程安全**用`StringBuffer`
 
 ### `Lock`锁(接口)
+
+> **1.Static 关键字**：因为是 `extends Thread`，所以 `Lock` 必须加 `static`。否则每个线程对象都有一把自己的锁，根本锁不住！
+>  
+> **2.Lock 的位置**：放在 `try` 块上方。
+>  
+> **3.Unlock 的位置**：必须在 `finally` 第一行。
+>  
+> **4.死循环出口**：在 `break` 之前，务必确保 `finally` 能被触发（Java 默认支持，不用担心）。
+```Java
+public class MyThread extends Thread {
+    static int sum = 0;
+    static Lock lock = new ReentrantLock();
+
+    @Override
+    public void run() {
+        while (true) {
+            // 1. 锁放在 try 外面
+            lock.lock(); 
+            try {
+                if (sum < 100) {
+                    Thread.sleep(10); 
+                    sum++;
+					sout(getName() + "正在卖第" + sum + "张票!");
+                } else {
+                    // 2. 票卖完了，跳出循环
+                    break; 
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                // 3. 无论如何都会还锁
+                lock.unlock(); 
+            }
+        }
+    }
+}
+```
