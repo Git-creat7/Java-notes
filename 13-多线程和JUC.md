@@ -205,3 +205,9 @@ public class MyThread extends Thread {
     
 - **适用场景**：多个线程操作类的静态变量（比如你代码里的 `static int sum`）。
 
+>[!IMPORTANT]
+>`StringBuffer`、`Vector`、`Hashtable` 内部都是通过同步方法实现线程安全的，所以它们效率比 `StringBuilder`、`ArrayList`、`HashMap` 低
+>
+>单线程用`StringBuilder`，多线程要**考虑线程安全**用`StringBuffer`
+
+### `Lock`锁(接口)
