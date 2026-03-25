@@ -366,8 +366,16 @@ new Foodie(queue).start();
 | **检查**   | `element()` | `peek()`   | 无            | 无                      |
 
 ## 线程池
-|API|问题|
-|---|---|
-|`Executors.newFixedThreadPool()`|使用无界队列，可能导致 OOM|
-|`Executors.newCachedThreadPool()`|最大线程数为 Integer.MAX_VALUE，可能瞬间创建几十万线程|
-|`Executors.newScheduledThreadPool()`|核心线程不会回收|
+### 线程池的优点
+- **降低资源消耗**：通过重复利用已创建的线程，降低线程创建和销毁造成的开销。
+    
+- **提高响应速度**：任务到达时，不需要等待线程创建就能立即执行。
+    
+- **提高线程的可管理性**：线程是稀缺资源，如果无限制地创建，会降低系统稳定性。线程池可以进行统一分配、调优和监控。
+
+| API                                  | 问题                                   |
+| ------------------------------------ | ------------------------------------ |
+| `Executors.newFixedThreadPool()`     | 使用无界队列，可能导致 OOM                      |
+| `Executors.newCachedThreadPool()`    | 最大线程数为 Integer.MAX_VALUE，可能瞬间创建几十万线程 |
+| `Executors.newScheduledThreadPool()` | 核心线程不会回收                             |
+
