@@ -312,3 +312,55 @@ public void run() {
 ```
 
 ### 阻塞队列
+| **实现类**                   | **特点**        | **适用场景**                                |
+| ------------------------- | ------------- | --------------------------------------- |
+| **`ArrayBlockingQueue`**  | **有界**，底层是数组  | 必须指定大小，性能稳定，最常用。                        |
+| **`LinkedBlockingQueue`** | **可选界**，底层是链表 | 默认大小是 `Integer.MAX_VALUE`（接近无限），容易 OOM。 |
+```Java
+//生产者
+public class Cook extends Thread {
+    private BlockingQueue<String> queue;
+    public Cook(BlockingQueue<String> queue) { this.queue = queue; }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                // put 方法自带阻塞逻辑：如果队列满了，就在这儿等
+                queue.put("回锅肉");
+                System.out.println("厨师放了一份回锅肉，当前库存：" + queue.size());
+            } catch (InterruptedException e) { e.printStackTrace(); }
+        }
+    }
+}
+
+//消费者
+public class Foodie extends Thread {
+    private BlockingQueue<String> queue;
+    public Foodie(BlockingQueue<String> queue) { this.queue = queue; }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                // take 方法自带阻塞逻辑：如果队列空了，就在这儿等
+                String food = queue.take();
+                System.out.println("吃货炫了一份：" + food);
+            } catch (InterruptedException e) { e.printStackTrace(); }
+        }
+    }
+}
+
+//测试类（连接两者）
+// 创建一个只能装 1 份饭的阻塞队列
+BlockingQueue<String> queue = new ArrayBlockingQueue<>(1);
+
+new Cook(queue).start();
+new Foodie(queue).start();
+```
+
+| **操作类型** | **抛出异常**    | **返回特殊值**  | **阻塞（推荐）**   | **超时退出**               |
+| -------- | ----------- | ---------- | ------------ | ---------------------- |
+| **插入**   | `add(e)`    | `offer(e)` | **`put(e)`** | `offer(e, time, unit)` |
+| **移除**   | `remove()`  | `poll()`   | **`take()`** | `poll(time, unit)`     |
+| **检查**   | `element()` | `peek()`   | 无            | 无                      |
