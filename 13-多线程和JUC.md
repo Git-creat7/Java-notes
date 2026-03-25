@@ -3,7 +3,7 @@ date = '2026-03-22'
 draft = false
 title = '13-多线程和JUC'
 tags = []
-categories = []
+categories = ["Java笔记"]
 +++
 
 > 本文更新于 2026-03-22
