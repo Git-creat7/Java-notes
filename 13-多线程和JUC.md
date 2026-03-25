@@ -364,3 +364,5 @@ new Foodie(queue).start();
 | **插入**   | `add(e)`    | `offer(e)` | **`put(e)`** | `offer(e, time, unit)` |
 | **移除**   | `remove()`  | `poll()`   | **`take()`** | `poll(time, unit)`     |
 | **检查**   | `element()` | `peek()`   | 无            | 无                      |
+
+## 线程池
