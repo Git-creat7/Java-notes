@@ -366,3 +366,8 @@ new Foodie(queue).start();
 | **检查**   | `element()` | `peek()`   | 无            | 无                      |
 
 ## 线程池
+|API|问题|
+|---|---|
+|`Executors.newFixedThreadPool()`|使用无界队列，可能导致 OOM|
+|`Executors.newCachedThreadPool()`|最大线程数为 Integer.MAX_VALUE，可能瞬间创建几十万线程|
+|`Executors.newScheduledThreadPool()`|核心线程不会回收|
