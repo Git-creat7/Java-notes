@@ -249,7 +249,7 @@ public class MyThread extends Thread {
 }
 ```
 
-#### ⚖️ 锁的权衡 (Trade-off)
+#### 锁的权衡 (Trade-off)
 
 - **`synchronized`**：**自动挡**。适合 80% 的日常业务场景，JVM 帮你管，安全、省心。
     
@@ -389,3 +389,22 @@ new Foodie(queue).start();
 | **`workQueue`**       | **等候区**   | 任务阻塞队列（放不下的活先排队）。  |
 | **`threadFactory`**   | **HR/招聘** | 线程工厂（给线程起名、设优先级）。  |
 | **`handler`**         | **拒单策略**  | 拒绝策略（活太多实在干不完怎么办）。 |
+### 具体实现
+```Java
+ThreadPoolExecutor pool = new ThreadPoolExecutor(  
+        3,  //核心线程数量  不能小于0  
+        6,  //最大线程数量  不能小于0 且>=核心线程数量  
+        60, //空闲线程最大存活时间  
+        TimeUnit.SECONDS, //空闲线程最大存活时间的单位  
+        new ArrayBlockingQueue<>(3),//任务队列 不能为null  
+        Executors.defaultThreadFactory(),//线程工厂 不能为null  
+        new ThreadPoolExecutor.AbortPolicy()//拒绝策略 不能为null  
+);
+	任务 1~3：直接创建 3 个核心线程（正式工）开始干活
+	
+	任务 4~6：核心线程已满，3 个任务进入 ArrayBlockingQueue（等候区）排队
+	
+	任务 7~9：等候区已满，线程池开启 3 个临时线程（临时工），总线程数达到 maximumPoolSize 6 个并开始干活
+	
+	任务 10：核心线程、队列、临时线程均已满，触发 AbortPolicy 拒绝策略，程序抛出 RejectedExecutionException 异常
+```
