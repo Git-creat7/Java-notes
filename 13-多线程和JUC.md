@@ -3,7 +3,7 @@ date = '2026-03-22'
 draft = false
 title = '13-多线程和JUC'
 tags = []
-categories = ["Java笔记"]
+categories = ["JavaSE"]
 +++
 
 > 本文更新于 2026-03-22
@@ -378,4 +378,14 @@ new Foodie(queue).start();
 | `Executors.newFixedThreadPool()`     | 使用无界队列，可能导致 OOM                      |
 | `Executors.newCachedThreadPool()`    | 最大线程数为 Integer.MAX_VALUE，可能瞬间创建几十万线程 |
 | `Executors.newScheduledThreadPool()` | 核心线程不会回收                             |
+### 核心元素
 
+| **参数**                | **对应比喻**  | **官方定义**           |
+| --------------------- | --------- | ------------------ |
+| **`corePoolSize`**    | **正式员工**  | 核心线程数（常驻线程）。       |
+| **`maximumPoolSize`** | **全部员工**  | 最大线程数（核心 + 临时）。    |
+| **`keepAliveTime`**   | **解雇等待期** | 临时线程闲置多久后被销毁。      |
+| **`unit`**            | **时间单位**  | 对应上面的时间单位（秒、分钟等）。  |
+| **`workQueue`**       | **等候区**   | 任务阻塞队列（放不下的活先排队）。  |
+| **`threadFactory`**   | **HR/招聘** | 线程工厂（给线程起名、设优先级）。  |
+| **`handler`**         | **拒单策略**  | 拒绝策略（活太多实在干不完怎么办）。 |
