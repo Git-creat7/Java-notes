@@ -149,3 +149,47 @@ DROP DATABASE my_app;
 TRUNCATE TABLE users;
 ```
  
+# DML
+
+- DML 主要由三个核心关键字组成：`INSERT`（增）、`UPDATE`（改）、`DELETE`（删）。
+## INSERT (插入数据)
+
+用于向表中添加新行。
+
+- **指定列插入：**（推荐，更安全）
+    
+```SQL
+	INSERT INTO users (username, age, email) 
+	VALUES ('张三', 25, 'zhangsan@example.com');
+```
+    
+- **全列插入：**（必须按表结构顺序提供所有值）
+ 
+```SQL
+	INSERT INTO users VALUES (NULL, '李四', 30, 'lisi@example.com', NOW());
+```
+    
+
+## UPDATE (更新数据)
+
+用于修改表中已存在的记录。
+
+- **关键点：** 永远不要忘记 `WHERE` 子句，否则全表数据都会被修改！
+    
+
+```SQL
+	UPDATE users 
+	SET age = 26, email = 'san_new@example.com' 
+	WHERE username = '张三'; -- 只更新张三的数据
+```
+    
+
+## DELETE (删除数据)
+
+用于删除表中的特定行。
+
+- **关键点：** 同样必须配合 `WHERE` 使用，否则会清空整个表的数据。
+```SQL
+    DELETE FROM users 
+    WHERE id = 101; -- 删除 ID 为 1
+```
