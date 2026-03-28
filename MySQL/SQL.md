@@ -1,7 +1,7 @@
 +++
 date = '2026-03-28'
 draft = false
-title = 'SQLs'
+title = 'SQL'
 tags = []
 categories = ["MySQL"]
 +++
@@ -95,8 +95,28 @@ CREATE TABLE users (
 ```
 
 ## ALTER（修改）
-
 - 用于修改现有的表结构，例如增加新列、更改数据类型或重命名。
+- 1.添加字段
+	
+	`ALTER TABLE 表名 ADD 字段名 类型（长度） [comment] [约束];`
+	
+- 2.修改数据类型
+	
+	`ALTER TABLE MODIFY 字段名 新数据类型（长度）;`
+	
+- 3.修改字段名和字段类型
+	
+	`ALTER TABLE　表名　CHANGE　旧字段名　新字段名　类型（长度）[comment][约束];`
+	
+- 4.删除字段
+	
+	`ALTER TABLE 表名 DROP 字段名;`
+	
+- 5.修改表名
+	
+	`ALTER TABLE 表名 RENAME TO 新表名`
+	
+
 ```SQL
 -- 在 users 表中增加一行“手机号”
 ALTER TABLE users ADD phone_number VARCHAR(20);
