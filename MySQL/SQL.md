@@ -159,6 +159,8 @@ TRUNCATE TABLE users;
 - **指定列插入：**（推荐，更安全）
     
 ```SQL
+	INSERT INTO 表名 (字段名1, 字段名2, ...) VALUES (值1, 值2, ...);
+	
 	INSERT INTO users (username, age, email) 
 	VALUES ('张三', 25, 'zhangsan@example.com');
 ```
@@ -166,9 +168,31 @@ TRUNCATE TABLE users;
 - **全列插入：**（必须按表结构顺序提供所有值）
  
 ```SQL
+	INSERT INTO 表名 VALUES (值1, 值2, ...);
+
 	INSERT INTO users VALUES (NULL, '李四', 30, 'lisi@example.com', NOW());
 ```
-    
+	
+- **批量插入：**
+```SQL
+    -- 指定字段的批量插入（推荐）
+	INSERT INTO 表名 (字段名1, 字段名2, ...) 
+	VALUES 
+		(值1, 值2, ...),
+		(值1, 值2, ...),
+		(值1, 值2, ...);
+	
+	-- 省略字段的批量插入(所有字段)
+	INSERT INTO 表名 
+	VALUES 
+		(值1, 值2, ...),
+		(值1, 值2, ...),
+		(值1, 值2, ...);
+```
+>[!IMPORTANT]
+>- 添加数据时，**字段名与值的顺序、个数必须一一对应**。
+>- **字符串类型和日期类型**的值，需要包含在**引号**中。
+>- 插入的数据**必须在字段允许的范围之内**。
 
 ## UPDATE (更新数据)
 
