@@ -351,8 +351,40 @@ TRUNCATE TABLE users;
 	SELECT 字段列表 FROM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];
 	
 --	执行时机不同：where 是分组之前进行过滤，不满足 where 条件，不参与分组；而 having 是分组之后对结果进行过滤。
---	判断条件不同：where 不能对聚合函数进行判断，而 having 可以。
+--	判断条件不同：where 不能对聚合函数进行判断，而 having 可以.
+	WHERE > 聚合函数 > HAVING
 ```
+> **注意点：**
+
+```SQL
+	-- 逻辑 1：统计行数（包含 NULL）
+	-- 只要这一组有 2 行，哪怕地址全是空，结果也显示 2
+	SELECT workaddress, COUNT(*) 
+	FROM emp 
+	GROUP BY workaddress 
+	HAVING COUNT(*) >= 2;
+	
+	-- 逻辑 2：统计非空值数量
+	-- 虽然这一组有 2 行（满足 HAVING），但由于这两行地址是 NULL，
+	-- COUNT(workaddress) 统计不到任何非空值，结果显示 0
+	SELECT workaddress, COUNT(workaddress) 
+	FROM emp 
+	GROUP BY workaddress 
+	HAVING COUNT(*) >= 2;
+```
+
+## 排序查询
+- 基本查询
+```SQL
+	SELECT 字段列表 FROM 表名 [WHERE 条件] [GROUP BY 分组字段] [HAVING 过滤条件] ORDER BY 字段1 排序方式1, 字段2 排序方式2;
+	
+	ASC: 升序（默认值）
+	DESC:降序
+```
+
+
+
+
 
 ## 基本执行顺序 (逻辑顺序)
 
