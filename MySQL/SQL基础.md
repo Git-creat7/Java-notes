@@ -482,9 +482,10 @@ TRUNCATE TABLE users;
 - **修改/删除用户**
 ```MySQL
 	-- 修改用户密码 (MySQL 8.0+)
-	ALTER USER 'work_user'@'localhost' IDENTIFIED 
-	WITH mysql_native_password BY 'new_password';
+	ALTER USER 'work_user'@'localhost' 
+	IDENTIFIED WITH mysql_native_password BY 'new_password';
 	
 	-- 删除用户
 	DROP USER 'work_user'@'localhost';
 ```
+## 权限控制
