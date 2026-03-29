@@ -461,3 +461,30 @@ TRUNCATE TABLE users;
 | **Step 6** | **ORDER BY** | 对最终结果进行排序。       | 排序字段列表  |
 | **Step 7** | **LIMIT**    | 限制显示的行数（分页）。     | 分页参数    |
 
+# DCL
+## 管理用户
+- **查询用户**
+```MySQL
+	USE mysql;
+	SELECT * FROM user;
+```
+- **创建用户**
+```MySQL
+	CREATE USER '用户名'@'主机名' IDENTIFIED BY '密码'; 
+	
+	
+	-- 示例：创建一个只能在当前主机(localhost)登录的用户
+	CREATE USER 'work_user'@'localhost' IDENTIFIED BY '123456';
+	
+	-- 示例：创建一个可以在任意主机(%)登录的用户
+	CREATE USER 'remote_user'@'%' IDENTIFIED BY '123456';
+```
+- **修改/删除用户**
+```MySQL
+	-- 修改用户密码 (MySQL 8.0+)
+	ALTER USER 'work_user'@'localhost' IDENTIFIED 
+	WITH mysql_native_password BY 'new_password';
+	
+	-- 删除用户
+	DROP USER 'work_user'@'localhost';
+```
