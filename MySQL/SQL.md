@@ -380,8 +380,18 @@ TRUNCATE TABLE users;
 	
 	ASC: 升序（默认值）
 	DESC:降序
+	
+	-- 需求：查询所有员工信息，并按照年龄升序排序
+	SELECT * FROM emp ORDER BY age ASC;
+	
+	-- 需求：查询所有员工，按入职时间降序排序（最近入职的在前）
+	SELECT * FROM emp ORDER BY entrydate DESC;
 ```
-
+- 多字段排序（二次排序）
+```SQL
+	-- 需求：按照年龄升序排序；如果年龄相同，再按照入职时间降序排序
+	SELECT * FROM emp ORDER BY age ASC, entrydate DESC;
+```
 
 
 
