@@ -392,7 +392,42 @@ TRUNCATE TABLE users;
 	-- 需求：按照年龄升序排序；如果年龄相同，再按照入职时间降序排序
 	SELECT * FROM emp ORDER BY age ASC, entrydate DESC;
 ```
+>[!NOTE]
+>**NULL：**在 **MySQL** 中，`NULL` 被视为**最小值**
+>**执行顺序**：`ORDER BY` 是在 `SELECT` 之后执行的。这意味着你可以在 `ORDER BY` 中使用你在 `SELECT` 里起的**别名**。
 
+## 分页查询
+- **基础语法**
+```SQL
+	SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询记录数;
+```
+```SQL
+	-- 查询第一页 (前 10 条)
+	-- 起始索引为 0 时，可以省略不写
+	SELECT * FROM emp LIMIT 0, 10;
+	-- 等价于：
+	SELECT * FROM emp LIMIT 10;
+	
+	-- 查询第二页 (第 11-20 条)
+	-- 从索引 10 开始（即第 11 条），往后查 10 条
+	SELECT * FROM emp LIMIT 10, 10;
+	
+	-- 查询第三页 (第 21-30 条)
+	SELECT * FROM emp LIMIT 20, 10;
+```
+> **计算公式:**
+> 	**起始索引 = (查询页码 - 1) * 每页显示记录数**
+- _例子_：想看第 5 页，每页 10 条。
+    
+- _计算_：`(5 - 1) * 10 = 40`。
+    
+- _SQL_：`SELECT * FROM emp LIMIT 40, 10;`
+>**另外注意点：**
+- **方言限制**：`LIMIT` 是 **MySQL** 的方言。如果你用的是 Oracle，需要用 `ROWNUM`；如果是 SQL Server，需要用 `TOP`
+    
+- **执行顺序**：`LIMIT` 永远是 SQL 语句中**最后执行**的一个环节
+    
+- **大分页性能**：当数据量达到百万级，`LIMIT 1000000, 10` 会变得很慢，因为数据库需要先扫描前 100 万条再丢弃，后续需要通过索引优化或子查询来解决
 
 
 
