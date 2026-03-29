@@ -489,3 +489,51 @@ TRUNCATE TABLE users;
 	DROP USER 'work_user'@'localhost';
 ```
 ## 权限控制
+- **常用权限**
+
+| **权限名称**             | **作用描述**    |
+| -------------------- | ----------- |
+| **SELECT**           | 查询数据（最常用）   |
+| **INSERT**           | 插入新数据       |
+| **UPDATE**           | 修改现有数据      |
+| **DELETE**           | 删除现有数据      |
+| **ALTER**            | 修改表结构（如增加列） |
+| **DROP**             | 删除表或数据库     |
+| **CREATE**           | 创建新表或数据库    |
+| **ALL [PRIVILEGES]** | 所有权限（最高权限）  |
+- **查询权限**
+```mysql
+	-- 查询指定用户的权限
+	SHOW GRANTS FOR 'heima'@'localhost';
+```
+- 授予权限
+```mysql
+	GRANT 权限列表 ON 数据库名.表名 TO '用户名'@'主机名';
+	
+	-- 1. 授予单个权限：允许用户查询 test 库中的 emp 表
+	GRANT SELECT ON test.emp TO 'heima'@'localhost';
+	
+	-- 2. 授予多个权限：允许用户对 test 库所有表进行查询、插入、修改
+	GRANT SELECT, INSERT, UPDATE ON test.* TO 'heima'@'localhost';
+	
+	-- 3. 授予所有权限：允许用户操作所有数据库的所有表（DBA 级别）
+	GRANT ALL ON *.* TO 'admin'@'%';
+```
+- 撤销权限
+```mysql
+	REVOKE 权限列表 ON 数据库名.表名 FROM '用户名'@'主机名';
+	
+	-- 撤回用户对 test 库所有表的插入(INSERT)权限
+	REVOKE INSERT ON test.* FROM 'heima'@'localhost';
+	
+	-- 撤回所有权限
+	REVOKE ALL ON *.* FROM 'admin'@'%';
+```
+
+
+
+
+
+
+
+
