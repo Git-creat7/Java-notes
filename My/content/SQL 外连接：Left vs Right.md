@@ -37,3 +37,4 @@ categories = ["MySQL"]
 - **INNER JOIN** = 只查两边都匹配的数据（最适合本题）
 - **RIGHT JOIN** 会把没有部门的员工也带进来，产生 NULL 部门
 - 题目要**有员工的部门** → 必须用 **INNER JOIN** 或加 **IS NOT NULL**
+
