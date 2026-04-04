@@ -13,10 +13,10 @@ categories = ["MySQL"]
 ## 普通 Insert 优化 (批量插入)
 如果需要插入多条数据，不要每一条都执行一次 `INSERT` 语句。
 
-* **错误做法**：循环执行 1000 次 `INSERT INTO tb_user VALUES (...);`
+* **错误做法**：循环执行 1000 次 `INSERT INTO user VALUES (...);`
 * **优化做法**：使用批量插入（建议一次批量 500-1000 条）。
 ```MySQL
-	INSERT INTO tb_user VALUES (1,'Tom'), (2,'Jerry'), (3,'Rose');
+	INSERT INTO user VALUES (1,'Tom'), (2,'Jerry'), (3,'Rose');
 ```
 * **原理**：减少了客户端与数据库之间的网络连接开销，降低了 SQL 解析的次数。
 
@@ -28,8 +28,8 @@ MySQL 默认是自动提交（autocommit）的，这意味着每执行一次 `IN
 * **优化做法**：手动开启并提交事务。
 ```MySQL
 	START TRANSACTION;
-	INSERT INTO tb_user VALUES (...);
-	INSERT INTO tb_user VALUES (...);
+	INSERT INTO user VALUES (...);
+	INSERT INTO user VALUES (...);
 	-- 执行成百上千条后再统一提交
 	COMMIT;
 ```
@@ -52,7 +52,7 @@ MySQL 默认是自动提交（autocommit）的，这意味着每执行一次 `IN
     3. 执行加载语句：
 ```MySQL
 	load data local infile '/root/sql_data.log' 
-	into table `tb_user` 
+	into table `user` 
 	fields terminated by ',' 
 	lines terminated by '\n';
 ```
@@ -118,7 +118,7 @@ MySQL 的排序实现方式主要有两种：
 * 降序索引：
 ```MySQL
 	-- 创建联合索引：age 升序，phone 降序
-	CREATE INDEX idx_user_age_phone_desc ON tb_user(age ASC, phone DESC);
+	CREATE INDEX idx_user_age_phone_desc ON user(age ASC, phone DESC);
 ```
 * **覆盖索引**：`SELECT` 的字段最好只包含索引列，否则可能因为回表开销过大，导致优化器放弃索引排序而选择 `filesort`。
 
@@ -147,3 +147,63 @@ MySQL 在执行 `GROUP BY` 时，主要有两种方式：
 
 ## 核心优化原则：利用索引
 由于分组操作通常涉及排序，因此 **最左前缀法则** 在 `GROUP BY` 中同样适用。
+### 场景分析
+联合索引：`idx_user_pro_age (pro, age)`
+
+| 场景类型              | SQL 语句                                                            | 执行状态                              | 说明                                          |
+| :---------------- | :---------------------------------------------------------------- | :-------------------------------- | :------------------------------------------ |
+| 全匹配（索引生效）         | `SELECT pro, count(*) FROM user GROUP BY pro, age;`               | `Using index`                     | -                                           |
+| 符合最左前缀（索引生效）      | `SELECT pro, count(*) FROM user GROUP BY pro;`                    | `Using index`                     | -                                           |
+| 不符合最左前缀（**索引失效**） | `SELECT age, count(*) FROM user GROUP BY age;`                    | `Using temporary; Using filesort` | -                                           |
+| 结合 WHERE 使用（索引生效） | `SELECT age, count(*) FROM user WHERE pro = '软件工程' GROUP BY age;` | `Using index`                     | 虽然 `GROUP BY` 跳过了第一列，但 `WHERE` 子句已经补齐了最左前缀。 |
+
+---
+# LIMIT优化
+
+## 性能瓶颈：深度分页问题
+当执行 `LIMIT 1000000, 10` 时，MySQL 并不是直接跳过前 100 万行，而是：
+1. **全表扫描（或索引扫描）**：读取前 1000010 条记录。
+2. **回表查询**：如果查询的是 `SELECT *`，则需要回表 1000010 次获取行数据。
+3. **丢弃数据**：抛弃前 100 万条，仅返回最后 10 条。
+* **结论**：偏移量（Offset）越大，磁盘 I/O 越高，查询越慢。
+
+---
+
+## 2. 优化方案 ：覆盖索引 + 子查询 (延迟关联)
+这是最通用的优化方案。通过子查询先在索引树上定位主键 ID（不回表），再关联原表获取数据。
+
+* **优化前（慢）**：
+```MySQL
+SELECT * FROM user LIMIT 1000000, 10;
+```
+* **优化后（快）**：
+```MySQL
+	SELECT * FROM user t, (
+		SELECT id FROM user ORDER BY id LIMIT 1000000, 10
+	)a 
+	WHERE t.id = a.id;
+```
+* **原理**：子查询 `(SELECT id ...)` 利用了**覆盖索引**，极大地减少了回表次数。
+
+---
+# COUNT 优化
+## 存储引擎的差异
+* **MyISAM**：把一个表的总行数存在了磁盘上，因此执行 `count(*)` 时会直接返回这个数，效率极高（前提是没有 WHERE 条件）。
+
+* **InnoDB**：由于多版本并发控制 (MVCC) 的原因，InnoDB 表“应该返回多少行”是不确定的。它必须把数据一行一行从引擎里面读出来，然后累计计数。
+    * **优化结论**：在 InnoDB 中，`count(*)` 是需要全表扫描或索引扫描的。
+
+---
+
+## COUNT 的几种用法对比
+假设执行 `SELECT COUNT(X) FROM table;`，性能排序通常为：
+**count(*) ≈ count(1) > count(主键ID) > count(字段)**
+
+| 用法 | 执行逻辑 | 性能评估 |
+| :--- | :--- | :--- |
+| **count(主键ID)** | 遍历整张表，取每行的 ID，返回给服务层，服务层判断不为 NULL 后累加。 | 较快，但涉及取值。 |
+| **count(字段)** | 遍历整张表，取该字段值。有 NOT NULL 约束则直接累加；没有则需判断是否为 NULL。 | 最慢，涉及取值和判断。 |
+| **count(1)** | 遍历整张表，但不取值。服务层对返回的每一行放入一个数字“1”，直接累加。 | 极快，不涉及取值。 |
+| **count(*)** | **MySQL 专门优化过**。不取值，直接按行累加。它会选择体积最小的二级索引树进行扫描。 | **推荐使用**，性能最高。 |
+
+	
