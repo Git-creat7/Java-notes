@@ -127,3 +127,30 @@ categories = ["MySQL"]
 >[!NOTE] 注意
 >JDBC 的列索引是从 **1** 开始的（1-based），而 Java 数组和集合是从 **0** 开始的（0-based）。如果在循环里混用了，会导致 `SQLException: Column Index out of range`
 
+```Java
+	Connection conn = DriverManager.getConnection(url,username,password);  
+	
+	String sql = "SELECT * FROM users";  
+	try (conn; Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {  
+	    while (rs.next()){  
+	        String user = rs.getString("username");  
+	        String passwd = rs.getString("password");  
+	        String date = rs.getString("created_at");  
+	        System.out.println(user + " " + passwd + " " + date);  
+	    }  
+	}
+```
+
+## PreparedStatement 预编译语句对象
+`PreparedStatement` 继承自 `Statement` 接口，是 JDBC 中最常用的 SQL 执行对象。它代表一条**预编译**的 SQL 语句，能够有效提高性能并彻底杜绝 SQL 注入风险
+## 优势
+相比于普通的 `Statement`，`PreparedStatement` 具有三大核心优势：
+
+1.  **防止 SQL 注入**：通过参数化查询，将 SQL 逻辑与数据分离，使恶意代码无法改变 SQL 结构。
+
+2.  **性能优化**：数据库会对预编译后的 SQL 进行缓存（执行计划）。后续执行相同结构的 SQL（仅参数不同）时，无需重新解析。
+
+3.  **代码可读性**：使用占位符 `?` 代替繁琐的字符串拼接，代码更加整洁。
+
+
+
