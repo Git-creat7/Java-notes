@@ -14,8 +14,35 @@ categories = ["MySQL"]
 1. **注册驱动**：让 `DriverManager` 知道当前有哪些可用的数据库驱动（如 MySQL, Oracle, PostgreSQL）。 
 2. **建立连接**：根据传入的 URL、用户名和密码，找到匹配的驱动并返回一个 `Connection` 对象。
 
+```Java
+	"jdbc:mysql://127.0.0.1:3306/school_db?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8"
+```
 
-
+* **`//127.0.0.1:3306/`**：指定数据库服务器的地址和监听端口（默认 3306）。
+* **`school_db`**：要连接的具体数据库模式（Schema）名称。
+* **`useSSL=false`**：关闭 SSL 加密连接（开发环境下常用，减少性能开销）。
+* **`serverTimezone=UTC`**：指定服务器时区。若不设置，在某些 MySQL 版本中可能会抛出时区错误。
+* **`characterEncoding=UTF-8`**：强制使用 UTF-8 编码，防止中文乱码。
+```Java
+	// 1. 注册驱动 (JDBC 4.0 以后这一步可以省略)
+	Class.forName("com.mysql.cj.jdbc.Driver"); 
+	
+	// 2. 通过 DriverManager 获取连接
+	String url = "jdbc:mysql://localhost:3306/test_db";
+	Connection conn = DriverManager.getConnection(url, "root", "password");
+```
 ## Connection
+`Connection` 接口是 JDBC API 的核心，代表与特定数据库的**物理会话（Session）**。所有的 SQL 语句都在此连接的上下文中执行。
+
+### 核心方法
+| 方法                                 | 功能描述                               |
+| :--------------------------------- | :--------------------------------- |
+| **`createStatement()`**            | 创建一个基本的 `Statement` 对象，用于执行静态 SQL。 |
+| **`prepareStatement(String sql)`** | 创建一个预编译的语句对象，支持参数化查询（防注入）。         |
+| **`setAutoCommit(boolean)`**       | 设置是否自动提交事务。默认为 `true`。             |
+| **`commit()` / `rollback()`**      | 手动提交或回滚当前事务中的所有更改。                 |
+| **`close()`**                      | 释放该连接占用的数据库和 JDBC 资源。              |
+| **`isClosed()`**                   | 检查连接是否已关闭或失效。                      |
+
 ## Statement
 ## Resultset
