@@ -9,7 +9,10 @@ try {
   const titleRegex = /(title\s*=\s*)(['"])(.*?)\2/;
   let newContent = content.replace(titleRegex, `$1$2${fileName}$2`);
   
-  
+  // 2. 【新增】刷新正文里的更新日期：替换 本文更新于 后的日期
+const updateDateRegex = /(> 本文更新于\s+)(\d{4}-\d{2}-\d{2})/;
+const today = tp.date.now("YYYY-MM-DD");
+newContent = newContent.replace(updateDateRegex, `$1${today}`);
 
   // 3. 写入修改后的内容
   await app.vault.modify(file, newContent);
