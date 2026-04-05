@@ -43,6 +43,51 @@ categories = ["MySQL"]
 | **`commit()` / `rollback()`**      | 手动提交或回滚当前事务中的所有更改。                 |
 | **`close()`**                      | 释放该连接占用的数据库和 JDBC 资源。              |
 | **`isClosed()`**                   | 检查连接是否已关闭或失效。                      |
-
+### JDBC的事务处理
+```Java
+	Connection conn = null;
+	try {
+	    conn = DriverManager.getConnection(url, user, pass);
+	    // 1. 关闭自动提交，开启事务
+	    conn.setAutoCommit(false);
+	
+	    // 2. 执行 SQL A (扣钱)
+	    // 3. 执行 SQL B (加钱)
+	
+	    // 4. 业务全部成功，手动提交
+	    conn.commit();
+	} catch (Exception e) {
+	    // 5. 一旦出异常，全部回滚
+	    if (conn != null) {
+	        try {
+	            conn.rollback();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+	} finally {
+	    // 6. 记得关闭连接
+	    if (conn != null) conn.close();
+	}
+```
 ## Statement
+`Statement` 是 JDBC 中最基础的执行对象，用于执行静态 SQL 语句。
+```Java
+	// 1. 通过连接创建一个邮差
+	Statement stmt = conn.createStatement();
+	
+	// 2. 让邮差去送信（执行 SQL）
+	String sql = "UPDATE user SET name = '张三' WHERE id = 1";
+	int rows = stmt.executeUpdate(sql); // 返回受影响的行数
+	
+	// 3. 如果是查询，会带回一个结果集
+	ResultSet rs = stmt.executeQuery("SELECT * FROM user");
+```
+
+| **特性**     | **executeUpdate()**           | **executeQuery()**                      |
+| ---------- | ----------------------------- | --------------------------------------- |
+| **SQL 类型** | `INSERT, UPDATE, DELETE, DDL` | `SELECT`                                |
+| **返回类型**   | `int` (行数)                    | `ResultSet` (数据集合)                      |
+| **典型场景**   | 转账、注册、修改密码、删帖                 | 查余额、搜商品、看个人资料                           |
+| **为空时**    | 返回 `0`                        | 返回一个空的 `ResultSet`（`rs.next()` 为 false） |
 ## Resultset
