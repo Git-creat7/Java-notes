@@ -31,6 +31,8 @@ categories = ["MySQL"]
 	String url = "jdbc:mysql://localhost:3306/test_db";
 	Connection conn = DriverManager.getConnection(url, "root", "password");
 ```
+
+---
 ## Connection
 `Connection` 接口是 JDBC API 的核心，代表与特定数据库的**物理会话（Session）**。所有的 SQL 语句都在此连接的上下文中执行。
 
@@ -70,6 +72,8 @@ categories = ["MySQL"]
 	    if (conn != null) conn.close();
 	}
 ```
+
+---
 ## Statement
 `Statement` 是 JDBC 中最基础的执行对象，用于执行静态 SQL 语句。
 ```Java
@@ -90,6 +94,9 @@ categories = ["MySQL"]
 | **返回类型**   | `int` (行数)                    | `ResultSet` (数据集合)                      |
 | **典型场景**   | 转账、注册、修改密码、删帖                 | 查余额、搜商品、看个人资料                           |
 | **为空时**    | 返回 `0`                        | 返回一个空的 `ResultSet`（`rs.next()` 为 false） |
+
+---
+
 ## Resultset 结果集对象
 `ResultSet`（结果集）是 JDBC 中用于存储和操作数据库查询结果的对象。它类似于一张**虚拟的临时表**，维持着一个指向当前数据行的光标（Cursor）
 
@@ -141,6 +148,8 @@ categories = ["MySQL"]
 	}
 ```
 
+---
+
 ## PreparedStatement 预编译语句对象
 `PreparedStatement` 继承自 `Statement` 接口，是 JDBC 中最常用的 SQL 执行对象。它代表一条**预编译**的 SQL 语句，能够有效提高性能并彻底杜绝 SQL 注入风险
 ## 优势
@@ -152,5 +161,37 @@ categories = ["MySQL"]
 
 3.  **代码可读性**：使用占位符 `?` 代替繁琐的字符串拼接，代码更加整洁。
 
+### 使用步骤 
 
+使用 `PreparedStatement` 遵循以下固定流程：
 
+1.  **编写带占位符的 SQL**：使用 `?` 作为参数位置。
+2.  **预编译 SQL**：通过 `Connection` 对象获取 `PreparedStatement` 实例。
+3.  **设置参数**：调用 `setXXX()` 方法为每个 `?` 赋值（注意：索引从 **1** 开始）。
+4.  **执行 SQL**：调用 `executeQuery()` 或 `executeUpdate()`（注意：执行时**不需要**再传入 SQL 字符串）。
+
+**代码示例：**
+```java
+	String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    // 1. 设置参数（索引从 1 开始）
+	    pstmt.setString(1, "admin");
+	    pstmt.setString(2, "123456");
+	    
+	    // 2. 执行查询
+	    try (ResultSet rs = pstmt.executeQuery()) {
+	        while (rs.next()) {
+	            // 处理结果
+	        }
+	    }
+	}
+```
+
+### 常用API
+|**方法**|**功能描述**|
+|---|---|
+|**`setObject(int, Object)`**|最通用的赋值方法，自动映射 Java 类型到数据库类型。|
+|**`setInt / setString / ...`**|强类型赋值，确保数据类型安全。|
+|**`setNull(int, int)`**|为数据库字段设置 NULL 值。|
+|**`addBatch()`**|将当前参数组加入批处理队列。|
+|**`clearParameters()`**|清除当前设置的所有参数，以便重用该对象。|
