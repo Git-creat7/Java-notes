@@ -90,4 +90,40 @@ categories = ["MySQL"]
 | **返回类型**   | `int` (行数)                    | `ResultSet` (数据集合)                      |
 | **典型场景**   | 转账、注册、修改密码、删帖                 | 查余额、搜商品、看个人资料                           |
 | **为空时**    | 返回 `0`                        | 返回一个空的 `ResultSet`（`rs.next()` 为 false） |
-## Resultset
+## Resultset 结果集对象
+`ResultSet`（结果集）是 JDBC 中用于存储和操作数据库查询结果的对象。它类似于一张**虚拟的临时表**，维持着一个指向当前数据行的光标（Cursor）
+
+###  工作原理：光标机制 (The Cursor)
+
+当你执行 `executeQuery()` 后，返回的 `ResultSet` 对象初始状态下，光标指向第一行数据的**上方**（即“Before First”位置）
+
+* **`next()` 方法**：将光标下移一行。
+* **返回值**：如果下一行有数据，返回 `true`；如果已经到达末尾，返回 `false`。
+* **常用遍历模式**：
+```java
+    while (rs.next()) {
+        // 处理当前行的数据
+        rs.getXxx(参数);
+    }
+```
+
+---
+
+### 获取数据的方法 (Getter Methods)
+
+`ResultSet` 提供了丰富的 `getXXX` 方法来获取不同类型的数据，通常支持两种定位方式：
+
+| 获取方式      | 示例                     | 优缺点                         |
+| :-------- | :--------------------- | :-------------------------- |
+| **通过列索引** | `rs.getString(1)`      | 性能略高，但代码可读性差，且依赖 SQL 字段顺序。  |
+| **通过列标签** | `rs.getInt("user_id")` | **推荐方式**。可读性强，不依赖 SQL 字段顺序。 |
+
+**常用类型映射：**
+* `getString()` -> `String` (VARCHAR, TEXT)
+* `getInt()` -> `int` (INT)
+* `getDouble()` -> `double` (DOUBLE, DECIMAL)
+* `getTimestamp()` -> `java.sql.Timestamp` (DATETIME)
+* `getObject()` -> 通用类型，通常用于处理动态查询。
+>[!NOTE] 注意
+>JDBC 的列索引是从 **1** 开始的（1-based），而 Java 数组和集合是从 **0** 开始的（0-based）。如果在循环里混用了，会导致 `SQLException: Column Index out of range`
+
