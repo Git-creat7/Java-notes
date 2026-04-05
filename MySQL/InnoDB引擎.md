@@ -308,4 +308,32 @@ MVCC 在 **RC** 和 **RR** 级别下的唯一区别在于 **生成 Read View 的
 ![](InnoDB引擎-17.png)
 
 ---
+# MySQL管理
+## 系统数据库
+
+| 数据库名 | 角色 | 常用操作 |
+| :--- | :--- | :--- |
+| **mysql** | **管理员** | 修改用户密码、配置 SSL 证书、调整权限。 |
+| **information_schema** | **开发者** | 检查表结构、查找大表、确认字段长度。 |
+| **performance_schema** | **DBA / 性能专家** | 深度分析 CPU 尖峰、定位锁等待根源。 |
+| **sys** | **运维/开发者** | 快速查看慢查询 Top 10、分析未使用的索引。 |
+
+## 常用工具
+### mysql客户端工具
+
+![](InnoDB引擎-18.png)
+
+## mysqlbinlog二进制日志查看工具
+
+![](InnoDB引擎-20.png)
+
+## mysqlshow查看数据库、表、字段的统计信息
+![](InnoDB引擎-21.png)
+
+## mysqldump数据备份工具
+![](InnoDB引擎-19.png)
+
+
+## mysqlimport/source数据导入工具
+![](InnoDB引擎-22.png)
 
