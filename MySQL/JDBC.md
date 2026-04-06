@@ -152,7 +152,7 @@ categories = ["MySQL"]
 
 ## PreparedStatement 预编译语句对象
 `PreparedStatement` 继承自 `Statement` 接口，是 JDBC 中最常用的 SQL 执行对象。它代表一条**预编译**的 SQL 语句，能够有效提高性能并彻底杜绝 SQL 注入风险
-## 优势
+### 优势
 相比于普通的 `Statement`，`PreparedStatement` 具有三大核心优势：
 
 1.  **防止 SQL 注入**：通过参数化查询，将 SQL 逻辑与数据分离，使恶意代码无法改变 SQL 结构。
@@ -209,3 +209,18 @@ categories = ["MySQL"]
 ```
 
 
+>[!WARNING] 注意
+>SQL语句中的占位符**只能给值/参数使用**，**不能给表名使用**
+
+### 原理
+`PreparedStatement` 不仅仅是 `Statement` 的子接口，它在数据库层面引入了**预编译（Prepare**机制。
+
+#### 防注入原理：语义定型
+
+这是 `PreparedStatement` 最核心的安全特性。
+
+* **逻辑固定**：在预编译阶段，SQL 的逻辑结构（如 `SELECT...WHERE...AND`）已经确定并被数据库理解。
+
+* **字面量处理**：随后传入的任何参数，无论包含什么特殊字符（如 `' OR '1'='1`），都会被数据库引擎强制视为一个**整体的字符串常量**，而不会被当作 SQL 指令的一部分。
+
+* **类型检查**：`setXXX` 方法在 Java 端就进行了类型校验，不符合类型的参数无法通过编译。
