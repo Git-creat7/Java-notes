@@ -47,3 +47,4 @@ CSS 用于美化 HTML 页面，主要有三种引入手段：
 - **内部样式表 (Internal Style Sheet)**：写在 `<head>` 标签内的 `<style>` 标签中，适用于单页样式。
     
 - **外部样式表 (External Style Sheet)**：**推荐做法**。通过 `<link rel="stylesheet" href="路径.css">` 引入独立的 `.css` 文件，实现结构与表现分离。
+
