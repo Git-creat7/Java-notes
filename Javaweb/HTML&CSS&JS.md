@@ -649,7 +649,7 @@ const multiply = (a, b) => a * b;
 	  model: "Mate 60",
 	  price: 5999,
 	  // 方法：对象中的函数
-	  call: function() {
+	  call: function() {//不推荐使用箭头函数
 		   console.log("正在拨打电话...");
 	  }
 	};
@@ -669,3 +669,83 @@ const multiply = (a, b) => a * b;
 	const s1 = new Student("小明", 18);
 	const s2 = new Student("小红", 19);
 ```
+### 类
+ES6 引入的语法糖，逻辑更清晰，接近 Java/C# 的风格
+```js
+	class Car {
+	  constructor(color, speed) {
+	    this.color = color;
+	    this.speed = speed;
+	  }
+	  drive() {
+	    console.log(`这辆${this.color}的车正在以${this.speed}码行驶`);
+	  }
+	}
+	
+	const myCar = new Car("白色", 120);
+```
+
+---
+# JSON
+**JSON (JavaScript Object Notation)** 是一种轻量级的**数据交换格式**
+
+它基于 JavaScript 的一个子集，但它是独立于语言的文本格式，目前几乎所有的编程语言（Python, Java, PHP, Go 等）都支持 JSON
+
+## 语法规则
+JSON 的结构非常简单，主要由**键值对**组成。
+
+- **数据在键值对中**：键（Key）必须用**双引号**包裹。
+    
+- **数据由逗号分隔**。
+    
+- **对象**由大括号 `{}` 保存。
+    
+- **数组**由方括号 `[]` 保存。
+
+## 数据类型
+|**类型**|**示例**|
+|---|---|
+|**字符串**|`"Hello World"` (必须双引号)|
+|**数字**|`123`, `45.6`|
+|**布尔值**|`true`, `false`|
+|**数组**|`["Apple", "Orange"]`|
+|**对象**|`{"id": 1, "name": "Gemini"}`|
+|**空值**|`null`|
+
+⚠️ **注意**：JSON **不能**包含函数、日期对象或 `undefined`
+## JavaScript 中的 JSON 操作
+![](HTML&CSS&JS-6.png)
+```js
+	// JSON.parse() 当从服务器收到一段 JSON 字符串时，需要用它将其解析为 JS 对象。
+	const jsonStr = '{"name": "小明", "age": 18}';
+	const obj = JSON.parse(jsonStr);
+	console.log(obj.name); // 输出: 小明
+	
+	
+	// JSON.stringify() 当准备把数据发送给服务器时，需要将 JS 对象转换为 JSON 字符串。
+	const user = { name: "小明", age: 18 };
+	const jsonString = JSON.stringify(user);
+	console.log(jsonString); // 输出: '{"name":"小明","age":18}'
+```
+
+---
+## DOM
+**DOM (Document Object Model)**，即文档对象模型，是 JavaScript 操作网页内容的“桥梁”
+它将 HTML 文档表现为一个**树状结构**，让我们可以通过脚本动态地修改页面的内容、结构和样式。
+![](HTML&CSS&JS-7.png)
+
+## DOM操作
+根据CSS选择器获取DOM对象
+- **`document.querySelector('选择器')`**
+    
+    - **作用**：返回匹配到的**第一个**对象。
+        
+    - **示例**：`document.querySelector('.my-class')` 或 `document.querySelector('#my-id p')`。
+        
+- **`document.querySelectorAll('选择器')`**
+    
+    - **作用**：返回匹配到的**所有**对象。
+        
+    - **结果**：一个 `NodeList`（类似数组的集合，可以用 `forEach` 遍历）
+		
+    - 注意:得到的是一个NodeList节点集合，是一个伪数组(有长度、有索引的数组)
