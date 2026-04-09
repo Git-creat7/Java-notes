@@ -605,7 +605,9 @@ JS 的数据分为“简单”和“复杂”两类。
 	console.log(greet("张三")); // 调用
 ```
 
-### 函数表达式 (Function Expression)
+### 匿名函数
+**匿名函数（Anonymous Function）** 是指在定义时**没有函数名称**的函数。在 JavaScript 中，它们通常作为“工具人”使用，在需要的地方临时定义并立即执行或传递。
+#### 函数表达式 (Function Expression)
 
 将函数赋值给一个变量。没有提升特性。
 ```js
@@ -614,9 +616,11 @@ JS 的数据分为“简单”和“复杂”两类。
 	};
 ```
 
-### 箭头函数 (Arrow Function) —— **现代主流**
+#### 箭头函数 (Arrow Function) —— **现代主流**
 
 ES6 引入的简洁写法。注意：它没有自己的 `this`，适合用作回调函数。
 ```js
 const multiply = (a, b) => a * b;
 ```
+
+
