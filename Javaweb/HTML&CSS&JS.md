@@ -3,7 +3,7 @@ date = '2026-04-07'
 draft = false
 title = 'HTML'
 tags = []
-categories = ["MySQL"]
+categories = ["JavaWeb"]
 +++
 
 > 本文更新于 2026-04-07
@@ -779,7 +779,8 @@ JSON 的结构非常简单，主要由**键值对**组成。
 | **窗口事件** | `load`                      | 整个页面加载完成    |
 |          | `scroll`                    | 页面滚动        |
 
-
+## JS优化
+![](HTML&CSS&JS-8.png)
 
 
 
