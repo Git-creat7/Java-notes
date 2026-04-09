@@ -627,11 +627,45 @@ const multiply = (a, b) => a * b;
 
 ---
 ## 自定义对象
-```html
+在 JavaScript 中，**自定义对象（Custom Objects）** 是将相关数据（属性）和行为（方法）组织在一起的容器。它是 JS 模拟现实世界实体（如：用户、商品、订单）的核心方式。
+```js
 	let 对象名 = {
 		属性名1:属性值1;
 		属性名2:属性值2;
 		属性名3:属性值3;
 		方法名:function(形参列表){}
 	}
+	
+	// 调用格式
+	对象名.属性名;
+	对象名.方法名;
+```
+
+### 字面量方式（常用）
+直接用大括号 `{}` 定义，适合创建一个独立、唯一的对象
+```js
+	const phone = {
+	  brand: "华为",
+	  model: "Mate 60",
+	  price: 5999,
+	  // 方法：对象中的函数
+	  call: function() {
+		   console.log("正在拨打电话...");
+	  }
+	};
+```
+### 构造函数
+当需要批量创建多个结构相似的对象时（如 100 个学生），使用构造函数
+**约定**：函数名首字母大写
+```js
+	function Student(name, age) {
+	  this.name = name;
+	  this.age = age;
+	  this.study = function() {
+	    console.log(`${this.name} 正在学习`);
+	  };
+	}
+	
+	const s1 = new Student("小明", 18);
+	const s2 = new Student("小红", 19);
 ```
