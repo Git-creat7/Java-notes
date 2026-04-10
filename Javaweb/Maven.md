@@ -10,7 +10,7 @@ categories = ["JavaWeb"]
 
 - 用于管理和构建Java项目的工具
 - 拥有本地仓库，中央仓库，远程仓库（私服）
-# 生命周期
+# * 生命周期
 Maven 的工作是有固定逻辑顺序的。
 只需要执行一个命令，它会自动执行之前的所有步骤：
 
@@ -23,6 +23,8 @@ Maven 的工作是有固定逻辑顺序的。
 - **package**：打包（生成可执行的 Jar 包）
     
 - **install**：把打好的包安装到你**本地仓库**，让你的其他项目也能引用它
+
+
 
 ---
 
@@ -71,7 +73,43 @@ Maven 的工作是有固定逻辑顺序的。
     
 - **`version`**：是再下一级文件夹。
 
+
 ---
 # 依赖配置
 在 Maven 项目中，**依赖配置（Dependency Configuration）** 是通过 `pom.xml` 文件来声明项目运行所需的外部库
 
+## 依赖传递与排除 (Exclusions)
+
+这是 Maven 解决复用性的核心逻辑：如果你引入了 A，而 A 依赖了 B，Maven 会自动帮你把 B 也下载下来。
+
+**问题**：如果 A 引入的 B 版本太旧，导致项目报错怎么办？ 
+**解决**：使用 `<exclusions>` 手动切断传递
+
+```XML
+<dependency>
+    <groupId>com.example</groupId>
+    <artifactId>library-a</artifactId>
+    <version>1.0.0</version>
+    
+    <exclusions>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+## 常见配置逻辑顺
+
+1. **确定需求**：比如需要连接 MySQL。
+    
+2. **查找坐标**：在 [MVNrepository](https://mvnrepository.com/) 搜索 `mysql-connector-java`
+    
+3. **粘贴配置**：将代码放入 `pom.xml`
+    
+4. **刷新 Maven**：在 IDEA 中点击刷新图标
+    
+5. **检查冲突**：在 IDEA 右侧 Maven 面板查看 `Dependencies` 树，确认没有红色的冲突标识
+>[!WARNING] 警告
+>- 如果依赖配置变更了，必须要刷新/重新加载
