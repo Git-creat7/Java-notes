@@ -140,7 +140,7 @@ categories = ["JavaWeb"]
                 },
 ```
 ---
-# Ajax
+## Ajax
 **Ajax (Asynchronous JavaScript and XML)** 是让网页实现“局部刷新”的核心技术。它允许网页在不重新加载整个页面的情况下，从服务器请求数据。
 
 >**XML:** (Extensible Markup Language)可扩展标记语言，本质是一种数据格式，可以用来存储复杂的数据结构。
@@ -148,14 +148,27 @@ categories = ["JavaWeb"]
 - **作用**
 	- **数据交换:** 通过Ajax可以给服务器发送请求，并获取服务器响应的数据。
 	- **异步交互:** 可以在不重新加载整个页面的情况下，与服务器交换数据并更新部分网页的技术，如:搜索联想、用户名是否可用的校验等等。
-## 同步异步
-### 同步
+### 同步异步
+#### 同步
 浏览器页面在发送请求给服务器，在服务器处理请求的过程中，浏览器页面不能做其他的操作。只能等到服务器响应结束后才能，浏览器页面才能继续做其他的操作
 ![](Vue3%20&%20Ajax-5.png)
-### 异步
+#### 异步
 浏览器页面发送请求给服务器，在服务器处理请求的过程中，浏览器页面还可以做其他的操作。
 ![](Vue3%20&%20Ajax-6.png)
-# [Axios](https://www.axios-http.cn)
+
+### async & await
+可以通过async、await可以让异步变为同步操作。async就是来声明一个异步方法，await是用来等待异步任务执行
+```JavaScript
+
+  async search() {
+    //基于axios发送异步请求，请求http://127.0.0.1:5500/json/simple.json，根据条件查询员工列表
+    const result = await axios.get(`http://127.0.0.1:5500/json/simple.json?name=${this.searchForm.name}&gender=${this.searchForm.gender}&job=${this.searchForm.job}`);
+    
+    this.empList = result.data.data;
+  },
+```
+
+## [Axios](https://www.axios-http.cn)
 - **步骤**
 	- 引入Axios的js文件
 	- 使用Axios发送请求，并获取响应结果
@@ -177,4 +190,68 @@ categories = ["JavaWeb"]
 	console.log('================================');//先输出
 	
 	}
+```
+## Vue 的生命周期
+|**阶段**|**状态名 (Vue 2)**|**Vue 3 (组合式 API)**|**状态描述**|
+|---|---|---|---|
+|**创建**|`beforeCreate`|`setup`|实例初始化，无数据|
+||`created`|`setup`|**数据可用**，无 DOM|
+|**挂载**|`beforeMount`|`onBeforeMount`|虚拟 DOM 已准备好|
+||**`mounted`**|**`onMounted`**|**DOM 已渲染**（最常用）|
+|**更新**|`beforeUpdate`|`onBeforeUpdate`|数据变了，页面没变|
+||`updated`|`onUpdated`|页面更新完成|
+|**销毁**|`beforeDestroy`|`onBeforeUnmount`|**清理现场**（防内存泄漏）|
+||`destroyed`|`onUnmounted`|完全消失|
+```js
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="module">
+    // 导入 Vue 3 的 createApp 方法
+    import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+    createApp({
+        data() {
+            return {
+                // 搜索表单绑定的数据
+                searchForm: {
+                    name: '',   // 姓名
+                    gender: '', // 性别
+                    job: ''     // 职位
+                },
+                // 员工列表，表格渲染的数据
+                empList: []
+            }
+        },
+        methods: {
+            // 查询方法，点击“查询”按钮或页面加载时调用
+            search() {
+                // 发送 GET 请求到远程接口，带上表单参数
+                axios.get(`https://web-server.itheima.net/emps/list?name=${this.searchForm.name}&gender=${this.searchForm.gender}&job=${this.searchForm.job}`)
+                    .then((result) => {
+                        // 将返回的员工数组赋值给 empList，页面自动渲染
+                        this.empList = result.data.data;
+                    })
+                // 控制台输出分隔线，调试用
+                console.log('================================');
+            },
+            /*
+              result.data：是整个响应体（包含 code、msg、data 等字段）
+              result.data.data：才是真正需要的员工数组
+            */
+            // 清空方法，点击“清空”按钮时调用
+            clear() {
+                // 重置表单
+                this.searchForm = {
+                    name: '',
+                    gender: '',
+                    job: ''
+                };
+                // 重新查询，显示所有数据
+                this.search();
+            }
+        },
+        // 生命周期钩子，页面加载完成后自动查询一次，显示所有数据
+        mounted() {
+            this.search();
+        }
+    }).mount('#container')
+</script>
 ```
