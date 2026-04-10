@@ -160,3 +160,8 @@ categories = ["JavaWeb"]
 	- 引入Axios的js文件
 	- 使用Axios发送请求，并获取响应结果
 ![](Vue3%20&%20Ajax-4.png)
+- 为了方便，Axios已经为所有支持的请求方法提供了别名
+- 格式：`axios.请求方式(url [,data [, config ]])`
+
+```
+```
