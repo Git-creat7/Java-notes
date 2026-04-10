@@ -43,9 +43,9 @@ categories = ["JavaWeb"]
 |**`v-html`**|更新元素的 `innerHTML`|**内容按 HTML 解析**。注意：只在信任的内容上使用，防止 XSS 攻击。|
 |**`v-once`**|只渲染一次|之后即使数据变了，这里也不会更新，用于性能优化。|
 ### 条件渲染指令 
-- **`v-if` / `v-else-if` / `v-else`**：真正的条件渲染。如果条件为假，元素根本不会被创建（不出现在 DOM 树中）。
+- **`v-if` / `v-else-if` / `v-else`**：真正的条件渲染。如果条件为假，元素根本不会被创建（不出现在 DOM 树中）
     
-- **`v-show`**：通过修改 CSS 的 `display: none` 来切换显隐。元素始终存在于 DOM 中。
+- **`v-show`**：通过修改 CSS 的 `display: none` 来切换显隐。元素始终存在于 DOM 中
     
 
 > **场景建议**：频繁切换显示用 `v-show`，运行时条件不大可能改变用 `v-if`。
@@ -58,6 +58,28 @@ categories = ["JavaWeb"]
 	- `index`：当前索引（从 0 开始）
 	- `list`：要循环的数组
 	- `:key="item.id"`：给列表项唯一标识，提升渲染性能
+```HTML
+	<tbody>
+            <tr v-for="(e, index) in empList" :key="e.id">
+                <td>{{index+1}}</td>
+                <td>{{e.name}}</td>
+                <td>{{e.gender == 1?"男":"女" }}</td>
+                <td>{{e.job}}</td>
+                <td>{{e.entrydate}}</td>
+                <td>{{e.updatetime}}</td>
+            </tr>
+      </tbody>
+      
+      
+	empList: [
+	  { "id": 1,
+		"name": "姓名",
+		"gender": 1,
+		"job": "1",
+		"entrydate": "2023-06-09",
+		"updatetime": "2024-07-30T14:59:38"
+	  }
+```
 >[!NOTE]
 > - **关键点**：使用 `v-for` 时**必须**绑定 `:key`。这能帮助 Vue 的 Diff 算法精准识别每个节点，提高更新性能
 > - **注意**：遍历的数组，必须在data中定义;要想让哪个标签循环展示多次，就在哪个标签上使用 v-for 指令。
@@ -67,6 +89,7 @@ categories = ["JavaWeb"]
 ```html
 	<img v-bind:src="imageSrc">
 	<img :src="imageSrc">
+	插值表达式不能在标签内使用
 ```
     
 - **`v-on` (缩写 `@`)**：绑定事件监听器。
