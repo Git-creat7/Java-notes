@@ -99,8 +99,23 @@ categories = ["JavaWeb"]
 - **`v-on` (缩写 `@`)**：绑定事件监听器。
 	- **完整写法**：`v-on:事件名="方法名"`
 	- **简写形式**（最常用）：**`@事件名="方法名"`**
-```html
-	<button @click="count++">点我</button>
+```c
+	//HTML
+	<button type="button" @click="search">查询</button>
+    <button type="reset" @click="clear">清空</button>
+```
+```js
+	//JS
+	methods:{
+			search(){
+				console.log(this.searchForm);
+			},
+			clear(){
+				this.searchForm.name = '';
+				this.searchForm.gender = '';
+				this.searchForm.job = '';
+			}
+		}
 ```
 
 ### 双向绑定指令(表单)
@@ -125,3 +140,23 @@ categories = ["JavaWeb"]
                 },
 ```
 ---
+# Ajax
+**Ajax (Asynchronous JavaScript and XML)** 是让网页实现“局部刷新”的核心技术。它允许网页在不重新加载整个页面的情况下，从服务器请求数据。
+
+>**XML:** (Extensible Markup Language)可扩展标记语言，本质是一种数据格式，可以用来存储复杂的数据结构。
+
+- **作用**
+	- **数据交换:** 通过Ajax可以给服务器发送请求，并获取服务器响应的数据。
+	- **异步交互:** 可以在不重新加载整个页面的情况下，与服务器交换数据并更新部分网页的技术，如:搜索联想、用户名是否可用的校验等等。
+## 同步异步
+### 同步
+浏览器页面在发送请求给服务器，在服务器处理请求的过程中，浏览器页面不能做其他的操作。只能等到服务器响应结束后才能，浏览器页面才能继续做其他的操作
+![](Vue3%20&%20Ajax-5.png)
+### 异步
+浏览器页面发送请求给服务器，在服务器处理请求的过程中，浏览器页面还可以做其他的操作。
+![](Vue3%20&%20Ajax-6.png)
+# [Axios](https://www.axios-http.cn)
+- **步骤**
+	- 引入Axios的js文件
+	- 使用Axios发送请求，并获取响应结果
+![](Vue3%20&%20Ajax-4.png)
