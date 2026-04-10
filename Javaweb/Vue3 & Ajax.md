@@ -15,3 +15,22 @@ categories = ["JavaWeb"]
 - 框架：就是一套完整的项目解决方案，用于快速构建项目
 - 优点：大大提升前端项目的开发效率 
 ![](Vue3%20&%20Ajax-1.png)
+- 引入Vue模块
+```html
+	<div id="app">{{ message }}</div>
+	
+	<script type="module">
+	  import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+	
+	  createApp({
+	    setup() {
+	      const message = ref('Hello Vue!')
+	      return {
+	        message
+	      }
+	    }
+	  }).mount('#app')
+	</script>
+```
+![](Vue3%20&%20Ajax-2.png)
+
