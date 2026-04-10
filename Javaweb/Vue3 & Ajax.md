@@ -163,5 +163,18 @@ categories = ["JavaWeb"]
 - 为了方便，Axios已经为所有支持的请求方法提供了别名
 - 格式：`axios.请求方式(url [,data [, config ]])`
 
-```
+```js
+	//GET请求
+    document.querySelector('#getData').onclick = function() {
+    
+        //发出请求后 不会等待服务器返回（异步），而是继续执行后续代码
+	axios.get('https://jsonplaceholder.typicode.com/posts/1').then((result) => {
+	   console.log(result.data);
+	}).catch((err) => {
+		console.log(err);
+	});
+	
+	console.log('================================');//先输出
+	
+	}
 ```
