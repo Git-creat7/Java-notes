@@ -48,7 +48,7 @@ categories = ["JavaWeb"]
 	- **场景**:要么显示，要么不显示，不频繁切换的场景
     
 - **`v-show`**：通过修改 CSS 的 `display: none` 来切换显隐。元素始终存在于 DOM 中
-	- **原理**:基于csS样式display来控制显示与隐藏
+	- **原理**:基于CSS样式display来控制显示与隐藏
 	- **场景**:频繁切换显示隐藏的场景
     
 
@@ -105,6 +105,21 @@ categories = ["JavaWeb"]
 - **`v-model`**：在表单元素（input, select, textarea）上创建双向数据绑定。
     
 - **原理**：它是 `v-bind:value` 和 `v-on:input` 的语法糖
-
-
+	- **从数据到视图**：当变量值改变时，输入框的内容自动变
+	- **从视图到数据**：当用户在输入框打字时，变量的值实时更新
+```html
+	<select name="gender" v-model="searchForm.gender">
+		...
+	</select>
+	
+	<select name="job" v-model="searchForm.job">
+		...
+	</select>
+	
+	searchForm:{
+				name:'',
+				gender:'',
+				job:''
+                },
+```
 ---
