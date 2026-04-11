@@ -263,4 +263,12 @@ Maven 的工作是有固定逻辑顺序的
 >
 >- **不要混用**：通常一个方法要么标 `@Test`，要么标 `@ParameterizedTest`，不要两个都标。
 
-
+### 规范
+在企业开发规范中，这种写法被称为 **“测试环境准备（Test Fixture Setup）”**
+```Java
+	private UserService userService;  
+	@BeforeEach  
+	public void setUp(){  
+	    userService = new UserService();  
+	}
+```
