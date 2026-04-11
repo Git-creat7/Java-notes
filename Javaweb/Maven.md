@@ -323,3 +323,41 @@ Maven 的工作是有固定逻辑顺序的
 - **典型场景**：**数据库驱动（如 MySQL Connector）**。
     
     - 我们在代码里通常使用 JDK 自带的 `java.sql.Connection`（接口），不需要直接调用 MySQL 的具体实现类。只有在程序运行时，Maven 才会加载驱动包来建立真实连接。
+# BOM
+**BOM** 的全称是 **Bill of Materials**（物料清单）
+
+简单来说，BOM 是一个特殊的 `pom.xml` 文件，它的核心逻辑不是为了提供代码，而是为了**统一管理依赖的版本号**
+
+## 使用BOM
+在 `pom.xml` 中导入 BOM
+```XML
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>3.2.0</version>
+            <type>pom</type>
+            <scope>import</scope> </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+引入具体依赖（不写版本号）
+```XML
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+</dependencies>
+```
+
+
+|**维度**|**传统方式**|**使用 BOM**|
+|---|---|---|
+|**版本控制**|每个模块各自维护，易冲突|全局统一，一处修改全线更新|
+|**配置量**|每个 `<dependency>` 都要写版本|只在顶层写一次，子模块极简|
+|**复用性**|差，需要反复确认版本号|极强，确保所有组件完美兼容|
+|**稳定性**|容易出现 Jar 包版本不匹配|官方认证的“全家桶”组合，最稳定|
+
+---
