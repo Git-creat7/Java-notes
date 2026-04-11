@@ -138,4 +138,4 @@ Maven 的工作是有固定逻辑顺序的
 | **包名结构** | 与被测类包名一致          | 例如被测类在 `com.demo.service`，测试类也应在此包下。          |
 | **类名规范** | 以 `Test` 结尾       | 例如：`UserServiceTest.java`（Surefire 插件默认识别规则）。 |
 | **依赖配置** | `scope` 设为 `test` | 确保测试相关的 Jar 包（如 JUnit）不会被打包到生产环境。             |
-### 断言与注解
+### 断言`assert`与注解
