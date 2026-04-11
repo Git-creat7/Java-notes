@@ -139,3 +139,13 @@ Maven 的工作是有固定逻辑顺序的
 | **类名规范** | 以 `Test` 结尾       | 例如：`UserServiceTest.java`（Surefire 插件默认识别规则）。 |
 | **依赖配置** | `scope` 设为 `test` | 确保测试相关的 Jar 包（如 JUnit）不会被打包到生产环境。             |
 ### 断言`assert`与注解
+```Java
+	@Test  
+	public void testGenderWithAssert(){  
+	    UserService userService = new UserService();  
+	    String gender = userService.getGenderByIdCard("100000200010011011");  
+	    Assertions.assertEquals("男", gender,"性别获取逻辑有问题");  
+	}
+```
+>[!PROBLEM]
+>测试代码中，通常会极力避免手动写 `try-catch`
