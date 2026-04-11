@@ -138,14 +138,54 @@ Maven 的工作是有固定逻辑顺序的
 | **包名结构** | 与被测类包名一致          | 例如被测类在 `com.demo.service`，测试类也应在此包下。          |
 | **类名规范** | 以 `Test` 结尾       | 例如：`UserServiceTest.java`（Surefire 插件默认识别规则）。 |
 | **依赖配置** | `scope` 设为 `test` | 确保测试相关的 Jar 包（如 JUnit）不会被打包到生产环境。             |
-### 断言`assert`与注解
+### 断言`assert`
+- **本质**：测试逻辑的“裁判”。它对比 **预期值 (Expected)** 与 **实际值 (Actual)**
+    
+- **逻辑流**：`执行业务逻辑 -> 获取结果 -> 调用断言方法 -> 判定测试通过/失败`
+
 ```Java
 	@Test  
 	public void testGenderWithAssert(){  
 	    UserService userService = new UserService();  
 	    String gender = userService.getGenderByIdCard("100000200010011011");  
-	    Assertions.assertEquals("男", gender,"性别获取逻辑有问题");  
+	    Assertions.assertEquals("男", gender,"性别获取逻辑有问题");
+	    //会检测与结果是否一致
 	}
 ```
 >[!PROBLEM]
 >测试代码中，通常会极力避免手动写 `try-catch`
+
+| **断言方法**                          | **说明**          | **适用场景**                  |
+| --------------------------------- | --------------- | ------------------------- |
+| **`assertEquals(exp, act)`**      | 判断两个值是否相等       | 验证计算结果、字符串内容、对象相等。        |
+| **`assertNotEquals(exp, act)`**   | 判断两个值是否**不**相等  | 验证更新后的值确实变了。              |
+| **`assertTrue(condition)`**       | 判断条件是否为 `true`  | 验证布尔逻辑（如：`canAfford` 方法）。 |
+| **`assertFalse(condition)`**      | 判断条件是否为 `false` | 验证否定逻辑（如：用户是否未登录）。        |
+| **`assertNull(obj)`**             | 判断对象是否为空        | 验证查询不到数据时的返回。             |
+| **`assertNotNull(obj)`**          | 判断对象是否不为空       | 验证对象是否成功创建或查询到。           |
+| **`assertArrayEquals(exp, act)`** | 判断两个数组是否相等      | 验证列表排序或批量处理后的数组。          |
+```Java
+	@Test  
+	public void testGenderWithAssert2(){  
+	    UserService userService = new UserService();  
+	    String gender = userService.getGenderByIdCard("100000200010011011"); 
+	    
+		//当异常发生的时候 测试能否抛出正确的异常
+	    Assertions.assertThrows(IllegalArgumentException.class,()->  
+	            userService.getGenderByIdCard(null));  
+	}
+```
+#### 组合断言
+当一个测试方法里有多个断言时：
+- **普通逻辑**：第一个断言挂了，后面都不跑了。
+    
+- **assertAll 逻辑**：所有断言都会跑完，最后统一输出哪些挂了。
+```Java
+	// 笔记示例：
+	assertAll("用户信息校验",
+	    () -> assertEquals("男", gender),
+	    () -> assertEquals(36, age)
+	);
+```
+### 注解`Annotation`
+
