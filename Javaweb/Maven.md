@@ -235,13 +235,18 @@ Maven 的工作是有固定逻辑顺序的
 - **作用**：最简单的**数据源**，提供一组基本类型的值（如 Strings, Ints）
 - 身份证性别测试：
 - ```Java
-		@ParameterizedTest
-		@ValueSource(strings = {"11010119900101123X", "110101199501017891"})
-		@DisplayName("验证多个男性身份证的识别")
-		void testMaleGenders(String idCard) {
-		// 逻辑：这个方法会跑两次，idCard 分别传入上面的两个值
-		assertEquals("男", userService.getGenderByIdCard(idCard));
-		}
+	@ParameterizedTest
+	@ValueSource(strings = 
+					{"100000200010011021",
+					"100000200010011032",
+					"100000200010011051"
+				})
+	@DisplayName("验证多个男性身份证的识别")
+	public void testGenderWithAssert2(String idCard){//strings传入idCard
+	    UserService userService = new UserService();  
+	    String gender = userService.getGenderByIdCard(idCard);  
+	    Assertions.assertEquals("男",gender);  
+	}
    ```
 #### 总结
 | **注解分类** | **注解名称**                   | **记忆关键词**       |
@@ -257,3 +262,5 @@ Maven 的工作是有固定逻辑顺序的
 >- **依赖冲突**：如果你在 `pom.xml` 里用的是 JUnit 4，这些注解（来自 `org.junit.jupiter` 包）是无法识别的。
 >
 >- **不要混用**：通常一个方法要么标 `@Test`，要么标 `@ParameterizedTest`，不要两个都标。
+
+
