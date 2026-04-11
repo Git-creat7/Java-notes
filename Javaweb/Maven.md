@@ -188,4 +188,72 @@ Maven 的工作是有固定逻辑顺序的
 	);
 ```
 ### 注解`Annotation`
+#### 生命周期钩子
+| **注解**            | **执行时机**          | **强制要求**        | **典型用途**               |
+| ----------------- | ----------------- | --------------- | ---------------------- |
+| **`@BeforeAll`**  | 所有测试开始前，**只执行一次** | 必须是 `static` 方法 | 初始化数据库连接池、启动 Redis 容器。 |
+| **`@BeforeEach`** | **每个**测试方法执行前都跑一次 | 普通方法            | 重置对象状态、准备 Mock 数据。     |
+| **`@AfterEach`**  | **每个**测试方法执行后都跑一次 | 普通方法            | 清理临时文件、撤销数据库更改。        |
+| **`@AfterAll`**   | 所有测试结束后，**只执行一次** | 必须是 `static` 方法 | 关闭数据库连接、释放系统资源。        |
 
+**执行顺序逻辑：** `@BeforeAll` $\rightarrow$ (`@BeforeEach` $\rightarrow$ `@Test` $\rightarrow$ `@AfterEach`) $\times$ N次 $\rightarrow$ `@AfterAll`
+```bash
+	before All
+	before each
+	after each
+	before each
+	男
+	after each
+	before each
+	26
+	after each
+	before each
+	after each
+	after All
+	
+	进程已结束，退出代码为 0
+```
+#### 核心测试与显示
+- **`@Test`**：最基础的标签，告诉 Maven 这是一个标准的单元测试。
+    
+- **`@DisplayName("描述内容")`**：
+    
+    - **作用**：在 IDEA 的运行面板或测试报告中，显示中文或易读的描述，而不是枯燥的方法名。
+        
+    - **复用性**：让非技术人员（或一个月后的你）一眼看懂这个测试在测什么
+
+#### 参数化测试
+**`@ParameterizedTest`**
+
+- **作用**：声明这个方法是一个“参数化测试”，它会多次运行，每次注入不同的值。
+    
+- **逻辑**：它必须配合“数据源”注解使用。
+    
+
+**`@ValueSource`**
+
+- **作用**：最简单的**数据源**，提供一组基本类型的值（如 Strings, Ints）
+- 身份证性别测试：
+- ```Java
+		@ParameterizedTest
+		@ValueSource(strings = {"11010119900101123X", "110101199501017891"})
+		@DisplayName("验证多个男性身份证的识别")
+		void testMaleGenders(String idCard) {
+		// 逻辑：这个方法会跑两次，idCard 分别传入上面的两个值
+		assertEquals("男", userService.getGenderByIdCard(idCard));
+		}
+   ```
+#### 总结
+| **注解分类** | **注解名称**                   | **记忆关键词**       |
+| -------- | -------------------------- | --------------- |
+| **控制流**  | `@Before...` / `@After...` | **时机控制**（前置/后置） |
+| **基础**   | `@Test`                    | **入场券**（标记测试）   |
+| **美化**   | `@DisplayName`             | **别名**（中文描述）    |
+| **高级**   | `@ParameterizedTest`       | **分身术**（一法多测）   |
+| **数据源**  | `@ValueSource`             | **数据池**（提供参数）   |
+>[!WARNING]
+>- **静态限制**：记住 `@BeforeAll` 和 `@AfterAll` 必须加 `static` 关键字，因为它们在类实例创建之前就要运行。
+>
+>- **依赖冲突**：如果你在 `pom.xml` 里用的是 JUnit 4，这些注解（来自 `org.junit.jupiter` 包）是无法识别的。
+>
+>- **不要混用**：通常一个方法要么标 `@Test`，要么标 `@ParameterizedTest`，不要两个都标。
