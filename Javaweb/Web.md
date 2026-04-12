@@ -239,6 +239,11 @@ public class User {
 >- @RestController = @Controller + @ResponseBody
 
 # 分层解耦
+**耦合:** 衡量软件中各个层/各个模块的依赖关联程度。
+
+**内聚:** 软件中各个功能模块内部的功能联系。
+
+**设计原则： 高内聚低耦合**
 ## 三层架构
 | **层次名称**  | **对应英文**                    | **核心注解**          | **职责描述（通俗理解）**                         |
 | --------- | --------------------------- | ----------------- | -------------------------------------- |
@@ -246,10 +251,89 @@ public class User {
 | **业务逻辑层** | **Service**                 | `@Service`        | **大脑**。负责所有的计算、逻辑判断、事务管理。它是系统最核心的部分。   |
 | **数据访问层** | **dao**(Data Access Object) | `@Repository`     | **搬运工**。负责与数据库打交道，进行增删改查（CRUD）。        |
 ### Controller
+```Java
+/*  
+ * 用户信息Controller  
+ * */@RestController  
+public class UserController {  
+    private UserService userService = new UserServiceImpl();  
+    *多态的实现*
+    @RequestMapping("/list")  
+    public List<User> list() throws FileNotFoundException {  
+        
+        List<User> list = userService.findAll();  
+        *多态的实现*
+        
+        return list;  
+    }  
+}
+```
+### Service
+```Java
+//接口
+public interface UserService {  
+    /*  
+    *查询所有用户信息  
+    * */   
+    public List<User>  findAll();  
+}
+
+//实现类
+//带impl就是一个实现类  
+public class UserServiceImpl implements UserService {  
+    private UserDao userDao = new UserDaoImpl();  
+	*多态的实现*
+    @Override  
+    public List<User> findAll() {  
+        List<String> lines = userDao.findAll();  
+        *多态的实现*
+        
+        List<User> userList = lines.stream().map(line -> {  
+            String[] parts = line.split(",");  
+            Integer id = Integer.parseInt(parts[0]);  
+            String username = parts[1];  
+            String password = parts[2];  
+            String name = parts[3];  
+            Integer age = Integer.parseInt(parts[4]);  
+            LocalDateTime updateTime = LocalDateTime.parse(parts[5], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));  
+            return new User(id, username, password, name, age, updateTime);  
+        }).toList();  
+        return userList;  
+    }  
+}
+```
+
+### Dao
+```java
+//接口
+public interface UserDao {  
+    /*  
+    * 加载用户数据  
+    * */    
+    public List<String> findAll();  
+}
+
+//实现类
+public class UserDaoImpl implements UserDao {  
+    @Override  
+    public List<String> findAll() {  
+    
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("user.txt");  
+        
+        ArrayList<String> lines = IoUtil.readLines  
+                (in, StandardCharsets.UTF_8, new ArrayList<>());  
+  
+        return lines;  
+    }  
+  
+}
+```
 
 
+![](Web-3.png)
+![](Web-4.png)
 
-
+## 
 
 
 
