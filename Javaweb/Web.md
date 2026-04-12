@@ -366,7 +366,7 @@ public class UserDaoImpl implements UserDao {
 ![](Web-7.png)
 
 ### DI详解
-基于@Autowired进行依赖注入的常见方式：
+#### 基于@Autowired进行依赖注入的常见方式
 **①.属性注入**
 - 这是最常见、最简洁的方式。直接在成员变量上加上 `@Autowired`。
 - ```Java
@@ -440,13 +440,74 @@ public class UserDaoImpl implements UserDao {
 | **构造器注入**     | **强烈推荐** | **是**        | 安全、强制初始化、方便测试 | 代码略显冗长          |
 | **Setter 注入** | 可选       | 否            | 灵活，可按需注入      | 无法保证对象完整性       |
 
+---
 
+#### 当出现多个相同类型的Bean就会报错，如何解决？
+![](Web-8.png)
+**①使用 @Primary**
 
+如果你希望在大多数情况下都使用某个特定的实现类，可以在该类上加上 `@Primary` 注解。
+
+- **效果**：当存在多个候选 Bean 时，Spring 会优先注入标注了 `@Primary` 的那一个
+- ```JAVA
+	@Primary
+	@Service
+	public class UserServiceImpl1 implements UserService { 
+	    // ... 
+	}
+	
+	@Service
+	public class UserServiceImpl2 implements UserService { 
+	    // ... 
+	}
+   ```
+**②使用@Qualifier(指定具体的名称)**
+
+如果你想在不同的地方注入不同的实现，可以配合 `@Autowired` 使用 `@Qualifier`，并指定 Bean 的名称。
+
+- **注意**：Bean 的默认名称是**类名首字母小写**（如 `userServiceImpl1`），你也可以在注解中手动指定名称，如 `@Service("userService2")`。
+- ```Java
+	@RestController
+	public class UserController {
+	    @Autowired
+	    @Qualifier("userServiceImpl1") // 明确告诉 Spring：我要这一个
+	    private UserService userService;
+	}
+   ```
+   
+**③使用@Resource(直接按名称查找)**
+
+`@Resource` 是 JDK 提供的注解（Spring 也支持）。
+它与 `@Autowired` 的最大区别在于**查找顺序**：
+
+- **`@Autowired`**：先按**类型**找，如果类型有多个，再按名称找。
+    
+- **`@Resource`**：先按**名称**找，如果名称找不到，再按类型找。
+- ```Java
+	@RestController
+	public class UserController {
+	    @Resource(name = "userServiceImpl2") // 直接通过名字“精准定位”
+	    private UserService userService;
+	}
+   ```
+
+| **解决方案**         | **核心原理**        | **适用场景**                       |
+| ---------------- | --------------- | ------------------------------ |
+| **`@Primary`**   | 权重优先            | 存在一个“绝对主流”的实现类时。               |
+| **`@Qualifier`** | **类型** + 名称辅助   | 需要在不同类中灵活切换不同实现时。              |
+| **`@Resource`**  | **名称**优先        | 想减少对 Spring 注解的依赖，或更倾向于按名字查找时。 |
+
+---
 
 ### 问题
 **问：“既然没有代码显式调用构造函数，Spring 是如何实现注入的？”**
 
 - 这是通过 **IoC 容器** 的生命周期管理实现的。Spring 启动时会解析 **BeanDefinition**（Bean 的定义信息）。如果发现是构造器注入，Spring 会通过 **反射** 查找匹配的参数 Bean，并利用 `Constructor.newInstance()` 方法完成实例化。这种方式将对象的创建权交给了容器，实现了真正的控制反转。
+
+---
+
+**问：“如果你在代码里同时用了 `@Primary` 和 `@Qualifier`，谁会生效？”**
+- “**`@Qualifier` 的优先级更高**。因为 `@Primary` 定义的是默认的首选 Bean，而 `@Qualifier` 是在注入点进行的‘精准指名’。这就好比食堂默认提供大米饭（Primary），但你明确跟打饭阿姨说你要面条（Qualifier），阿姨肯定会给你面条。”
 
 ---
 
