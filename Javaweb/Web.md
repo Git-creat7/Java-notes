@@ -430,7 +430,6 @@ public class UserDaoImpl implements UserDao {
     - 不能使用 `final`。
         
     - 对象在被使用时可能处于“未完全初始化”的状态（如果没调用 set 方法）
-
 ---
 
 **对比：**
@@ -440,6 +439,14 @@ public class UserDaoImpl implements UserDao {
 | **属性注入**      | 慎用       | 否            | 简单、快          | 依赖关系不透明，不方便单元测试 |
 | **构造器注入**     | **强烈推荐** | **是**        | 安全、强制初始化、方便测试 | 代码略显冗长          |
 | **Setter 注入** | 可选       | 否            | 灵活，可按需注入      | 无法保证对象完整性       |
+
+
+
+
+### 问题
+**问：“既然没有代码显式调用构造函数，Spring 是如何实现注入的？”**
+
+- 这是通过 **IoC 容器** 的生命周期管理实现的。Spring 启动时会解析 **BeanDefinition**（Bean 的定义信息）。如果发现是构造器注入，Spring 会通过 **反射** 查找匹配的参数 Bean，并利用 `Constructor.newInstance()` 方法完成实例化。这种方式将对象的创建权交给了容器，实现了真正的控制反转。
 
 ---
 
