@@ -158,7 +158,29 @@ public class RequestController {
 | `Set-Cookie`       | 告诉浏览器为当前页面所在的域设置 cookie。                         |
 ### 响应数据设置
 ```Java
-
+@RestController  
+public class ResponseController {  
+    @RequestMapping("/response")  
+    public void response(HttpServletResponse response) throws IOException {  
+        //设置响应状态码  
+        response.setStatus(401);  
+        //设置响应头  
+        response.setHeader("name","itcast");  
+        //设置响应体  
+        response.getWriter().write("<h1>Hello Response</h1>");  
+        //  
+    }  
+    /*  
+    * 方法二  
+    * 基于ResponseEntity构建响应对象  
+    * */    @RequestMapping("/response2")  
+    public ResponseEntity<String> response2(){  
+        return ResponseEntity  
+                .status(401)  
+                .header("name","javaweb")  
+                .body("<h1>Hello ResponseEntity</h1>");  
+    }  
+}
 ```
 
 
