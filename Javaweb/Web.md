@@ -356,6 +356,12 @@ public class UserDaoImpl implements UserDao {
 | **`@Controller`** | 标注在**控制层类** (Web)   | 负责处理 HTTP 请求，分发数据。                                   |
 | **`@Service`**    | 标注在**业务逻辑层类**       | 负责核心业务逻辑处理、事务管理。                                     |
 | **`@Repository`** | 标注在**数据访问层类** (Dao) | 负责数据库的增删改查，并能将原生数据库异常转为 Spring 异常。（由于与mybatis整合，用的少） |
-❗：@RestController 注解内部已经包含 @Controller
+>[!warning]
+>❗：@RestController 注解内部已经包含 @Controller
+>
+>❗：声明bean的时候，可以通过注解的value属性指定bean的名字，如果没有指定，默认为类名首字母小写
+
+
+![](Web-7.png)
 # 附录
 ## [状态码大全](https://cloud.tencent.com/developer/article/2138076)
