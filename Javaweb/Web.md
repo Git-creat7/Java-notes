@@ -333,10 +333,16 @@ public class UserDaoImpl implements UserDao {
 ![](Web-3.png)
 ![](Web-4.png)
 
-## 
+## 控制反转（IOC）
+对象的创建控制权由程序自身转移到外部(容器)，这种思想称为控制反转
+![](Web-5.png)
+![](Web-6.png)
 
 
+## 依赖注入（DI）
+容器为应用程序提供运行时，所依赖的资源，称之为依赖注入
 
-
+## Bean对象
+IOC容器中创建、管理的对象，称之为Bean
 # 附录
 ## [状态码大全](https://cloud.tencent.com/developer/article/2138076)
