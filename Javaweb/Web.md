@@ -339,6 +339,7 @@ public class UserDaoImpl implements UserDao {
 - IOC容器中创建、管理的对象，称之为Bean
 ![](Web-5.png)
 ![](Web-6.png)
+### IOC详解
 1. **如何将一个类交给 IOC 容器管理？**
 
 - `@Component`（注意：是加在实现类上，而非接口上）
@@ -363,5 +364,51 @@ public class UserDaoImpl implements UserDao {
 
 
 ![](Web-7.png)
+
+### DI详解
+基于@Autowired进行依赖注入的常见方式：
+**①属性注入**
+- 这是最常见、最简洁的方式。直接在成员变量上加上 `@Autowired`。
+- ```Java
+	@RestController
+	public class UserController {
+		@Autowired
+		private UserService userService; // 直接注入
+	}
+   ```
+**②构造器注入**—Spring官方推荐
+- 通过类的构造函数来完成注入。
+- ```Java
+	@Service
+	public class UserServiceImpl implements UserService {
+		private final UserMapper userMapper;
+		
+		// Spring 会自动调用这个构造函数并注入参数
+		@Autowired 
+		public UserServiceImpl(UserMapper userMapper) {
+			this.userMapper = userMapper;
+		}
+	}
+   ```
+**③Setter方法注入**
+- 通过对应的 `setXxx` 方法来注入依赖。
+- ```Java
+	@Component
+	public class MyUtils {
+	    private RedisTemplate redisTemplate;
+		
+	    @Autowired
+	    public void setRedisTemplate(RedisTemplate redisTemplate) {
+	        this.redisTemplate = redisTemplate;
+	    }
+	}
+   ```
+**对比：**
+
+| **注入方式**      | **是否推荐** | **支持 final** | **优点**        | **缺点**          |
+| ------------- | -------- | ------------ | ------------- | --------------- |
+| **属性注入**      | 慎用       | 否            | 简单、快          | 依赖关系不透明，不方便单元测试 |
+| **构造器注入**     | **强烈推荐** | **是**        | 安全、强制初始化、方便测试 | 代码略显冗长          |
+| **Setter 注入** | 可选       | 否            | 灵活，可按需注入      | 无法保证对象完整性       |
 # 附录
 ## [状态码大全](https://cloud.tencent.com/developer/article/2138076)
