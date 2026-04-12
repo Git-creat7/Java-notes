@@ -367,7 +367,7 @@ public class UserDaoImpl implements UserDao {
 
 ### DI详解
 基于@Autowired进行依赖注入的常见方式：
-**①属性注入**
+**①.属性注入**
 - 这是最常见、最简洁的方式。直接在成员变量上加上 `@Autowired`。
 - ```Java
 	@RestController
@@ -376,33 +376,63 @@ public class UserDaoImpl implements UserDao {
 		private UserService userService; // 直接注入
 	}
    ```
-**②构造器注入**—Spring官方推荐
+- **优点**：代码极其简洁，可读性好。
+    
+- **缺点**：
+    
+    - **不能使用 `final` 修饰变量**（因为变量必须在对象实例化后通过反射注入）。
+        
+    - **隐藏依赖关系**：外部不通过反射很难看到这个类到底依赖了谁。
+        
+    - **违背单一职责原则**：因为写起来太简单，容易导致一个类注入了过多的依赖。
+
+---
+
+**②.构造器注入**—Spring官方推荐
 - 通过类的构造函数来完成注入。
 - ```Java
-	@Service
-	public class UserServiceImpl implements UserService {
-		private final UserMapper userMapper;
-		
-		// Spring 会自动调用这个构造函数并注入参数
-		@Autowired 
-		public UserServiceImpl(UserMapper userMapper) {
-			this.userMapper = userMapper;
-		}
-	}
+	@Service //将当前类给IOC容器管理  
+	public class UserServiceImpl implements UserService {  
+	    private final UserDao userDao;  //可以是final
+	    @Autowired  //可省略！
+	    public UserServiceImpl(UserDao userDao) {  
+	        this.userDao = userDao;  
+	    }
+    }
    ```
-**③Setter方法注入**
+- **优点**：
+    
+    - **支持 `final` 关键字**：保证了依赖在对象创建后不可变，更加安全。
+        
+    - **完全初始化**：确保对象在被调用前，所有依赖都已就绪。
+        
+    - **易于测试**：在写单元测试时，可以直接通过 `new` 一个对象并传入 Mock 依赖，不需要启动整个 Spring 容器。
+        
+- **注意**：如果类中只有一个构造函数，Spring 4.3 以后可以省略 `@Autowired`
+---
+**③.Setter方法注入**
 - 通过对应的 `setXxx` 方法来注入依赖。
 - ```Java
-	@Component
-	public class MyUtils {
-	    private RedisTemplate redisTemplate;
-		
-	    @Autowired
-	    public void setRedisTemplate(RedisTemplate redisTemplate) {
-	        this.redisTemplate = redisTemplate;
+	@RestController  
+	public class UserController {  
+	    private UserService userService;  
+	      
+	    @Autowired  
+	    public void setUserService(UserService userService) {  
+	        this.userService = userService;  
 	    }
 	}
    ```
+- **优点**：允许依赖在之后被修改（灵活性高）。
+    
+- **缺点**：
+    
+    - 不能使用 `final`。
+        
+    - 对象在被使用时可能处于“未完全初始化”的状态（如果没调用 set 方法）
+
+---
+
 **对比：**
 
 | **注入方式**      | **是否推荐** | **支持 final** | **优点**        | **缺点**          |
@@ -410,5 +440,8 @@ public class UserDaoImpl implements UserDao {
 | **属性注入**      | 慎用       | 否            | 简单、快          | 依赖关系不透明，不方便单元测试 |
 | **构造器注入**     | **强烈推荐** | **是**        | 安全、强制初始化、方便测试 | 代码略显冗长          |
 | **Setter 注入** | 可选       | 否            | 灵活，可按需注入      | 无法保证对象完整性       |
+
+---
+
 # 附录
 ## [状态码大全](https://cloud.tencent.com/developer/article/2138076)
