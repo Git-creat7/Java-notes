@@ -37,5 +37,7 @@ public class HelloController {
 	- 优点:速度快
 
 ## 请求协议
+![](Web-1.png)
+
 
 ## 响应协议
