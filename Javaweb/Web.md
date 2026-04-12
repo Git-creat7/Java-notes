@@ -183,6 +183,76 @@ public class ResponseController {
 }
 ```
 
+# 案例
+```Java
+//UserController
+/*  
+ * 用户信息Controller  
+ * */@RestController  
+public class UserController {  
+    @RequestMapping("/list")  
+    public List<User> list() throws FileNotFoundException {  
+        //加载并读取user.txt  
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("user.txt");  
+        ArrayList<String> lines = IoUtil.readLines  
+                (in, StandardCharsets.UTF_8, new ArrayList<>());  
+        //解析用户信息，封装为User对象，list集合  
+        List<User> userList = lines.stream().map(line -> {  
+            String[] parts = line.split(",");  
+            Integer id = Integer.parseInt(parts[0]);  
+            String username = parts[1];  
+            String password = parts[2];  
+            String name = parts[3];  
+            Integer age = Integer.parseInt(parts[4]);  
+            LocalDateTime updateTime = LocalDateTime.parse(parts[5], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));  
+            return new User(id, username, password, name, age, updateTime);  
+        }).toList();  
+  
+        //返回数据json  
+        return userList;  
+    }  
+}
+
+//User
+@Data  
+@NoArgsConstructor  //  
+@AllArgsConstructor //全参  
+public class User {  
+    private Integer id;  
+    private String username;  
+    private String password;  
+    private String name;  
+    private Integer age;  
+    private LocalDateTime updateTime;  
+  
+}
+```
+
+>1.静态资源文件存放位置
+>
+>- resources/static
+>
+>2.@ResponseBody 注解的作用
+>
+>- 将 controller 方法的返回值直接写入 HTTP 响应体
+>- 如果是对象或集合，会先转为 json，再响应
+>- @RestController = @Controller + @ResponseBody
+
+# 分层解耦
+## 三层架构
+| **层次名称**  | **对应英文**                    | **核心注解**          | **职责描述（通俗理解）**                         |
+| --------- | --------------------------- | ----------------- | -------------------------------------- |
+| **控制层**   | **Controller**              | `@RestController` | **门面**。负责接收请求、校验参数，并把结果响应给前端。它不负责处理业务。 |
+| **业务逻辑层** | **Service**                 | `@Service`        | **大脑**。负责所有的计算、逻辑判断、事务管理。它是系统最核心的部分。   |
+| **数据访问层** | **dao**(Data Access Object) | `@Repository`     | **搬运工**。负责与数据库打交道，进行增删改查（CRUD）。        |
+### Controller
+
+
+
+
+
+
+
 
 # 附录
 ## [状态码大全](https://cloud.tencent.com/developer/article/2138076)
