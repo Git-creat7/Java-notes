@@ -188,14 +188,14 @@ categories = ["MySQL"]
 ```
 
 ### 常用API
-|**方法**|**功能描述**|
-|---|---|
-|**`setObject(int, Object)`**|最通用的赋值方法，自动映射 Java 类型到数据库类型。|
-|**`setInt / setString / ...`**|强类型赋值，确保数据类型安全。|
-|**`setNull(int, int)`**|为数据库字段设置 NULL 值。|
-|**`addBatch()`**|将当前参数组加入批处理队列。|
-|**`clearParameters()`**|清除当前设置的所有参数，以便重用该对象。|
-### * 批处理
+| **方法**                         | **功能描述**                     |
+| ------------------------------ | ---------------------------- |
+| **`setObject(int, Object)`**   | 最通用的赋值方法，自动映射 Java 类型到数据库类型。 |
+| **`setInt / setString / ...`** | 强类型赋值，确保数据类型安全。              |
+| **`setNull(int, int)`**        | 为数据库字段设置 NULL 值。             |
+| **`addBatch()`**               | 将当前参数组加入批处理队列。               |
+| **`clearParameters()`**        | 清除当前设置的所有参数，以便重用该对象。         |
+### `*`批处理
 ```Java
 	String sql = "INSERT INTO students (name, score) VALUES (?, ?)";
 	try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
