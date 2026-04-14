@@ -321,15 +321,54 @@ SELECT * FROM user WHERE username = #{name}
 -- 解析后的 SQL：SELECT * FROM user WHERE username = ?
 -- 执行时：SELECT * FROM user WHERE username = 'Zhang'
 ```
+
+
+| **特性**    | **#{}**                 | **${}**           |
+| --------- | ----------------------- | ----------------- |
+| **处理方式**  | 预编译 (PreparedStatement) | 字符串替换 (Statement) |
+| **场景**    | 参数值传递                   | 表名、字段名动态设置时使用     |
+| **安全性**   | **高**，防止 SQL 注入         | **低**，有 SQL 注入风险  |
+| **性能**    | 高（预编译可重用执行计划）           | 低（每次都需要重新解析 SQL）  |
+| **自动加引号** | 是                       | 否                 |
+这些场景通常是 **“参数不是作为值，而是作为 SQL 的语法组成部分”** 时：
+
+1. **动态表名**：`SELECT * FROM ${tableName}`
+    
+2. **动态列名**：`SELECT ${columnName} FROM user`
+    
+3. **动态排序**：`ORDER BY ${orderColumn} ${sortType}`（比如让用户点击表头按不同字段排序）
+### 问：“为什么 `#{}` 能防止 SQL 注入，而 `${}` 不能？”
+
+**回答：** “因为 `#{}` 采用了 JDBC 的 **预编译 (PreparedStatement)** 机制。在这种机制下，SQL 的结构在参数传入前就已经确定并发送给数据库解析了。参数被视为单纯的‘值’，即使参数里包含 `OR 1=1` 这样的指令，也只会被当作一段普通的文本处理，不会改变 SQL 的逻辑语义。 而 `${}` 只是简单的 **字符串拼接**，参数会直接参与 SQL 语句的解析和编译，从而可能改变 SQL 的执行意图，导致注入风险。”
+
 ## 增删改查
 
 
-### 删除Delete
+### 插入INSERT
 ```Java
 Mapper接口：
+
+	@Insert("INSERT INTO user(username,password,name,age) VALUES(#{username},#{password},#{name},#{age})")  
+	public void insert(User user);//插入用户信息
+	
+Spring测试：
+
+	@Test  
+	public void testInsert(){  
+    User user = new User(null,"jjj","666888","鸡鸡鸡",18);  
+    userMapper.insert(user);//调用UserMapper接口中的insert方法，插入用户信息  
+	}
+```
+
+### 删除DELETE
+```Java
+Mapper接口：
+
 	@Delete("DELETE FROM user WHERE id = #{id}")  
 	public void deleteById(Integer id);
+	
 Spring测试：
+
 	@Autowired  
 	private UserMapper userMapper;//注入UserMapper接口的代理对象
 	@Test  
@@ -338,3 +377,19 @@ Spring测试：
 	}
 ```
 
+### 修改UPDATE
+```Java
+Mapper接口：
+
+	@Update("UPDATE user set username = #{username},password = #{password},name = #{name},age = #{age} WHERE id = #{id}")  
+	public void update(User user);
+	
+Spring测试：
+
+	public void testUpdate(){  
+    User user = new User(1,"zhouyu","8989","周瑜",19);  
+    userMapper.update(user);//调用UserMapper接口中的update方法，更新用户信息  
+	}
+```
+
+### 查询SELECT
