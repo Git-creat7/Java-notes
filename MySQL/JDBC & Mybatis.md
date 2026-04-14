@@ -323,3 +323,18 @@ SELECT * FROM user WHERE username = #{name}
 ```
 ## 增删改查
 
+
+### 删除Delete
+```Java
+Mapper接口：
+	@Delete("DELETE FROM user WHERE id = #{id}")  
+	public void deleteById(Integer id);
+Spring测试：
+	@Autowired  
+	private UserMapper userMapper;//注入UserMapper接口的代理对象
+	@Test  
+	public void testDeleteById(){  
+	    userMapper.deleteById(5);  
+	}
+```
+
