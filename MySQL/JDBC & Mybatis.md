@@ -418,6 +418,21 @@ Spring测试：
 
 ---
 ## XML映射配置
+### 基本组成结构
+```XML
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <select id="findById" resultType="com.example.pojo.User">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+</mapper>
+```
 ### 核心对应关系
 
 为了让 Spring 容器能通过接口找到对应的 SQL，必须严格遵守以下约定：
