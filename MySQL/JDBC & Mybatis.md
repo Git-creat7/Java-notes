@@ -471,3 +471,62 @@ Spring测试：
 	# 指定XML映射文件的位置  
 	mybatis.mapper-locations=classpath:mapper/*.xml
 ```
+
+# SpringBoot配置文件
+## 配置格式
+SpringBoot项目提供了多种属性配置方式(properties、yaml、yml)
+## 核心语法规则（避坑指南）
+
+YAML 的语法非常严苛，这些错误尤其会导致 Spring Boot 启动失败：
+
+1. **大小写敏感**：`Name` 和 `name` 是不同的。
+    
+2. **使用缩进表示层级**：禁止使用 Tab 键，必须使用 **空格**（通常缩进 2 个空格）。
+    
+3. **冒号后必须有空格**：这是最容易忘的！`key: value` 冒号后面必须跟着一个空格。
+    
+4. **“#” 表示注释**：与 Java 里的 `//` 作用一样。
+
+---
+## YAML 的数据格式
+
+###  纯量（普通键值对）
+```yaml
+server:
+  port: 8080    # 注意冒号后的空格
+  address: 127.0.0.1
+```
+
+### 对象（层级关系）
+
+YAML 天然适合表达这种父子结构：
+```yaml
+student:
+  name: ZhangKun
+  age: 20
+  major: SoftwareEngineering
+```
+### 数组 / 集合
+
+使用 **短横线 `-`** 表示列表中的一个项：
+```yaml
+subjects:
+  - Java
+  - MyBatis
+  - SpringBoot
+```
+
+
+
+
+
+
+
+如果 `src/main/resources` 下同时存在 `application.properties` 和 `application.yml`：
+
+- **Spring 会同时加载两个文件**。
+    
+- 如果有重复配置，**`.properties` 的优先级更高**（它会覆盖 `.yml` 的内容）。
+    
+
+> **建议**：项目中统一只用一种格式，避免逻辑混乱。
