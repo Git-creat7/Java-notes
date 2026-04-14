@@ -393,3 +393,27 @@ Spring测试：
 ```
 
 ### 查询SELECT
+```Java
+	@Select("SELECT * FROM user WHERE username = #{username} AND password = #{password}")  
+	public User findByUsernameAndPassword(  
+        @Param("username")String username,  
+        @Param("password") String password);
+
+```
+**❗说明:**
+**基于官方骨架创建的springboot项目中**，接口编译时会保留方法形参名，@Param注解可以省略(#{形参名})
+#### @Param内部原理图解
+1. **调用接口**：调用 `findByUsernameAndPassword("Zhang", "123")`。
+    
+2. **封装 Map**：MyBatis 内部会将这些参数封装成一个 `Map`。
+    
+    - **没有 `@Param`**：Map 为 `{arg0: "Zhang", arg1: "123"}`。
+        
+    - **有 `@Param`**：Map 为 `{username: "Zhang", password: "123"}`。
+        
+3. **SQL 填充**：执行时，MyBatis 从 Map 中根据 Key（即 `username`）取出 Value
+#### 问：“MyBatis 的 `@Param` 注解有什么用？”
+
+**回答：** “`@Param` 主要用于**多参数传递**的场景。由于 Java 字节码在编译后可能会丢失方法参数名，导致 MyBatis 无法将 SQL 中的占位符与方法参数对应。 通过 `@Param` 注解，我们可以显式地为参数命名，MyBatis 会将这些参数封装进一个 Map 中，从而在解析 SQL 语句时能够准确地通过 Key 找到对应的 Value。这增强了代码的可读性，并避免了多参数环境下参数找不到的异常。”
+
+
