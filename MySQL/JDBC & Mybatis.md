@@ -302,7 +302,24 @@ categories = ["MySQL"]
 ---
 
 # MyBatis
+## `#{}`：预编译占位符（最常用、最安全）
 
+这是 MyBatis 的默认推荐方式。
 
-
+- **底层原理**：它是基于 JDBC 的 `PreparedStatement` 实现的。MyBatis 会先将 SQL 语句中的 `#{}` 替换为 `?`，发送给数据库进行预编译，然后再将参数值设置进去。
+    
+- **特点**：
+    
+    - **安全性高**：自动处理 SQL 注入风险。
+        
+    - **自动转义**：如果传入的是字符串，它会自动加上单引号 `' '`。
+        
+- **示例**：
+```Mysql
+-- 输入参数 name = "Zhang"
+SELECT * FROM user WHERE username = #{name}
+-- 解析后的 SQL：SELECT * FROM user WHERE username = ?
+-- 执行时：SELECT * FROM user WHERE username = 'Zhang'
+```
+## 增删改查
 
