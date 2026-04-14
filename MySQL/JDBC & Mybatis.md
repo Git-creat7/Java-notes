@@ -467,3 +467,7 @@ Spring测试：
 |SQL 语句经常需要优化|**XML**|修改 SQL 时不影响 Java 逻辑，更易于维护。|
 
 ### 辅助配置
+```properties
+	# 指定XML映射文件的位置  
+	mybatis.mapper-locations=classpath:mapper/*.xml
+```
