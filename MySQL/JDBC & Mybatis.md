@@ -445,3 +445,25 @@ Spring测试：
 	
 4. **参数/结果一致**：`parameterType`（通常可省略）和 `resultType` 要与接口的入参和出参对应
 	
+```XML
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="org.example.mapper.UserMapper">  
+  
+    <select id="findAll" resultType="org.example.pojo.User"> #往User封装  
+        SELECT id,username,password,name,age FROM user  
+    </select>  
+</mapper>
+相当于Mapper中的：@Select("SELECT id,username,password,name,age FROM user")
+```
+
+|**场景**|**推荐方式**|**原因**|
+|---|---|---|
+|简单的根据 ID 查询、删除|**注解**|快速、省事，不用在文件间跳来跳去。|
+|复杂的关联查询（Join）|**XML**|注解难以处理复杂的 `resultMap` 嵌套映射。|
+|动态搜索、批量插入|**XML**|动态标签（`<if>`, `<foreach>`）是 XML 的杀手锏。|
+|SQL 语句经常需要优化|**XML**|修改 SQL 时不影响 Java 逻辑，更易于维护。|
+
+### 辅助配置
