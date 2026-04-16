@@ -119,3 +119,15 @@ public interface DeptMapper{
 ```
 
 ---
+# Nginx
+```nginx
+server{
+	listen 90;
+	# 省略......
+	location ^~ /api/{
+		# 只要URL 是以 /api/ 开头的请求
+		rewrite ^~/api/(.*)$ /$1 break;
+		proxy_pass http://localhost:8080; #代理转发
+	}
+}
+```
