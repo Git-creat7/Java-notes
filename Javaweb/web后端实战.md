@@ -169,13 +169,29 @@ public Result deleteById(Integer id){
 ```
 ---
 ## @RequestBody
+当请求进入后端时，`@RequestBody` 会告诉 Spring：“不要去 URL 路径或查询参数里找数据，去请求体（HTTP Body）里找。把那段 JSON 字符串拿出来，转换成我定义的这个 Java 对象。”
 ```Java
+Controller:
 	@PostMapping("/depts")  
 	public Result add(@RequestBody Dept dept){ //将json数据封装到对象  
 	    System.out.println("新增部门"+dept);  
 	    deptService.add(dept);
 	    return Result.success();  
 	}
+	
+Service:
+	@Override  
+	public void add(Dept dept) {  
+	    dept.setCreateTime(LocalDateTime.now());  
+	    dept.setUpdateTime(LocalDateTime.now());  
+	    deptMapper.add(dept);  
+	}
+	
+Mapper:
+	@Insert("INSERT INTO dept (name,create_time,update_time)VALUES (#{name},#{creatTime},#{updateTime})")  
+	❗❗❗注意：VALUES后用的是属性名(驼峰命名)而不是字段名(下划线)❗❗❗
+	
+	void add(Dept dept);
 ```
 ### 使用前提
 - **请求方式**：通常用于 `POST`、`PUT` 或 `PATCH`。`GET` 请求没有请求体，所以不能使用。
