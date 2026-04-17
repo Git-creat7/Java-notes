@@ -217,4 +217,7 @@ public Result getInfo(@PathVariable Integer id){
 }
 ```
 
+>[!NOTE]
+>在URL中可以携带多个路径参数 如 "/depts/1/0"
+
 
