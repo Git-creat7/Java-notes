@@ -194,9 +194,9 @@ Mapper:
 	void add(Dept dept);
 ```
 ### 使用前提
-- **请求方式**：通常用于 `POST`、`PUT` 或 `PATCH`。`GET` 请求没有请求体，所以不能使用。
+- **请求方式**：通常用于 `POST`、`PUT` 或 `PATCH`。`GET` 请求没有请求体，所以不能使用
     
-- **Content-Type**：前端发送请求时，Header 中必须包含 `Content-Type: application/json`。否则后端会报 `415 Unsupported Media Type` 错误。
+- **Content-Type**：前端发送请求时，Header 中必须包含 `Content-Type: application/json`。否则后端会报 `415 Unsupported Media Type` 错误
     
-- **属性匹配**：JSON 中的键名（Key）必须与 Java 实体类中的属性名完全一致，且实体类必须提供 **Setter 方法**。
+- **属性匹配**：JSON 中的键名（Key）必须与 Java 实体类中的属性名完全一致，且实体类必须提供 **Setter 方法**
 
