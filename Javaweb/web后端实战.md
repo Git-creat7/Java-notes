@@ -200,3 +200,21 @@ Mapper:
     
 - **属性匹配**：JSON 中的键名（Key）必须与 Java 实体类中的属性名完全一致，且实体类必须提供 **Setter 方法**
 
+---
+## @PathVariable
+REST 风格提倡“URL 代表资源”。例如，你想访问 ID 为 5 的部门，URL 应该是 `.../depts/5`，而不是传统的 `.../depts?id=5`。这里的 `5` 就是一个路径变量
+要让 `@PathVariable` 生效，需要两个步骤的配合：
+
+1. **在路径中使用占位符**：用 `{变量名}` 标注。
+    
+2. **在参数前加注解**：将占位符的值映射到 Java 变量。
+```Java
+@GetMapping("/depts/{id}")  
+public Result getInfo(@PathVariable Integer id){  
+	❗❗❗ 如果占位符名称 {id} 和方法参数名 id 一致，可以直接映射❗❗❗
+    System.out.println("根据ID查询部门："+ id);  
+    return Result.success();  
+}
+```
+
+
