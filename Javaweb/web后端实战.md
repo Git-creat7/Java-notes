@@ -301,3 +301,17 @@ public class DeptController {
 		<appender-ref ref="FILE" />
 	</root>
 ```
+
+---
+# PageHelper分页查询
+## 原理
+PageHelper 利用了 MyBatis 的 **拦截器（Interceptor）** 机制。它的工作流程如下：
+
+1. **拦截**：当你调用 Mapper 方法前，PageHelper 会拦截到即将执行的 SQL
+    
+2. **解析**：自动检测你当前使用的数据库类型（MySQL, Oracle, MariaDB 等）
+    
+3. **改写**：根据你设置的页码（pageNum）和每页数量（pageSize），动态地在原始 SQL 后面拼接分页子句
+    
+4. **自动 Count**：它还会额外执行一条 `SELECT COUNT(0)` 来获取总记录数，方便前端显示总页数
+## 使用
