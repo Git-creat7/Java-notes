@@ -148,7 +148,7 @@ server{
 	}
 ```
 - **`@DeleteMapping("/depts")`**: 指定该方法处理发送到 `/depts` 路径的 **DELETE** 类型请求。
-	    
+	
 - **`@RequestParam("id")`**:
     
     - **❗明确映射**：**强制要求**前端必须传递一个名为 `id` 的参数，否则报错
@@ -161,11 +161,11 @@ server{
 **如果请求参数名与形参变量名相同，直接定义方法形参即可接收**
 但是此时的形参只能为**前端请求参数名**
 ```Java
-@DeleteMapping("/depts")  
-public Result deleteById(Integer id){  
-    System.out.println("根据ID删除部门:"+id);  
-    return Result.success();  
-}
+	@DeleteMapping("/depts")  
+	public Result deleteById(Integer id){  
+	    System.out.println("根据ID删除部门:"+id);  
+	    return Result.success();  
+	}
 ```
 ---
 ## @RequestBody
