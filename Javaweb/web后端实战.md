@@ -167,6 +167,19 @@ server{
 	    return Result.success();  
 	}
 ```
+### 指定默认值
+使用defaultValue设置默认值
+```Java
+	/*  
+	* 分页查询  
+	* */  
+	@GetMapping  
+	public Result page(@RequestParam(defaultValue = "1") Integer page, Integer pageSize){  
+	    log.info("分页查询{},{}",page,pageSize);  
+	    PageResult<Emp> pageResult = empService.page(page, pageSize);  
+	    return Result.success(pageResult);  
+	}
+```
 ---
 ## @RequestBody
 当请求进入后端时，`@RequestBody` 会告诉 Spring：“不要去 URL 路径或查询参数里找数据，去请求体（HTTP Body）里找。把那段 JSON 字符串拿出来，转换成我定义的这个 Java 对象。”
