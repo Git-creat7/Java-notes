@@ -423,7 +423,7 @@ TRUNCATE TABLE users;
     
 - _SQL_：`SELECT * FROM emp LIMIT 40, 10;`
 >**另外注意点：**
-- **方言限制**：`LIMIT` 是 **MySQL** 的方言。如果你用的是 Oracle，需要用 `ROWNUM`；如果是 SQL Server，需要用 `TOP`
+- **方言限制**：`LIMIT` 是 **MySQL** 的方言。如果用的是 Oracle，需要用 `ROWNUM`；如果是 SQL Server，需要用 `TOP`
     
 - **执行顺序**：`LIMIT` 永远是 SQL 语句中**最后执行**的一个环节
     
