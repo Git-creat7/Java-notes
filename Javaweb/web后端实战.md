@@ -270,4 +270,21 @@ public class DeptController {
 	private  static final Logger log =
 	 org.slf4j.LoggerFactory.getLogger(LogTest.class);
 ```
+**可替换为注解：@Slf4j**
+## 日志级别
 
+| **日志级别**  | **说明**                            | **记录方式**           |
+| --------- | --------------------------------- | ------------------ |
+| **trace** | 追踪，记录程序运行轨迹，使用很少                  | `log.trace("...")` |
+| **debug** | 调试，记录调试过程中的信息，实际应用中通常视为最低级别       | `log.debug("...")` |
+| **info**  | 记录一般信息，描述运行关键事件（如网络连接、IO 操作），使用较多 | `log.info("...")`  |
+| **warn**  | 警告信息，记录潜在有害情况，使用较多                | `log.warn("...")`  |
+| **error** | 错误信息，使用较多                         | `log.error("...")` |
+- 只有**大于等于**设定级别的日志才会被输出。
+- 如果将 `root` 级别设为 **`info`**，那么 `trace` 和 `debug` 级别的日志将**不会**被记录或显示
+```XML
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+```
