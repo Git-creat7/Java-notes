@@ -220,4 +220,49 @@ public Result getInfo(@PathVariable Integer id){
 >[!NOTE]
 >在URL中可以携带多个路径参数 如 "/depts/1/0"
 
+---
+## 路径抽取 
+- **修改前**：每个方法（如查询、删除、新增）都要在注解里写 `@GetMapping("/depts")` 或 `@DeleteMapping("/depts/{id}")`
+    
+- **修改后**：在 `public class DeptController` 顶部添加 **`@RequestMapping("/depts")`**。这样下方的方法注解就可以简化，例如：
+    
+    - 查询全部简写为：`@GetMapping`
+        
+    - 根据 ID 查询简写为：`@GetMapping("/{id}")`
+```Java
+@RequestMapping("/depts") //指定请求路径前缀  
+@RestController
+public class DeptController {  
+    @Autowired  
+    private DeptService deptService;  
+	  
+    @RequestMapping(value = "/depts",method = RequestMethod.GET)  
+    @GetMapping  
+    //指定请求方式  
+    public Result list(){...}  
+	  
+    @PostMapping  
+    public Result add(@RequestBody Dept dept){...}  
+	  
+    @DeleteMapping  
+    public Result deleteById(Integer id){...}  
+	  
+    @GetMapping("/{id}")  --> 即为 "/depts/{id}"
+    public Result getInfo(@PathVariable Integer id){...}  
+	  
+	  
+    @PutMapping  
+    public Result update(@RequestBody Dept dept){...}  
+}
+```
+---
+# 日志Logback
+- **JUL (java.util.logging)**：Java 原生日志框架，虽然配置简单但灵活性和性能较差
+    
+- **Log4j**：早期非常流行的第三方日志框架，配置灵活
+    
+- **Logback**：由 Log4j 作者开发的升级版，性能更优，也是目前 Spring Boot 默认集成的日志实现
+    
+- **Slf4j (Simple Logging Facade for Java)**：重点强调的“**简单日志门面**”，它不是真正的日志实现，而是一套标准接口，允许你在不修改代码的情况下切换底层的日志框架（如从 Log4j 切换到 Logback）
+---
 
