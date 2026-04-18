@@ -265,4 +265,9 @@ public class DeptController {
     
 - **Slf4j (Simple Logging Facade for Java)**：重点强调的“**简单日志门面**”，它不是真正的日志实现，而是一套标准接口，允许你在不修改代码的情况下切换底层的日志框架（如从 Log4j 切换到 Logback）
 ---
+```Java
+	//logger 来自 SLF4j包
+	private  static final Logger log =
+	 org.slf4j.LoggerFactory.getLogger(LogTest.class);
+```
 
