@@ -234,6 +234,37 @@ public Result getInfo(@PathVariable Integer id){
 >在URL中可以携带多个路径参数 如 "/depts/1/0"
 
 ---
+## @DateTimeFormat
+`@DateTimeFormat` 是一个非常实用的注解，主要用于 **格式化请求参数**（也就是从前端传到后端的日期字符串）
+### 在实体类中使用（处理搜索条件）
+```Java
+@Data
+public class EmpQueryDTO {
+    private String name;
+    
+    // 接收类似 "2024-01-01" 的字符串
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate beginDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
+}
+```
+### 直接在 Controller 参数中使用
+```Java
+@GetMapping  
+	public Result pageByCondition(String name, Integer gender,  
+		  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,  
+		  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end,  
+		...
+		...
+		return Result.success(result);  
+	}
+```
+>[!NOTE]
+>如果是普通 GET 请求的参数，用 `@DateTimeFormat`；如果是 `@RequestBody` 接收的 JSON 数据，用 `@JsonFormat`
+
+---
 ## 路径抽取 
 - **修改前**：每个方法（如查询、删除、新增）都要在注解里写 `@GetMapping("/depts")` 或 `@DeleteMapping("/depts/{id}")`
     
