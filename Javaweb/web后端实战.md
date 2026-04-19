@@ -277,6 +277,33 @@ public class EmpQueryDTO {
 >如果是普通 GET 请求的参数，用 `@DateTimeFormat`；如果是 `@RequestBody` 接收的 JSON 数据，用 `@JsonFormat`
 
 ---
+## 将多个参数提取到实体类
+- **代码整洁**：方法参数由 10 个变成 1 个。
+    
+- **高复用性**：这个实体类可以在 Controller、Service、Mapper 之间直接传递。
+    
+- **自动封装**：Spring MVC 会自动根据请求参数的名称（Query Params）与实体类的属性名进行匹配并赋值
+```Java
+@Data  
+public class EmpQueryParam {  
+    private Integer page = 1;  
+    private Integer pageSize = 10;  
+    private String name;  
+    private Integer gender;  
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  
+    private String begin;  
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  
+    private String end;  
+}
+```
+### 注意事项
+- **不要加 `@RequestBody`**：`@RequestBody` 是用来解析 POST 请求里的 JSON 体的。对于 GET 请求的 URL 参数映射到对象，**直接写参数**即可。
+    
+- **默认值处理**：在实体类中直接为 `page` 和 `pageSize` 赋初值，可以省去 Controller 里的 `@RequestParam(defaultValue = "...")`。
+    
+- **日期处理**：记得给日期属性加上 `@DateTimeFormat`，否则当前端传 `2026-05-20` 时，后端会因为无法转换为 `LocalDate` 而报错。
+
+---
 ## 路径抽取 
 - **修改前**：每个方法（如查询、删除、新增）都要在注解里写 `@GetMapping("/depts")` 或 `@DeleteMapping("/depts/{id}")`
     
