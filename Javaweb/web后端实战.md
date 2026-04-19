@@ -110,6 +110,11 @@ public interface DeptMapper{
 	    SELECT id, name, c_time FROM dept
 	</select>
 ```
+#### XML 中的 SQL
+```XML
+
+```
+
 ---
 # Nginx
 ```nginx
