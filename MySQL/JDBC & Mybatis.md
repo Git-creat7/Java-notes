@@ -537,6 +537,10 @@ MyBatis 提供了几个强大的逻辑标签：
 - `item`：遍历出的每一项变量名
     
 - `separator`：分隔符（如逗号）
+	
+- `open`：遍历开始前拼接的片段 
+	
+- `close`：遍历结束后拼接的片段 
 ```XML
 <delete id="deleteByIds">
     DELETE FROM emp WHERE id IN
