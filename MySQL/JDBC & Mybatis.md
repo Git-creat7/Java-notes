@@ -298,9 +298,6 @@ categories = ["MySQL"]
 
 
 ---
-
----
-
 # MyBatis
 ## `#{}`：预编译占位符（最常用、最安全）
 
@@ -471,6 +468,101 @@ Spring测试：
 	# 指定XML映射文件的位置  
 	mybatis.mapper-locations=classpath:mapper/*.xml
 ```
+## XML 中的 SQL
+```XML
+<mapper namespace="asia.creat.mapper.EmpMapper">  
+	<select id="listByCondition" resultType="asia.creat.pojo.Emp">  
+        SELECT *FROM emp e LEFT JOIN dept d ON e.dept_id = d.id WHERE e.name  
+            LIKE CONCAT('%',#{name},'%') AND e.gender = #{gender}            
+            AND e.entry_date BETWEEN #{begin} AND #{end}            
+            ORDER BY e.update_time DESC 
+	</select>  
+</mapper>
+```
+
+## 动态SQL
+MyBatis 提供了几个强大的逻辑标签：
+### `<if>`：条件判断
+
+最常用的标签。如果 `test` 属性中的表达式为真，则拼接标签内的 SQL
+```XML
+<select id="find" resultType="Emp">
+    SELECT * FROM emp WHERE 1=1
+    <if test="name != null">
+        AND name LIKE #{name}
+    </if>
+    <if test="gender != null">
+        AND gender = #{gender}
+    </if>
+</select>
+```
+
+###  `<where>`：智能处理
+
+上面的写法里我们被迫写了 `WHERE 1=1`，这很丑。`<where>` 标签能自动完成两件事：
+
+1. 如果子标签有内容，才插入 `WHERE` 关键字
+    
+2. 自动剔除内容开头多余的 `AND` 或 `OR`
+```XML
+<select id="find" resultType="Emp">
+    SELECT * FROM emp
+    <where>
+        <if test="name != null">AND name = #{name}</if>
+        <if test="gender != null">AND gender = #{gender}</if>
+    </where>
+</select>
+```
+
+### `<set>`：动态更新
+
+用于 `UPDATE` 语句。它会自动插入 `SET` 关键字，并聪明地删掉最后一个多余的**逗号**
+```XML
+<update id="update">
+    UPDATE emp
+    <set>
+        <if test="username != null">username = #{username},</if>
+        <if test="password != null">password = #{password},</if>
+    </set>
+    WHERE id = #{id}
+</update>
+```
+
+### `<foreach>`：循环遍历
+
+专门处理 `IN` 查询或批量插入。
+
+- `collection`：参数名（如 List 或数组）
+    
+- `item`：遍历出的每一项变量名
+    
+- `separator`：分隔符（如逗号）
+```XML
+<delete id="deleteByIds">
+    DELETE FROM emp WHERE id IN
+    <foreach collection="ids" item="id" open="(" close=")" separator=",">
+        #{id}
+    </foreach>
+</delete>
+```
+### 工作原理
+- **解析**：MyBatis 在执行前扫描 XML 标签
+    
+- **判断**：根据你传入的参数对象（比如 `EmpQueryParam`）的值，计算 `test` 里的表达式
+    
+- **渲染**：只保留符合条件的片段，拼接成最终的“原生 SQL”交给数据库执行
+### 使用提示
+- **字符串判空**：对于 String 类型，习惯上写成 `<if test="name != null and name != ''">`，同时检查 `null` 和空字符串
+    
+- **SQL 注入**：始终使用 `#{}` 传参，它会自动进行预编译。除非是要动态传表名或排序列名（这种极少数情况才用 `${}`）
+    
+- **XML 还是注解？**：
+    
+    - 简单的 SQL 可以写在注解 `@Select` 里
+        
+    - 复杂的动态 SQL **强烈建议**写在 XML 里，因为 XML 的结构化标签比在 Java 字符串里拼 SQL 舒服且清晰得多
+
+---
 
 # SpringBoot配置文件
 ## 配置格式

@@ -110,17 +110,7 @@ public interface DeptMapper{
 	    SELECT id, name, c_time FROM dept
 	</select>
 ```
-#### XML 中的 SQL
-```XML
-<mapper namespace="asia.creat.mapper.EmpMapper">  
-	<select id="listByCondition" resultType="asia.creat.pojo.Emp">  
-        SELECT *FROM emp e LEFT JOIN dept d ON e.dept_id = d.id WHERE e.name  
-            LIKE CONCAT('%',#{name},'%') AND e.gender = #{gender}            
-            AND e.entry_date BETWEEN #{begin} AND #{end}            
-            ORDER BY e.update_time DESC 
-	</select>  
-</mapper>
-```
+
 
 ---
 # Nginx
@@ -413,3 +403,4 @@ PageHelper 利用了 MyBatis 的 **拦截器（Interceptor）** 机制。它的�
 ![644](web后端实战-1.png)
 
 ---
+# 动态SQL
