@@ -476,10 +476,14 @@ public class EmpServiceImpl implements EmpService {
 | **`rollbackFor`** | 指定哪些异常触发回滚。默认只回滚 `RuntimeException`。建议设置为 `Exception.class` 以涵盖所有异常。 |
 | **`propagation`** | **事务传播行为**：定义当一个事务方法调用另一个事务方法时，事务如何传递。                               |
 | **`readOnly`**    | 是否为只读事务。查询操作建议设为 `true`，可以优化数据库性能。                                   |
+### rollbackFor
 ```Java
 	@Transactional//默认出现运行时异常RuntimeException才会回滚
 	@Transactional(rollbackFor = {Exception.class})//指定所有异常都会回滚
 ```
+### propagation
+
+### readOnly
 ## 失效场景
 1. **非 public 方法**：`@Transactional` 只能用于 `public` 方法。
     
