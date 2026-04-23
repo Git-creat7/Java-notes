@@ -545,16 +545,16 @@ public User getUserById(Long id) {
 	}
 ```
 
-|**方法**|**说明**|
-|---|---|
-|`getName()`|获取表单中文件参数的名称（如上面例子中的 "file"）。|
-|`getOriginalFilename()`|获取客户端文件系统的原始文件名。|
-|`getContentType()`|获取内容类型（如 `image/png`）。|
-|`isEmpty()`|判断文件是否为空（没有内容或未选择文件）。|
-|`getSize()`|返回文件大小（单位：字节）。|
-|`getBytes()`|以字节数组形式读取文件内容。|
-|`getInputStream()`|获取输入流，用于流式读取（适合大文件处理）。|
-|`transferTo(File dest)`|**最常用**：将上传的文件直接保存到目标文件。|
+| **方法**                      | **说明**                        |
+| --------------------------- | ----------------------------- |
+| **`getName()`**             | 获取表单中文件参数的名称（如上面例子中的 "file"）。 |
+| **`getOriginalFilename()`** | 获取客户端文件系统的原始文件名。              |
+| `getContentType()`          | 获取内容类型（如 `image/png`）。        |
+| `isEmpty()`                 | 判断文件是否为空（没有内容或未选择文件）。         |
+| `getSize()`                 | 返回文件大小（单位：字节）。                |
+| `getBytes()`                | 以字节数组形式读取文件内容。                |
+| `getInputStream()`          | 获取输入流，用于流式读取（适合大文件处理）。        |
+| `transferTo(File dest)`     | **最常用**：将上传的文件直接保存到目标文件。      |
 ## 问题及注意事项
 - **多文件上传**： 如果你需要一次上传多个文件，将参数改为数组或列表即可： `public String upload(@RequestParam("files") MultipartFile[] files)`
     
@@ -564,3 +564,30 @@ public User getUserById(Long id) {
     
 - **安全性**： 务必校验文件后缀名和文件头（Magic Number），防止用户上传恶意的 `.exe` 或 `.sh` 脚本文件。
 
+## 存储在本地
+```Java
+	@PostMapping("/upload")  
+	public Result upload(String name, Integer age, MultipartFile file) throws IOException {  
+	    log.info("接收参数：{},{},{}",name,age,file);  
+	    //原始文件名  
+	    String fof = file.getOriginalFilename();  
+	    //新文件名  
+	    String extension = fof.substring(fof.lastIndexOf("."));  
+	    String newName = UUID.randomUUID() + extension;  
+	    //保存文件  
+	    file.transferTo(new File("F:/images/"+ newName));  
+	    return Result.success();  
+	}
+```
+Spring中默认上传文件最大大小为1MB，超过大小需要在配置文件中配置
+```YML
+# 文件上传
+Spring:
+	servlet:  
+	  multipart:  
+	    # 最大单个文件大小  
+	    max-file-size: 10MB  
+	    # 最大请求大小（包含所有文件和表单数据）  
+	    max-request-size: 100MB
+```
+# OSS
