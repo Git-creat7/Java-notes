@@ -535,3 +535,32 @@ public User getUserById(Long id) {
 
 ---
 # 文件上传
+# MultipartFile
+`MultipartFile` 是处理文件上传的核心接口。它代表了 HTML 表单中 `multipart/form-data` 类型的文件内容。
+```Java
+	@PostMapping("/upload")  
+	public Result upload(String name, Integer age, MultipartFile file){  
+	    log.info("接收参数：{},{},{}",name,age,file);  
+	    return Result.success();  
+	}
+```
+
+|**方法**|**说明**|
+|---|---|
+|`getName()`|获取表单中文件参数的名称（如上面例子中的 "file"）。|
+|`getOriginalFilename()`|获取客户端文件系统的原始文件名。|
+|`getContentType()`|获取内容类型（如 `image/png`）。|
+|`isEmpty()`|判断文件是否为空（没有内容或未选择文件）。|
+|`getSize()`|返回文件大小（单位：字节）。|
+|`getBytes()`|以字节数组形式读取文件内容。|
+|`getInputStream()`|获取输入流，用于流式读取（适合大文件处理）。|
+|`transferTo(File dest)`|**最常用**：将上传的文件直接保存到目标文件。|
+## 问题及注意事项
+- **多文件上传**： 如果你需要一次上传多个文件，将参数改为数组或列表即可： `public String upload(@RequestParam("files") MultipartFile[] files)`
+    
+- **文件名冲突**： 直接使用 `getOriginalFilename()` 可能导致重名覆盖。建议使用 **UUID** 或 **时间戳** 重命名文件。
+    
+- **临时存储**： `MultipartFile` 在处理时会产生临时文件（存储在操作系统的 `tmp` 目录）。一旦请求处理完成，这些临时文件会被自动删除。
+    
+- **安全性**： 务必校验文件后缀名和文件头（Magic Number），防止用户上传恶意的 `.exe` 或 `.sh` 脚本文件。
+
