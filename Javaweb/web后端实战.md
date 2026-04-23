@@ -614,12 +614,15 @@ aliyun:
 public  class AliyunOSSOperator {  
     @Autowired  
     private AliyunOSSProperties aliyunOSSProperties;  
-  
-    private final String endpoint = aliyunOSSProperties.getEndpoint();  
-    private final String bucketName = aliyunOSSProperties.getBucketName();  
-    private final String region = aliyunOSSProperties.getRegion();
-    
-    ......
+	
+	
+	public String upload(byte[] content, String originalFilename) throws ClientException {
+	    String endpoint = aliyunOSSProperties.getEndpoint();  
+	    String bucketName = aliyunOSSProperties.getBucketName();  
+	    String region = aliyunOSSProperties.getRegion();
+	    
+	    ......
+    }
 }
 ```
 ```Java
