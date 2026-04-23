@@ -609,3 +609,28 @@ aliyun:
     region: cn-beijing
 ```
 ## 批量注入值@ConfigurationProperties
+```Java
+@Component  
+public  class AliyunOSSOperator {  
+    @Autowired  
+    private AliyunOSSProperties aliyunOSSProperties;  
+  
+    private final String endpoint = aliyunOSSProperties.getEndpoint();  
+    private final String bucketName = aliyunOSSProperties.getBucketName();  
+    private final String region = aliyunOSSProperties.getRegion();
+    
+    ......
+}
+```
+```Java
+@Data  
+@Component  
+@ConfigurationProperties(prefix = "aliyun.oss")  
+public class AliyunOSSProperties {  
+    private String endpoint;  
+    private String bucketName;  
+    private String region;  
+}
+```
+
+
