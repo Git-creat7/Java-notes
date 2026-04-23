@@ -591,3 +591,21 @@ Spring:
 	    max-request-size: 100MB
 ```
 # OSS
+```Java
+@Value("${aliyun.oss.endpoint}")  
+private String endpoint;  
+@Value("${aliyun.oss.bucketName}")  
+private String bucketName;  
+@Value("${aliyun.oss.region}")  
+private String region;
+```
+
+```YML
+# 阿里云 OSS配置  
+aliyun:  
+  oss:  
+    endpoint: https://oss-cn-beijing.aliyuncs.com  
+    bucketName: creat-spring-oss  
+    region: cn-beijing
+```
+## 批量注入值@ConfigurationProperties
