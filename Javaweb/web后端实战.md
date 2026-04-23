@@ -493,6 +493,25 @@ public class EmpServiceImpl implements EmpService {
 | NEVER            | 必须没事务，否则抛异常                        |
 
 ### readOnly
+```Java
+@Transactional(readOnly = true)
+public User getUserById(Long id) {
+    return userRepository.findById(id);
+}
+```
+
+- **作用**：告诉数据库这是一个只读事务。
+    
+- **好处**：数据库可以针对只读操作进行优化（例如在 MySQL 中不分配回滚段），提高查询效率
+
+|**维度**|**说明**|
+|---|---|
+|**它能防止修改吗？**|**不一定**。这取决于数据库和驱动。虽然 Hibernate 会跳过脏检查，但如果你在只读事务中强行执行原生 SQL 的 `UPDATE`，某些数据库可能仍然允许执行（虽然这会导致语义混乱）。|
+|**主从架构（Read/Write Splitting）**|这是 `readOnly` 的**关键应用场景**。通过 AOP 拦截 `readOnly=true` 的方法，可以将请求路由到从库（Read Node），而将其他的路由到主库。|
+|**性能损耗**|虽然它能优化内存，但开启事务本身也是有开销的（获取连接、上下文切换）。对于极其简单的单条查询，有时不加 `@Transactional` 反而更快。|
+
+---
+
 ## 失效场景
 1. **非 public 方法**：`@Transactional` 只能用于 `public` 方法。
     
@@ -501,6 +520,8 @@ public class EmpServiceImpl implements EmpService {
 3. **异常被捕获**：如果你在代码里 `try...catch` 了异常且没有抛出，Spring 无法感知到报错，就不会回滚。
     
 4. **数据库不支持**：比如 MySQL 的 MyISAM 引擎不支持事务，必须使用 **InnoDB**。
+
+---
 ## ⭐Tips
 - **加在 Service 层**：不要加在 Controller 层，确保业务逻辑的完整性。
     
@@ -511,3 +532,6 @@ public class EmpServiceImpl implements EmpService {
 >`@Transactional` 可以加在**方法上、类上、接口**上
 > ※ 推荐加在方法上 ※
 
+
+---
+# 文件上传
