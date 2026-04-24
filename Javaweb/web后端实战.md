@@ -125,7 +125,32 @@ public interface DeptMapper{
 | **传输压力**    | 较大 (存在冗余字段)          | 小 (按需取数据)            |
 | **缓存灵活性**   | 差                    | 好                    |
 
-
+```XML
+<!--自定义结果集-->  
+<resultMap id="empResultMap" type="asia.creat.pojo.Emp">  
+    <id column="id" property="id" />  
+    <result column="username" property="username" />  
+    <result column="name" property="name" />  
+    <result column="gender" property="gender" />  
+    <result column="phone" property="phone" />  
+    <result column="job" property="job" />  
+    <result column="salary" property="salary" />  
+    <result column="image" property="image" />  
+    <result column="entry_date" property="entryDate" />  
+    <result column="dept_id" property="deptId" />  
+    <result column="create_time" property="createTime" />  
+    <result column="update_time" property="updateTime" />  
+    <!--封装exprList-->  
+    <collection property="exprList" ofType="asia.creat.pojo.EmpExpr">  
+        <id column="ee_Id" property="id"/>  
+        <result column="ee_company" property="company"/>  
+        <result column="ee_job" property="job"/>  
+        <result column="ee_begin" property="begin"/>  
+        <result column="ee_end" property="end"/>  
+        <result column="ee_emp_id" property="empId"/>  
+    </collection>
+</resultMap>
+```
 ---
 # Nginx
 ```nginx
