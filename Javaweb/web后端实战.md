@@ -103,7 +103,7 @@ public interface DeptMapper{
 ---
 ### 使用 ResultMap (最强大、最灵活)
 
-如果你的命名完全不规则（比如数据库叫 `d_n`，实体类叫 `deptName`），或者需要处理复杂的关联查询，就需要手动定义映射规则。
+如果命名完全不规则（比如数据库叫 `d_n`，实体类叫 `deptName`），或者需要处理复杂的关联查询，就需要手动定义映射规则。
 
 在 Mapper 的 XML 文件中定义 `<resultMap>`：
 ```XML
@@ -118,6 +118,13 @@ public interface DeptMapper{
 	</select>
 ```
 
+| **维度**      | **ResultMap (Join)** | **分开查询 (Service组装)** |
+| ----------- | -------------------- | -------------------- |
+| **开发效率**    | 高 (MyBatis 自动化)      | 中 (需要写 Java 逻辑)      |
+| **SQL 复杂度** | 高 (涉及多表关联)           | 低 (全是单表操作)           |
+| **传输压力**    | 较大 (存在冗余字段)          | 小 (按需取数据)            |
+| **缓存灵活性**   | 差                    | 好                    |
+
 
 ---
 # Nginx
@@ -125,10 +132,11 @@ public interface DeptMapper{
 server{
 	listen 90;
 	# 省略......
+	# ......
 	location ^~ /api/{
 		# 只要URL 是以 /api/ 开头的请求
 		rewrite ^~/api/(.*)$ /$1 break;
-		proxy_pass http://localhost:8080; #代理转发
+		proxy_pass http://localhost:8080; # 代理转发
 	}
 }
 ```
