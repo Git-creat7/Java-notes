@@ -678,3 +678,39 @@ public class AliyunOSSProperties {
 
 ---
 # 全局异常处理器
+
+无论程序在哪里抛出了异常，都能被这个处理器统一拦截，并返回一个优雅、格式统一的错误信息给前端或客户端
+## 核心流程：
+
+1. **异常发生**：Controller 或 Service 层抛出一个异常（如 `UserNotFoundException`）。
+    
+2. **自动捕获**：Spring 发现该异常未被内部 `try-catch`，于是将其向上抛给全局处理器。
+    
+3. **匹配处理**：处理器根据异常类型找到对应的处理方法。
+    
+4. **返回结果**：处理器将异常包装成一个通用的 `Result` 对象（包含错误码、错误消息），转换成 JSON 返回。
+```Java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    // 处理自定义业务异常
+    @ExceptionHandler(BusinessException.class)
+    public Result handleBusinessException(BusinessException e) {
+        return Result.error(e.getCode(), e.getMessage());
+    }
+
+    // 处理参数验证异常 (如 @Valid 校验失败)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result handleValidationException(MethodArgumentNotValidException e) {
+        String msg = e.getBindingResult().getFieldError().getDefaultMessage();
+        return Result.error(400, msg);
+    }
+
+    // 兜底：处理所有未知的运行异常
+    @ExceptionHandler(Exception.class)
+    public Result handleException(Exception e) {
+        log.error("系统崩溃了，救命！", e); 
+        return Result.error(500, "服务器开小差了，请稍后再试");
+    }
+}
+```
