@@ -716,5 +716,23 @@ public class GlobalExceptionHandler {
         log.error("系统崩溃了，救命！", e); 
         return Result.error(500, "服务器开小差了，请稍后再试");
     }
+    ---------------------
+	@ExceptionHandler  
+	public Result handleException(Exception e) {  
+	    log.error("发生异常: ", e);  
+	    return Result.error("服务器发生异常，请稍后再试");  
+	}  
+	@ExceptionHandler  
+	public Result handleDuplicateKeyException(DuplicateKeyException e) {  
+	    log.error("发生异常: ", e);  
+	    String msg = e.getMessage();  
+	    int i = msg.indexOf("Duplicate entry");  
+	    String errMsg = msg.substring(i);  
+	    String[] arr = errMsg.split(" ");  
+	  
+	    return Result.error("'" + arr[2] + "' 已存在，请检查数据");  
+	}
 }
 ```
+
+---
