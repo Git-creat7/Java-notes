@@ -680,6 +680,10 @@ public class AliyunOSSProperties {
 # 全局异常处理器
 
 无论程序在哪里抛出了异常，都能被这个处理器统一拦截，并返回一个优雅、格式统一的错误信息给前端或客户端
+## 注解
+- **`@RestControllerAdvice`**：标记这是一个增强版的控制器，专门处理全局层面的逻辑。
+    
+- **`@ExceptionHandler`**：指定具体的异常类型，当这种异常发生时，执行对应的方法。
 ## 核心流程：
 
 1. **异常发生**：Controller 或 Service 层抛出一个异常（如 `UserNotFoundException`）。
