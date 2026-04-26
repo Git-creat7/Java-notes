@@ -681,7 +681,7 @@ public class AliyunOSSProperties {
 
 无论程序在哪里抛出了异常，都能被这个处理器统一拦截，并返回一个优雅、格式统一的错误信息给前端或客户端
 ## 注解
-- **`@RestControllerAdvice`**：标记这是一个增强版的控制器，专门处理全局层面的逻辑。
+- **`@RestControllerAdvice`**：标记这是一个增强版的控制器，专门处理全局层面的逻辑`(@ControllerAdvice + @ResponseBody)`。
     
 - **`@ExceptionHandler`**：指定具体的异常类型，当这种异常发生时，执行对应的方法。
 ## 核心流程：
@@ -694,7 +694,7 @@ public class AliyunOSSProperties {
     
 4. **返回结果**：处理器将异常包装成一个通用的 `Result` 对象（包含错误码、错误消息），转换成 JSON 返回。
 ```Java
-@RestControllerAdvice
+@RestControllerAdvice // = @ControllerAdvice + @ResponseBody
 public class GlobalExceptionHandler {
 
     // 处理自定义业务异常
