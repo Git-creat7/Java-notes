@@ -7,7 +7,7 @@ categories = ["JavaWeb"]
 +++
 
 > 本文更新于 2026-04-16
-
+<video class="" autoplay="" playsinline="true" x5-playsinline="true" webkit-playsinline="true" mediatype="video" data-index="-1" crossorigin="anonymous" disablepictureinpicture="true" data-xgplayerid="e77fb8c2-e961-4265-984f-cd22b202b232" src="blob:https://www.douyin.com/9020d2e3-8ae2-4f5c-8fd9-b54ad92ae0ff"></video>
 # Restful
 REST(REpresentational state Transfer)，表述性状态转换，它是一种软件架构风格。
 ❗它并不是一种标准或协议，而是一组设计原则，旨在让网络服务更加简洁、高效且易于扩展。
