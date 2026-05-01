@@ -736,3 +736,13 @@ public class GlobalExceptionHandler {
 ```
 
 ---
+# 注意事项
+## @PathVariable与@RequestParam
+
+| **方式**    | 前端URL               | 后端请求                       | **什么时候用？**    |
+| --------- | ------------------- | -------------------------- | ------------- |
+| **精准定位**  | `/clazzs/5`         | `/{id}` + `@PathVariable`  | **删除单个 ID**   |
+| **带清单操作** | `/clazzs?ids=1,2,3` | `(无路径)` + `@RequestParam`  | **批量删除**      |
+| **路径串烧**  | `/clazzs/1,2,3`     | `/{ids}` + `@PathVariable` | 极少用，除非有特殊设计需求 |
+
+---
