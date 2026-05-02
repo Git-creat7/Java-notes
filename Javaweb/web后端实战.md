@@ -885,7 +885,36 @@ Session 的核心在于服务器与浏览器之间的一个“约定”。
     
 3. **绿色部分 (zzzzz):** 签名，由前两部分加盐哈希而成
 ### JWR生成/解析
-
+```Java
+private static final String SECRET = "基于base64的字符串（字节数必须大于32）";  
+private static final SecretKey KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+  
+@Test  
+public void testGenerateJwt() {  
+    Map<String, Object> dataMap = new HashMap<>();  
+    dataMap.put("userId", 1);  
+    dataMap.put("username", "admin");  
+  
+    String token = Jwts.builder()  
+            .claims(dataMap)  
+            .expiration(new Date(System.currentTimeMillis() + 3600 * 1000))  
+            .signWith(KEY)  
+            .compact();  
+  
+    System.out.println(token);  
+}  
+  
+@Test  
+public void testParseJwt() {  
+    String token = "JWT得到的Token";  
+    Claims claims = Jwts.parser()  
+            .verifyWith(KEY)  
+            .build()  
+            .parseSignedClaims(token)  
+            .getPayload();  
+    System.out.println(claims);  
+}
+```
 
 
 ---
