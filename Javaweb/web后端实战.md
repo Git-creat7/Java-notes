@@ -736,6 +736,12 @@ public class GlobalExceptionHandler {
 ```
 
 ---
+# 会话技术
+
+
+
+---
+
 # 注意事项
 ## @PathVariable与@RequestParam
 
