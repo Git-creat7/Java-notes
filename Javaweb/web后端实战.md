@@ -767,19 +767,23 @@ public class GlobalExceptionHandler {
     
     - **原则**：绝不在 Cookie 中存储密码、身份证号等敏感数据。
         
-    - **建议**：仅存储加密后的 Token，并设置 `HttpOnly` 属性以防止 JS 脚本读取。
+    - **方案**：仅存储加密后的 Token，并设置 `HttpOnly` 属性以防止 JS 脚本读取。
         
 - **移动端开发**：
     
     - **痛点**：部分原生 App 内置浏览器或某些移动端环境对 Cookie 支持不佳。
         
-    - **建议**：在移动端或前后端分离架构中，优先考虑使用 **JWT (JSON Web Token)** 并通过自定义 Header 传输。
+    - **方案**：在移动端或前后端分离架构中，优先考虑使用 **JWT (JSON Web Token)** 并通过自定义 Header 传输。
         
 - **分布式/集群环境**：
     
     - **痛点**：多台服务器之间无法直接共享保存在各自内存或浏览器关联的传统 Session。
         
     - **方案**：采用 **分布式会话**（如 `Spring Session + Redis`），将状态数据统一托管在外部缓存中。
+
+---
+
+# Session
 
 ---
 
