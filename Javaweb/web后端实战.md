@@ -966,9 +966,56 @@ public void testParseJwt() {
 2. **放行（传递）**：调用 `chain.doFilter(request, response)`。如果有下一个过滤器，就传给下一个；如果没有，就传给 Servlet（或 Controller）。
     
 3. **执行后处理**：当核心业务处理完返回响应时，代码会回到 `chain.doFilter()` 之后，执行后续逻辑。
+## 执行顺序
 
+$$Filter \rightarrow Controller \rightarrow Service \rightarrow Mapper \rightarrow DB$$
 
+$$\uparrow \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \downarrow$$
 
+$$Filter(回程) \leftarrow Controller \leftarrow Service \leftarrow Mapper$$
+```Java
+		[浏览器请求]
+		    │
+		    ▼
+		┌────── Filter (去程：校验Token、记录时间) ──────┐
+		│   │                                       │
+		│   ▼                                       │
+		│ ┌──── Controller (解析请求、参数校验) ────┐ │
+		│ │   │                                 │ │
+		│ │   ▼                                 │ │
+		│ │ ┌── Service (业务逻辑处理) ────────┐ │ │
+		│ │ │   │                           │ │ │
+		│ │ │   ▼                           │ │ │
+		│ │ │ ┌ Mapper (SQL执行) ──┐        │ │ │
+		│ │ │ │   │                │        │ │ │
+		│ │ │ │   ▼                │        │ │ │
+		│ │ │ │ [ 数据库 DB ] <────┘        │ │ │
+		│ │ │ │   │ (返回结果)               │ │ │
+		│ │ │ └────────────────────────────┘ │ │
+		│ │ │   │                           │ │ │
+		│ │ └── Service (业务结果组装) ────────┘ │ │
+		│ │   │                                 │ │
+		│ └──── Controller (封装结果对象) ─────────┘ │
+		│   │                                       │
+		└────── Filter (回程：清理ThreadLocal、日志打印) ┘
+		    │
+		    ▼
+		[返回响应]
+//-- 这种图强调了 Filter 是最外层，它包裹着所有的内部组件：--
+		( ( ( ( [ 数据库 DB ] ) ) ) )
+      ▲   ▲   ▲   ▲     ▲   ▼   ▼   ▼   ▼     ▼
+      │   │   │   └─────┴───┘   │   │   │     │
+      │   │   └──── Mapper ─────┘   │   │     │
+      │   └─────── Service ─────────┘   │     │
+      └────────── Controller ───────────┘     │
+      └───────────── Filter ──────────────────┘
+    [请求进入]                           [响应返回]
+```
+**去程：** `Client` $\rightarrow$ `Filter` $\rightarrow$ `Controller` $\rightarrow$ `Service` $\rightarrow$ `Mapper` $\rightarrow$ `DB`
+
+**核心：** 数据库执行查询/更新
+
+**回程：** `DB` $\rightarrow$ `Mapper` $\rightarrow$ `Service` $\rightarrow$ `Controller` $\rightarrow$ `Filter` $\rightarrow$ `Client`
 
 
 
