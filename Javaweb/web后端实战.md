@@ -738,6 +738,17 @@ public class GlobalExceptionHandler {
 ---
 # 会话技术
 
+## COOKIE
+### 工作流程
+
+	Cookie 的本质是通过 HTTP 响应头和请求头在外部交换数据：
+
+1. **设置阶段**：服务器在响应（Response）中加入 `Set-Cookie` 头部字段。
+    
+2. **存储阶段**：浏览器收到响应后，将 Cookie 内容保存在本地（内存或硬盘）。
+    
+3. **携带阶段**：下次请求同一个域名时，浏览器会自动在请求（Request）头中加入 `Cookie` 字段。
+
 
 
 ---
