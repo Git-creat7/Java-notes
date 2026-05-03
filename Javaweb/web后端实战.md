@@ -1063,7 +1063,63 @@ public void doFilter(Request req, Response res, FilterChain chain) {
 }
 ```
 
+# 拦截器
 
+## 执行流程
+
+拦截器将请求处理生命周期拆分成了三个关键的时间点：
+
+1. **`preHandle` (前置处理)**：在控制器（Controller）方法执行**之前**调用。返回值是布尔值，若为 `false`，请求将被拦截并直接返回。
+    
+2. **`postHandle` (后置处理)**：在控制器方法执行**之后**、视图渲染**之前**调用。此时可以修改返回的 `ModelAndView`。
+    
+3. **`afterCompletion` (最终处理)**：在**整个请求处理完成**（包括视图渲染和异常处理）之后调用。通常用于清理资源（如 ThreadLocal 等）。
+
+|**特性**|**过滤器 (Filter)**|**拦截器 (Interceptor)**|
+|---|---|---|
+|**定义标准**|Servlet 标准（Java EE/Jakarta）|Spring 框架标准|
+|**所属容器**|Servlet 容器 (如 Tomcat)|Spring 容器 (ApplicationContext)|
+|**拦截范围**|可以拦截**所有**请求（静态资源、Servlet 等）|通常只拦截 **Controller** 的请求|
+|**注入能力**|较难直接注入 Spring 管理的 Bean|**非常方便**地通过 `@Autowired` 注入 Service|
+|**精细度**|只能在请求前后处理，无法感知方法信息|可以通过 `HandlerMethod` 获取当前要执行的方法、注解等|、
+
+
+## 整体执行顺序（洋葱模型）
+
+在 Spring Boot 应用中，请求会像剥洋葱一样逐层进入，再逐层退出：
+
+1. **Client Request**
+    
+2. **Filter (DoFilter 前置)**
+    
+3. **Servlet (DispatcherServlet)**
+    
+4. **Interceptor (PreHandle)**
+    
+5. **Controller (业务逻辑处理)**
+    
+6. **Interceptor (PostHandle)**
+    
+7. **Interceptor (AfterCompletion)**
+    
+8. **Filter (DoFilter 后置)**
+    
+9. **Client Response**
+
+## 过滤器与拦截器
+- **选过滤器 (Filter)：**
+    
+    - **通用处理**：设置字符编码、跨域配置（CORS）。
+        
+    - **前置处理**：需要在请求到达 Spring 容器之前处理（如敏感词过滤、全局日志）。
+        
+- **选拦截器 (Interceptor)：**
+    
+    - **业务权限**：根据特定业务逻辑判断权限（如：检查当前用户是否有权访问该接口）。
+        
+    - **注解驱动**：根据控制器方法上的注解（如自定义的 `@RequiredLogin`）来决定拦截策略。
+        
+    - **上下文交互**：需要把解析出的用户信息放入 Request 域供后续 Controller 直接使用。
 ---
 ---页尾---
 
