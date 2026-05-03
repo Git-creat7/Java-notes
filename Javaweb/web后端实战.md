@@ -1120,6 +1120,66 @@ public void doFilter(Request req, Response res, FilterChain chain) {
     - **注解驱动**：根据控制器方法上的注解（如自定义的 `@RequiredLogin`）来决定拦截策略。
         
     - **上下文交互**：需要把解析出的用户信息放入 Request 域供后续 Controller 直接使用。
+## 拦截路径
+在配置类中，可以
+- 通过 `addPathPatterns` 指定拦截路径，
+- 通过 `excludePathPatterns` 排除不需要拦截的路径（如登录页、静态资源）。
+```Java
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private LoginInterceptor loginInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor)
+                .addPathPatterns("/**")                // 拦截所有请求
+                .excludePathPatterns("/user/login")    // 排除登录接口
+                .excludePathPatterns("/user/register") // 排除注册接口
+                .excludePathPatterns("/static/**");    // 排除静态资源
+    }
+}
+```
+### 路径匹配规则
+| **通配符** | **描述**              | **示例**     | **匹配结果**                               |
+| ------- | ------------------- | ---------- | -------------------------------------- |
+| `?`     | 匹配一个字符              | `/admin/?` | 匹配 `/admin/a`，不匹配 `/admin/ab`          |
+| `*`     | 匹配**一层**路径中的零个或多个字符 | `/api/*`   | 匹配 `/api/user`，不匹配 `/api/user/1`       |
+| `**`    | 匹配**多层**路径（递归匹配）    | `/api/**`  | 匹配 `/api/user` 和 `/api/user/details/1` |
+### 多个拦截器的执行顺序
+
+如果配置了多个拦截器，它们的执行顺序取决于 `addInterceptor` 的**注册顺序**。
+
+- **前置处理 (`preHandle`)**：按注册顺序执行（$I_1 \to I_2 \to I_3$）。
+    
+- **最终处理 (`afterCompletion`)**：按注册顺序的反序执行（$I_3 \to I_2 \to I_1$）。
+    
+- 可以使用 `.order(int)` 手动指定优先级，数值越小优先级越高。
+
+## 进阶：基于注解的“动态”拦截
+
+有时候路径配置太死板，你可能想只拦截带有某个特定注解的方法。
+
+1. **路径配置**：拦截所有业务请求 `registry.addPathPatterns("/api/**")`。
+    
+2. **逻辑判断**：在拦截器的 `preHandle` 方法中利用反射获取注解
+```Java
+@Override
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    if (handler instanceof HandlerMethod) {
+        HandlerMethod hm = (HandlerMethod) handler;
+        // 检查方法上是否有 @CheckAuth 注解
+        CheckAuth auth = hm.getMethodAnnotation(CheckAuth.class);
+        if (auth == null) {
+            return true; // 没有注解，直接放行
+        }
+        // 逻辑处理...
+    }
+    return true;
+}
+```
+
 ---
 ---页尾---
 
