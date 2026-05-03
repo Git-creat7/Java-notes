@@ -9,6 +9,7 @@ categories = ["JavaWeb"]
 > 本文更新于 2026-05-03
 
 ---
+**AOP（Aspect Oriented Programming，面向切面编程）**
 ![场景：计算程序运行耗时](img/SpringAOP-1.png)
 AOP是一种思想，SpringAOP把设个思想实现了
 AOP 的核心思想是：将那些与业务无关，却为业务模块所共同调用的逻辑（如日志、事务、权限、缓存）封装起来，形成一个“切面”。
