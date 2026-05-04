@@ -347,3 +347,10 @@ public class LogAspect {
 在Spring中用JoinPoint抽象了连接点，用它可以获得方法执行时的相关信息，如目标类名、方法名、方法参数等
 - 对于 @Around 通知，获取连接点信息只能使用 ProceedingJoinPoint
 - 对于其它四种通知，获取连接点信息只能使用 JoinPoint，它是 ProceedingJoinPoint 的父类型
+
+连接点是程序执行过程中的一个**点**。在 Spring 中，这个点就是**方法的调用**。
+
+- **每一个方法都是一个连接点**： `UserService` 里有 10 个方法，这 10 个方法都是潜在的连接点。
+    
+- **它是动态的**：只有当代码运行到那个方法时，连接点才真正“激活”
+
