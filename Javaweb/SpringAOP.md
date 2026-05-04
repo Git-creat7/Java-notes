@@ -376,6 +376,40 @@ public class LogAspect {
 | **`get()`**                 | 获取当前线程中存储的局部变量值。            |
 | **`remove()`**              | **（非常重要）** 移除当前线程的值，防止内存泄漏。 |
 | **`withInitial(Supplier)`** | 初始化方法，在第一次 get 时若为空则执行。     |
+### Set方法原理
+```Java
+  public void set(T value) {                                                                           
+      Thread t = Thread.currentThread();// 1. 获取当前线程
+      ThreadLocalMap map = getMap(t); // 2. 获取该线程的容器                          
+      if (map != null) {        // 3. 容器存在，直接存
+          map.set(this, value);
+      } else {
+          createMap(t, value);  // 4. 容器不存在，创建并存
+      }
+  }
+```
+
+ ```Java
+  核心原理：
+
+  每个Thread内部有一个 ThreadLocalMap
+  ┌─────────────────────────────────────┐
+  │  ThreadLocalMap (每个线程独有)        │
+  │  ┌────────────┬──────┐              │
+  │  │ ThreadLocal│ Value│              │
+  │  ├────────────┼──────┤              │
+  │  │ BaseContext│  5   │  ← 用户ID     │
+  │  │ tlias      │  "xx"│              │
+  │  └────────────┴──────┘              │
+  └─────────────────────────────────────┘
+ ```
+
+  **关键点：**
+  - Thread t = Thread.currentThread() - 始终操作当前线程的存储区
+  - 不同线程访问同一个 ThreadLocal，获取的是各自线程的数据
+  - 线程A存入的值，线程B访问不到 → 线程隔离
+
+
 ## 为什么需要 ThreadLocal？
 
 ### 处理线程不安全的对象
@@ -394,3 +428,16 @@ public class LogAspect {
 - **用户信息传递**：在拦截器（Interceptor）中解析出当前登录的用户，存入 `ThreadLocal`。
     
 - **后续获取**：在 Service 层、Mapper 层甚至工具类里，直接通过 `ThreadLocal.get()` 拿到用户信息，而不需要在每个方法参数里都传一个 `User` 对象
+
+## 内存泄漏
+
+这是 ThreadLocal 被诟病最多的地方
+
+- **原因**：`ThreadLocalMap` 的 Entry 中，**Key（ThreadLocal）是弱引用**，但 **Value 是强引用**。
+    
+- **后果**：如果 ThreadLocal 对象被回收了，Key 变成了 `null`，但 Value 还在。由于线程池中的线程是复用的（生命周期很长），这个 Value 就会一直存在于内存中，无法被 GC 回收。
+    
+- **解决方案**：在使用完之后，**务必手动调用 `remove()` 方法** 
+
+---
+
