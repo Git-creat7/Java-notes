@@ -407,7 +407,7 @@ algorithm-oj (父工程，打包方式为 pom)
 
 父工程通常不含逻辑代码，其 `pom.xml` 是整个项目的“指挥中心”。
 ```XML
-<groupId>com.cre7</groupId>
+<groupId>com.creat</groupId>
 <artifactId>algorithm-oj</artifactId>
 <version>1.0-SNAPSHOT</version>
 <!-- 1. 打包方式必须是 pom -->
@@ -432,7 +432,7 @@ algorithm-oj (父工程，打包方式为 pom)
 子工程通过 `<parent>` 标签建立继承关系。
 ```XML
 <parent>
-    <groupId>com.cre7</groupId>
+    <groupId>com.creat</groupId>
     <artifactId>algorithm-oj</artifactId>
     <version>1.0-SNAPSHOT</version>
 </parent>
@@ -447,3 +447,14 @@ algorithm-oj (父工程，打包方式为 pom)
     </dependency>
 </dependencies>
 ```
+
+
+在 Maven 项目中，`<packaging>` 标签定义了项目的**打包方式**。这不仅决定了项目最终生成什么格式的文件，还决定了 Maven 构建生命周期的执行行为
+
+|**维度**|**POM**|**JAR**|**WAR**|
+|---|---|---|---|
+|**产出物**|无（仅 pom 配置）|`.jar` 文件|`.war` 文件|
+|**包含内容**|配置信息、子模块列表|字节码、配置文件|字节码、配置文件、静态资源、第三方库|
+|**运行方式**|无法直接运行|`java -jar` 或被引用|部署在外部容器（Tomcat等）|
+|**主要功能**|依赖管理与聚合|封装模块、类库、微服务|传统 Java Web 应用发布|
+|**项目层级**|通常作为 **顶级父工程**|通常作为 **功能子模块**|通常作为 **Web 展现层模块**|
