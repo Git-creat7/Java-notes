@@ -69,3 +69,7 @@ public class SpringbootAopQuickstartApplication {...}
 | **关系**   | **是被筛选的对象**                  | **是筛选工具**           |
 | **在代码中** | 表现为 `JoinPoint` 对象，用于获取运行时信息 | 表现为 `@Pointcut` 表达式 |
 | **理解**   | 可选择的对象                       | 选择后的对象              |
+### 执行流程：动态代理
+![](img/SpringAOP-2.png)
+
+
