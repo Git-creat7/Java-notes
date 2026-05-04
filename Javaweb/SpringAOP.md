@@ -183,3 +183,72 @@ Spring 采用的是**递归**的方式来执行这个链条。
 >[!NOTE]
 >`@Around`环绕通知**需要**自己调用 `Proceeding]oinPoint.proceed()`来让原始方法执行
 >其他通知**不需要**考虑目标方法执行
+
+```Java
+	//前置通知 - 在目标方法运行之前运行  
+	@Before("execution(* com.itheima.service.impl.*.*(..))")  
+	public void before(){  
+	    log.info("前置通知");  
+	}  
+	  
+	//环绕通知 - 在目标方法运行之前和之后都运行  
+	@Around("execution(* com.itheima.service.impl.*.*(..))")  
+	public Object around(ProceedingJoinPoint pjp) throws Throwable {  
+	    log.info("环绕通知-前");  
+	  
+	    Object result = pjp.proceed();  
+	  
+	    log.info("环绕通知-后");  
+	    return result;  
+	}  
+	//后置通知 - 在目标方法运行之后运行  
+	@After("execution(* com.itheima.service.impl.*.*(..))")  
+	public void after(){  
+	    log.info("后置通知");  
+	}  
+	  
+
+两者互排斥-------------
+|	//返回后通知 - 目标方法运行之后运行，出现异常不会运行  
+|	@AfterReturning("execution(* com.itheima.service.impl.*.*(..))")  
+|	public Object afterReturning(ProceedingJoinPoint pjp) throws Throwable {  
+|	    log.info("返回后通知");  
+|	    return pjp.proceed();  
+|	}  
+|	  
+|	//异常后通知 - 只有目标方法抛出异常时执行  
+|	@AfterThrowing("execution(* com.itheima.service.impl.*.*(..))")  
+|	public void afterThrowing() {  
+|	    log.info("异常后通知");  
+|	}
+----------------------
+未出现异常：
+/*  
+    环绕通知-前  
+    前置通知  
+    list()方法运行时间: 927ms  
+    返回后通知  
+    后置通知    
+    环绕通知-后  
+*/
+出现异常：
+/*
+    环绕通知-前  
+    前置通知    
+    异常后通知  
+	后置通知  
+*/
+```
+### @PointCut
+- 该注解的作用是将公共的切点表达式抽取出来，需要用到时引用该切点表达式即可
+```Java
+	@Pointcut("execution(* com.itheima.service.impl.*.*(..))")  
+	private void pt1(){}  
+	public void pt2(){}  //可以在别的AOP类使用
+	
+	//前置通知 - 在目标方法运行之前运行  
+	@Before("pt1()")  
+	public void before(){  
+	    log.info("前置通知");  
+	}
+```
