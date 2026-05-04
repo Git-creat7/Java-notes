@@ -280,6 +280,10 @@ Spring 采用的是**递归**的方式来执行这个链条。
 - **在包名位置**：`*` 表示匹配**一层**包名。
     
 - **在方法名位置**：`*` 表示匹配方法名中连续的字符。
+	- `dele*`：表示`dele`开头的方法
+	- `*e`：表示以`e`结尾的方法
+	
+- **在参数列表位置**：`*`表示匹配**单个**任意形参
 
 ##### 通配符 `..`(匹配任意深度/数量)
 
@@ -288,3 +292,51 @@ Spring 采用的是**递归**的方式来执行这个链条。
 - **在包名位置**：匹配当前包及其**所有子包**（无限深度）。
     
 - **在参数列表位置**：匹配**任意数量、任意类型**的参数（包括零个参数）。
+>[!NOTE]
+>另外，`execution`也可以**通过接口匹配实现类**
+>而且，`execution`可以使用逻辑运算符(`||,&&,!`)
+
+#### `@annotation`
+`@annotation` 切入点表达式，用于匹配标识有特定注解的方法
+**定义注解**
+```Java
+@Target(ElementType.METHOD) // 作用在方法上  
+@Retention(RetentionPolicy.RUNTIME) // 运行时有效  
+public @interface MyLog {  
+    String value() default ""; // 可以定义一些参数  
+}
+```
+**在业务方法使用**
+```Java
+@Service
+public class UserService {
+    @MyLog("添加用户") // 贴上标签
+    public void addUser(String name) {
+        System.out.println("执行业务逻辑...");
+    }
+}
+```
+**编写切面**
+```Java
+@Aspect
+@Component
+public class LogAspect {
+
+    // 匹配所有贴了 @MyLog 注解的方法
+    @Before("@annotation(com.creat.annotation.MyLog)")
+    public void doBefore(JoinPoint joinPoint) {
+        // 获取注解中的参数
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        MyLog annotation = signature.getMethod().getAnnotation(MyLog.class);
+        
+        System.out.println("日志描述：" + annotation.value());
+    }
+}
+```
+### 对比
+|**维度**|**execution (基于路径)**|**@annotation (基于注解)**|
+|---|---|---|
+|**控制力度**|批量拦截（比如：所有 Service）|个体拦截（比如：特定几个方法）|
+|**代码侵入**|**无侵入**（不需要改业务代码）|**有侵入**（需要手动贴注解）|
+|**维护成本**|包名变动时需同步修改表达式|随代码移动，维护成本低|
+|**适用场景**|事务管理、全局日志、监控|权限细控、特定缓存、幂等校验|
