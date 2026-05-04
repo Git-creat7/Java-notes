@@ -255,3 +255,7 @@ categories = ["JavaWeb"]
     }).mount('#container')
 </script>
 ```
+
+
+# Vue工程化
+**Vue 工程化**是指通过一系列工具和技术栈，将 Vue 项目从传统的“面条式代码”转变为标准化、规模化、自动化的现代前端开发模式
