@@ -361,3 +361,36 @@ public class LogAspect {
 |**`getTarget()`**|获取**被代理的目标对象**|拿到原始的 `UserService` 实例|
 |**`getThis()`**|获取**代理对象本身**|拿到 Spring 生成的那个代理实例|
 
+# ThreadLocal
+在 Java 并发编程中，**ThreadLocal** 是一个非常独特的存在。它提供了一种**线程局部变量**，即：如果你创建了一个 `ThreadLocal` 变量，那么访问这个变量的每个线程都会有这个变量的一个**独立副本**。
+
+简单来说：**ThreadLocal 实现了线程间的数据隔离**
+
+- 每个 **Thread（线程）** 内部都持有一个名为 **`threadLocals`** 的成员变量，其类型是 `ThreadLocalMap`。
+    
+- 这个 `ThreadLocalMap` 的 **Key 是 ThreadLocal 对象本身**，**Value 是真正要存储的值**、
+## 常用方法
+| **方法**                      | **说明**                      |
+| --------------------------- | --------------------------- |
+| **`set(T value)`**          | 为当前线程设置局部变量的值。              |
+| **`get()`**                 | 获取当前线程中存储的局部变量值。            |
+| **`remove()`**              | **（非常重要）** 移除当前线程的值，防止内存泄漏。 |
+| **`withInitial(Supplier)`** | 初始化方法，在第一次 get 时若为空则执行。     |
+## 为什么需要 ThreadLocal？
+
+### 处理线程不安全的对象
+
+最典型的例子是 `SimpleDateFormat`。它不是线程安全的，如果多个线程共享一个实例会报错。
+
+- **传统做法**：每次用都 `new` 一个，或者加锁（性能差）。
+    
+- **ThreadLocal 做法**：给每个线程分配一个专属的 `SimpleDateFormat` 副本，既安全又高效。
+    
+
+### 跨层传递上下文（Context）
+
+在 Spring Boot 项目中，这是最常用的场景：
+
+- **用户信息传递**：在拦截器（Interceptor）中解析出当前登录的用户，存入 `ThreadLocal`。
+    
+- **后续获取**：在 Service 层、Mapper 层甚至工具类里，直接通过 `ThreadLocal.get()` 拿到用户信息，而不需要在每个方法参数里都传一个 `User` 对象
