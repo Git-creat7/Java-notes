@@ -368,7 +368,11 @@ public class LogAspect {
 
 - 每个 **Thread（线程）** 内部都持有一个名为 **`threadLocals`** 的成员变量，其类型是 `ThreadLocalMap`。
     
-- 这个 `ThreadLocalMap` 的 **Key 是 ThreadLocal 对象本身**，**Value 是真正要存储的值**、
+- 这个 `ThreadLocalMap` 的 **Key 是 ThreadLocal 对象本身**，**Value 是真正要存储的值**
+![](img/SpringAOP-3.png)
+
+
+
 ## 常用方法
 | **方法**                      | **说明**                      |
 | --------------------------- | --------------------------- |
