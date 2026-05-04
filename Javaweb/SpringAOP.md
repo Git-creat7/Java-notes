@@ -371,7 +371,49 @@ public class LogAspect {
 - 这个 `ThreadLocalMap` 的 **Key 是 ThreadLocal 对象本身**，**Value 是真正要存储的值**
 ![](img/SpringAOP-3.png)
 
+```
+● 功能实现原理：                                                                  
+                                           
+  请求流程：                                                                      
+                                                                                  
+  1. 用户登录 → 获取token（包含用户ID）                                           
+                   ↓                                                              
+  2. 前端发送请求 → 请求头携带 token                        
+                   ↓
+  3. TokenInterceptor.preHandle()
+     ├─ 解析 token 获取用户ID
+     ├─ CurrentHolder.setCurrentId(empId) → 存入当前线程
+     └─ return true 放行
+                   ↓
+  4. Controller 处理请求
+                   ↓
+  5. OperateLogAspect.recordLog()
+     ├─ 获取类名、方法名、参数、返回值、耗时
+     └─ Integer empId = CurrentHolder.getCurrentId() → 从线程取出用户ID
+                   ↓
+  6. TokenInterceptor.afterCompletion()
+     └─ CurrentHolder.remove() → 清理ThreadLocal，防止内存泄漏
 
+  CurrentHolder 的作用：
+
+  ┌────────────────┬──────────────────────────────────────┐
+  │      方法      │                 作用                 │
+  ├────────────────┼──────────────────────────────────────┤
+  │ setCurrentId() │ 存：请求进入时，把用户ID放进当前线程 │
+  ├────────────────┼──────────────────────────────────────┤
+  │ getCurrentId() │ 取：AOP记录日志时，从线程取出用户ID  │
+  ├────────────────┼──────────────────────────────────────┤
+  │ remove()       │ 删：请求结束，防止内存泄漏           │
+  └────────────────┴──────────────────────────────────────┘
+
+  线程隔离示例：
+  线程A: CurrentHolder.setCurrentId(1)   → 线程A存的是 1
+  线程B: CurrentHolder.setCurrentId(2)   → 线程B存的是 2
+
+  线程A.getCurrentId() → 返回 1
+  线程B.getCurrentId() → 返回 2
+  （互不干扰）
+```
 
 ## 常用方法
 | **方法**                      | **说明**                      |
