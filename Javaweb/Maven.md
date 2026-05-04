@@ -514,3 +514,29 @@ algorithm-oj (父工程，打包方式为 pom)
 - 私服在架构中处于中间层
 - 当项目需要某个依赖时，寻找路径如下：
 	- **本地仓库** → **私服** → **远程中央仓库**
+## 配置
+### 设置私服的用户名密码
+```XML
+<servers>
+    <server>
+        <id>my-nexus-releases</id>
+        <username>admin</username>
+        <password>admin123</password>
+    </server>
+</servers>
+```
+### 配置上传（发布）地址
+使用 `<distributionManagement>` 标签告诉 Maven：执行 `mvn deploy` 时把包发往哪里
+```XML
+<distributionManagement>
+    <repository>
+        <id>my-nexus-releases</id> <!-- 对应 settings.xml 中的 server id -->
+        <url>http://192.168.1.100:8081/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+        <id>my-nexus-snapshots</id>
+        <url>http://192.168.1.100:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+</distributionManagement>
+```
+
