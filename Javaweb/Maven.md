@@ -362,3 +362,88 @@ Maven 的工作是有固定逻辑顺序的
 
 ---
 # 分模块设计与开发
+```Java
+algorithm-oj (父工程，打包方式为 pom)
+├── pom.xml (总控制台)
+├── oj-common (通用工具模块，如 ThreadLocal 工具类、Result 返回类)
+├── oj-model (实体类模块，POJO、DTO、VO)
+├── oj-service (业务逻辑模块)
+└── oj-web (入口模块，包含 Controller、启动类和配置文件)
+```
+## 父工程与子模块
+
+### 父工程 (Parent POM)
+
+父工程不写任何业务代码，只负责**聚合管理**和**依赖版本控制**。
+
+- **打包方式**：必须设置为 `<packaging>pom</packaging>`。
+    
+- **聚合管理**：使用 `<modules>` 标签列出所有子模块。
+    
+- **版本管理**：使用 `<dependencyManagement>` 声明依赖，这样子模块引用时就无需写版本号，确保全项目版本统一。
+    
+
+### 子模块 (Child Module)
+
+子模块专注于特定功能，并在 POM 中声明其父工程。
+
+- **继承**：使用 `<parent>` 标签指向父工程。
+    
+- **依赖**：如果模块 A 需要用到模块 B 的功能，只需在 A 的 POM 中加入 B 的坐标
+
+|**优势**|**说明**|
+|---|---|
+|**高复用性**|`oj-common` 或 `oj-model` 可以被其他项目（如管理后台、移动端 API）直接引用。|
+|**职责清晰**|开发人员可以只关注自己负责的层级（如只开发 Service 层），减少代码冲突。|
+|**构建灵活**|可以单独对某个模块进行编译、打包或测试，而不需要每次都跑全量任务。|
+|**依赖解耦**|例如 `oj-model` 只需要基础的 Lombok 依赖，不需要引入 Web 相关的 Tomcat 或 Spring MVC 依赖。|
+
+---
+# 继承与聚合
+## 继承
+在 Maven 分模块开发中，**继承（Inheritance）** 是为了消除配置重复、统一管理项目资源的核心机制。它类似于 Java 类之间的继承：子工程可以继承父工程中定义的配置、依赖和插件
+### 核心配置实现
+#### 父工程
+
+父工程通常不含逻辑代码，其 `pom.xml` 是整个项目的“指挥中心”。
+```XML
+<groupId>com.cre7</groupId>
+<artifactId>algorithm-oj</artifactId>
+<version>1.0-SNAPSHOT</version>
+<!-- 1. 打包方式必须是 pom -->
+<packaging>pom</packaging>
+
+<!-- 2. 使用 dependencyManagement 声明依赖（不实际引入） -->
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>3.0.0</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+### 子工程
+
+子工程通过 `<parent>` 标签建立继承关系。
+```XML
+<parent>
+    <groupId>com.cre7</groupId>
+    <artifactId>algorithm-oj</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</parent>
+
+<artifactId>oj-service</artifactId>
+
+<dependencies>
+    <!-- 引用父工程声明过的依赖，无需写版本号 -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
+```
