@@ -464,3 +464,25 @@ algorithm-oj (父工程，打包方式为 pom)
 |**运行方式**|无法直接运行|`java -jar` 或被引用|部署在外部容器（Tomcat等）|
 |**主要功能**|依赖管理与聚合|封装模块、类库、微服务|传统 Java Web 应用发布|
 |**项目层级**|通常作为 **顶级父工程**|通常作为 **功能子模块**|通常作为 **Web 展现层模块**|
+### 自定义属性
+```Java
+//父工程
+<properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
+    <!-- 自定义版本号变量 -->
+    <mybatis.version>3.5.11</mybatis.version>
+    <lombok.version>1.18.24</lombok.version>
+    <mysql.version>8.0.31</mysql.version>
+</properties>
+
+//引用属性（在依赖配置中）
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>${mybatis.version}</version>
+</dependency>
+```
+## 聚合
