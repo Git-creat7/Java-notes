@@ -734,52 +734,55 @@ struct stud_node *deletelist( struct stud_node *head, int min_score ){
 # 7-1 一元多项式的乘法与加法运算
 **数组映射法**
 ```C
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 
 int poly1[1001] = {0}; 
 int ans_sum[1001] = {0};
 int ans_mul[2001] = {0};
 
+// 打印多项式
 void print_poly(int arr[], int max_expon) {
-    int first = 1;
-    // 从高指数往低指数找
-    for (int i = max_expon; i >= 0; i--) {
+    bool first = true;
+    // 从高次到低次输出
+    for (int i = max_expon; i >= 0; --i) {
         if (arr[i] != 0) {
-            if (!first) printf(" ");
-            printf("%d %d", arr[i], i);
-            first = 0;
+            if (!first) cout << " ";
+            cout << arr[i] << " " << i;
+            first = false;
         }
     }
-    // 如果一个项都没有，输出 0 0
-    if (first) printf("0 0");
-    printf("\n");
+    // 空多项式输出 0 0
+    if (first) cout << "0 0";
+    cout << endl;
 }
 
 int main() {
     int n1, n2, c, e;
 
-    // 读入第一个多项式并存入加法结果
-    scanf("%d", &n1);
-    int p1_max = 0;
-    int a_c[1001], a_e[1001]; // 存一下第一个，方便后面做乘法
-    for (int i = 0; i < n1; i++) {
-        scanf("%d %d", &c, &e);
-        a_c[i] = c; a_e[i] = e;
+    // 读取第一个多项式
+    cin >> n1;
+    int a_c[1001], a_e[1001];
+    for (int i = 0; i < n1; ++i) {
+        cin >> c >> e;
+        a_c[i] = c;
+        a_e[i] = e;
         ans_sum[e] += c;
     }
 
-    // 读入第二个多项式
-    scanf("%d", &n2);
-    for (int i = 0; i < n2; i++) {
-        scanf("%d %d", &c, &e);
-        // 直接做加法合并
+    // 读取第二个多项式，同时计算加法与乘法
+    cin >> n2;
+    for (int i = 0; i < n2; ++i) {
+        cin >> c >> e;
         ans_sum[e] += c;
-        // 直接做乘法累加
-        for (int j = 0; j < n1; j++) {
+        
+        // 乘法：逐项相乘累加
+        for (int j = 0; j < n1; ++j) {
             ans_mul[e + a_e[j]] += c * a_c[j];
         }
     }
 
+    // 输出：先乘法 后加法
     print_poly(ans_mul, 2000);
     print_poly(ans_sum, 1000);
 
