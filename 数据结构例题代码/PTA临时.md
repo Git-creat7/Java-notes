@@ -951,3 +951,52 @@ int main() {
 1. **步骤一**：检查链表是否为空或只有头结点，若是则输出 `0 0`。
 2. **步骤二**：从第一个数据节点开始遍历，用 `first` 标记控制空格输出格式，逐个打印系数和指数。
 3. **步骤三**：遍历完毕换行。
+# 7-2 银行业务队列简单模拟
+```C
+#include<bits/stdc++.h>
+using namespace std;
+int main(void){
+    int n;
+    cin >> n;
+    int x;
+    queue<int>a,b;
+    for(int i=0;i<n;i++){
+        cin >> x;
+        if(x%2 & 1) a.push(x);
+        else b.push(x);
+    }
+    if(n == 1){
+        cout << x ;
+    }else{
+        x = a.front();
+		cout << x;
+		a.pop();
+		x = a.front();
+		cout << " " << x;
+		a.pop();
+        while(!a.empty() && !b.empty()){
+            //B
+            x = b.front();
+            cout << " " << x; b.pop();
+            //A
+            x = a.front();
+            cout << " " << x; a.pop();
+            if(!a.empty()){
+                x = a.front();
+                cout << " " << x; a.pop();
+            }
+        }
+        while (!a.empty()) {
+			x = a.front();
+			cout << " " << x;
+			a.pop();
+		}
+		while (!b.empty()) {
+			x = b.front();
+			cout << " " << x;
+			b.pop();
+		}  
+    }
+    return 0;
+}
+```
