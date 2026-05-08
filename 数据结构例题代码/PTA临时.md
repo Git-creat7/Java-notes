@@ -3,7 +3,7 @@ date = '2026-05-08'
 draft = false
 title = 'PTA临时'
 tags = []
-categories = ["JavaWeb"]
+categories = ["数据结构"]
 +++
 
 > 本文更新于 2026-05-08
