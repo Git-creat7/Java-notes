@@ -730,8 +730,198 @@ struct stud_node *deletelist( struct stud_node *head, int min_score ){
 6. **步骤六**：返回处理后的链表头。
 
 ---
+# 前/中/后缀表达式
+只需更换printf的位置即可
+```C
+void Prefix(BiTree T){
+    if(T){
+        printf("%c ",T->data);
+        Prefix(T->lchild);
+        //printf("%c ",T->data);
+        Prefix(T->rchild);
+        //printf("%c ",T->data);
+    }
+    return ;
+}
+```
+# 求二叉树高度
+```C
+int GetHeight( BiTree BT ){
+    if(!BT) return 0;
+    int l =GetHeight(BT->lchild);
+    int r =GetHeight(BT->rchild);
+    return (l>=r?l:r)+1;
+}
+```
+# 统计二叉树叶子结点个数
+```C
+int LeafCount ( BiTree T){
+    if(!T) return 0;
+    if(!T->lchild &&!T->rchild) return 1;
+    return LeafCount(T->lchild) + LeafCount(T->rchild);
+}
+```
+# 先序遍历输出二叉树的叶结点
+```C
+void PreorderPrintLeaves( BiTree BT ){
+    if(BT == NULL)  return;
+    if(BT->lchild == NULL && BT->rchild == NULL){
+        printf(" %c",BT->data);
+        return ;
+    }
+    PreorderPrintLeaves(BT->lchild);
+    PreorderPrintLeaves(BT->rchild);
+}
+```
+# 二叉树的节点数
+```C
+int count_n(BinTree T){
+    if(T == NULL) return 0;
+    return count_n(T->Left) + count_n(T->Right) + 1;
+}
+```
+# 二叉树的建立
+```C
+BiTree CreatBiTree(){
+    TElemType ch;
+    scanf("%c",&ch);
+    if(ch == '#') return NULL;
+    BiTree node = (BiTree)malloc(sizeof(BiTNode));
+    node->data = ch;
 
-# 7-1 一元多项式的乘法与加法运算
+    node->lchild = CreatBiTree();
+    node->rchild = CreatBiTree();
+    return node;
+}
+```
+# 二叉树的层次遍历
+```C
+void Levelorder(BiTree T) {
+    if (T == NULL) return;
+    BiTree queue[1001];
+    int head= 0;
+    int rear = 0;
+    queue[rear++] = T;
+    while(head < rear){
+        BiTree p = queue[head++];
+        printf(" %c",p->data);
+        if(p->lchild != NULL){
+            queue[rear++] = p->lchild;
+        }
+        if(p->rchild != NULL){
+            queue[rear++] = p->rchild;
+        }
+    }
+}
+```
+
+# 二叉树的非递归遍历
+```C
+ void InorderTraversal( BinTree BT ) {
+      Stack s = CreateStack();
+      while (BT || !IsEmpty(s)) {
+          while (BT) {
+              Push(s, BT);
+              BT = BT->Left;
+          }
+          BT = Pop(s);
+          printf(" %c", BT->Data);  
+          BT = BT->Right;
+      }
+  }
+void PreorderTraversal( BinTree BT ){
+    Stack s = CreateStack();
+      while (BT || !IsEmpty(s)) {
+          while (BT) {
+              printf(" %c", BT->Data); 
+              Push(s, BT);
+              BT = BT->Left;
+          }
+          BT = Pop(s);
+          BT = BT->Right;
+      }
+    
+}
+void PostorderTraversal( BinTree BT ){
+    Stack s = CreateStack();
+      while (BT || !IsEmpty(s)) {
+          while (BT) {
+              BT->flag = 0; //标记
+              Push(s, BT);
+              BT = BT->Left;
+          }
+          BT = Peek(s);
+          if(BT->flag == 0){
+              //第一次回到这个节点
+              BT->flag = 1 ;
+              BT = BT-> Right;
+          }else{
+              //第二次回到节点
+              Pop(s);
+              printf(" %c",BT->Data);
+              
+          }
+      }
+}
+```
+# 哈夫曼树的构造
+```C
+HFTree MakeHFTree(char data[], int weight[], int n){
+    if(n == 0)return NULL;
+    Heap* heap =  InitHeap(n);
+    for(int i = 0; data[i] != 0;i++){
+        HFTree node = (HFTree)malloc(sizeof(HTNode));
+        node->data = data[i];
+        node->weight = weight[i];
+        node->lchild = NULL;
+        node->rchild = NULL;
+        Insert(heap,node);
+    }
+    while(heap->size > 1){
+        HFTree node1 = DelTop(heap);
+        HFTree node2 = DelTop(heap);
+        HFTree node = (HFTree)malloc(sizeof(HTNode));
+        
+        node->data = '\0';
+        node->weight = node1->weight + node2->weight;
+        node->rchild = node1;
+        node->lchild = node2;
+
+        Insert(heap,node);
+    }
+    HFTree root = DelTop(heap);
+    return root;
+}
+```
+# 哈夫曼编码实现
+```C
+void dfs(HFTree node,char path[],int depth,char data[],char codes[][1001]){
+    if(node == NULL) return;
+    if(node->lchild == NULL && node->rchild == NULL){
+        path[depth] = '\0';//结束
+        int i;
+        for(i=0; data[i]!='\0';i++){
+            if(data[i] == node->data){
+                break;
+            }
+        }
+        strcpy(codes[i],path);
+        return ;
+    }else{
+        path[depth] = '0'; dfs(node->lchild,path,depth+1,data,codes);
+        path[depth] = '1'; dfs(node->rchild,path,depth+1,data,codes);
+    }
+}
+void Show_HFcoding(HFTree root, char data[], int n){
+    char codes[1001][1001];
+    char path[1001];
+    dfs(root,path,0,data,codes);
+    for(int i = 0;i<n;i++) printf("%c:%s\n",data[i],codes[i]);
+}
+
+```
+# 编程题
+## 7-1 一元多项式的乘法与加法运算
 **数组映射法**
 ```C
 #include <iostream>
@@ -954,7 +1144,7 @@ int main() {
 1. **步骤一**：检查链表是否为空或只有头结点，若是则输出 `0 0`。
 2. **步骤二**：从第一个数据节点开始遍历，用 `first` 标记控制空格输出格式，逐个打印系数和指数。
 3. **步骤三**：遍历完毕换行。
-# 7-2 银行业务队列简单模拟
+## 7-2 银行业务队列简单模拟
 ```C
 #include<bits/stdc++.h>
 using namespace std;
@@ -1003,3 +1193,5 @@ int main(void){
     return 0;
 }
 ```
+
+---
