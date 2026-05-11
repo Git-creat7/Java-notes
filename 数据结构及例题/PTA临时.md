@@ -8,7 +8,7 @@ categories = ["数据结构"]
 
 > 本文更新于 2026-05-08
 
-# 顺序查找（数组作形参）
+## 顺序查找（数组作形参）
 ```C
 int search(int arr[],int n,int x){
     for(int i = 0; i < n; i++){
@@ -27,7 +27,7 @@ int search(int arr[],int n,int x){
 
 ---
 
-# 顺序查找（顺序表作形参）
+## 顺序查找（顺序表作形参）
 ```C
 int searchSq(SqList L,ElemType x){
     for(int i = 0; i < L.len; i++){
@@ -45,7 +45,7 @@ int searchSq(SqList L,ElemType x){
 
 ---
 
-# 有序表的插入（数组作形参）
+## 有序表的插入（数组作形参）
 ```C
 void insert(int a[], int *n, int x) {
     int i = *n - 1;
@@ -69,7 +69,7 @@ void insert(int a[], int *n, int x) {
 
 ---
 
-# 有序表的插入（顺序表作形参）
+## 有序表的插入（顺序表作形参）
 ```C
 void ListInsertByOrder(SqList L, ElemType x){
     int len = L->length;
@@ -97,7 +97,7 @@ void ListInsertByOrder(SqList L, ElemType x){
 
 ---
 
-# 有序表的插入（单链表作形参）
+## 有序表的插入（单链表作形参）
 ```C
 LinkList InsertList(LinkList L, EType X){
     LNode* x = (LNode*)malloc(sizeof(LNode));
@@ -122,7 +122,7 @@ LinkList InsertList(LinkList L, EType X){
 
 ---
 
-# 合并两个有序数组（数组作形参）
+## 合并两个有序数组（数组作形参）
 ```C
 void merge(int* a, int m, int* b, int n, int* c){
     int i = 0,j = 0, k = 0;
@@ -150,7 +150,7 @@ void merge(int* a, int m, int* b, int n, int* c){
 
 ---
 
-# 合并两个有序表（顺序表作形参）
+## 合并两个有序表（顺序表作形参）
 ```C
 SqList MergeList_Sq(SqList La, SqList Lb){
     SqList Lc = InitList(MAXSIZE);;
@@ -179,7 +179,7 @@ SqList MergeList_Sq(SqList La, SqList Lb){
 
 ---
 
-# 线性表元素的区间删除
+## 线性表元素的区间删除
 ```C
 List Delete( List L, ElementType minD, ElementType maxD ){
     int j = 0;
@@ -206,7 +206,7 @@ List Delete( List L, ElementType minD, ElementType maxD ){
 
 ---
 
-# 单链表遍历
+## 单链表遍历
 ```C
 void Traverse(LinkList L){
     L = L->next;
@@ -226,7 +226,7 @@ void Traverse(LinkList L){
 
 ---
 
-# 链式表的按序号查找
+## 链式表的按序号查找
 ```C
 ElementType FindKth( List L, int K ){
     K--;
@@ -251,7 +251,7 @@ ElementType FindKth( List L, int K ){
 
 ---
 
-# 单链表的建立（头插法-逆序建立）
+## 单链表的建立（头插法-逆序建立）
 ```C
 struct ListNode *createlist(){
     struct ListNode* newNode = NULL;
@@ -277,7 +277,7 @@ struct ListNode *createlist(){
 
 ---
 
-# 单链表的建立（尾插法-顺序建立）
+## 单链表的建立（尾插法-顺序建立）
 ```C
 LinkList Create (){
     LinkList L = (LinkList)malloc(sizeof(LinkList));
@@ -307,7 +307,7 @@ LinkList Create (){
 
 ---
 
-# 单链表的按值删除
+## 单链表的按值删除
 ```C
 int DelNode(LinkList head, int deldata){
     int flag = 0;
@@ -336,7 +336,7 @@ int DelNode(LinkList head, int deldata){
 
 ---
 
-# 单链表的按值查找
+## 单链表的按值查找
 ```C
 LinkList Locate_LinkList(LinkList L, datatype x){
     while(L != NULL && L->data !=x)
@@ -352,7 +352,7 @@ LinkList Locate_LinkList(LinkList L, datatype x){
 
 ---
 
-# 单链表的按位置查找
+## 单链表的按位置查找
 ```C
 LinkList Findk(LinkList L, int k) {
     if (k <= 0) return NULL;
@@ -376,7 +376,7 @@ LinkList Findk(LinkList L, int k) {
 
 ---
 
-# 带头结点的链式表操作集
+## 带头结点的链式表操作集
 ```C
 List MakeEmpty(){
     struct LNode* head = (struct LNode*)malloc(sizeof(struct LNode));
@@ -439,7 +439,7 @@ bool Delete( List L, Position P ){
 
 ---
 
-# 删除单链表偶数节点
+## 删除单链表偶数节点
 ```C
 struct ListNode *createlist() {
     struct ListNode *head = NULL, *tail = NULL;
@@ -497,7 +497,7 @@ struct ListNode *deleteeven(struct ListNode *head) {
 
 ---
 
-# 两个有序链表序列的合并
+## 两个有序链表序列的合并
 ```C
 List Merge(List L1,List L2){
     List dummy = (List)malloc(sizeof(struct Node));
@@ -532,7 +532,7 @@ List Merge(List L1,List L2){
 
 ---
 
-# 递增的整数序列链表的插入
+## 递增的整数序列链表的插入
 ```C
 List Insert( List L, ElementType X ){
     List p = L;
@@ -556,7 +556,7 @@ List Insert( List L, ElementType X ){
 
 ---
 
-# 单链表逆转
+## 单链表逆转
 ```C
 List Reverse( List L ){
     if (L == NULL || L->Next == NULL) return L;
@@ -585,7 +585,7 @@ List Reverse( List L ){
 
 ---
 
-# 单链表分段逆转
+## 单链表分段逆转
 ```C
 void K_Reverse( List list, int k ){
    if (k <= 1 || list == NULL || list->length < k)
@@ -634,7 +634,7 @@ void K_Reverse( List list, int k ){
 
 ---
 
-# 求链表的倒数第m个元素
+## 求链表的倒数第m个元素
 ```C
 ElementType Find( List L, int m ){
     if(L == NULL) return ERROR;
@@ -659,7 +659,7 @@ ElementType Find( List L, int m ){
 
 ---
 
-# 学生成绩链表处理
+## 学生成绩链表处理
 ```C
 struct stud_node *createlist(){
     struct stud_node* head = NULL,*tail = NULL;
@@ -730,7 +730,7 @@ struct stud_node *deletelist( struct stud_node *head, int min_score ){
 6. **步骤六**：返回处理后的链表头。
 
 ---
-# 前/中/后缀表达式
+## 前/中/后缀表达式
 只需更换printf的位置即可
 ```C
 void Prefix(BiTree T){
@@ -744,7 +744,16 @@ void Prefix(BiTree T){
     return ;
 }
 ```
-# 求二叉树高度
+
+**思路：**
+1. 递归遍历二叉树，在不同位置调用 `printf` 即可得到不同遍历结果。
+2. **先序**：访问根 → 左子树 → 右子树（`printf` 放在递归调用之前）。
+3. **中序**：左子树 → 根 → 右子树（`printf` 放在两次递归调用之间）。
+4. **后序**：左子树 → 右子树 → 根（`printf` 放在两次递归调用之后）。
+
+---
+
+## 求二叉树高度
 ```C
 int GetHeight( BiTree BT ){
     if(!BT) return 0;
@@ -753,7 +762,15 @@ int GetHeight( BiTree BT ){
     return (l>=r?l:r)+1;
 }
 ```
-# 统计二叉树叶子结点个数
+
+**思路：**
+1. 递归求解：空树高度为 0。
+2. 否则，分别递归计算左、右子树高度。
+3. 当前节点高度 = `max(左高度, 右高度) + 1`。
+
+---
+
+## 统计二叉树叶子结点个数
 ```C
 int LeafCount ( BiTree T){
     if(!T) return 0;
@@ -761,7 +778,15 @@ int LeafCount ( BiTree T){
     return LeafCount(T->lchild) + LeafCount(T->rchild);
 }
 ```
-# 先序遍历输出二叉树的叶结点
+
+**思路：**
+1. 递归求解：空树返回 0。
+2. 若当前节点左右孩子都为空，则是叶子节点，返回 1。
+3. 否则，叶子总数 = 左子树叶子数 + 右子树叶子数。
+
+---
+
+## 先序遍历输出二叉树的叶结点
 ```C
 void PreorderPrintLeaves( BiTree BT ){
     if(BT == NULL)  return;
@@ -773,14 +798,29 @@ void PreorderPrintLeaves( BiTree BT ){
     PreorderPrintLeaves(BT->rchild);
 }
 ```
-# 二叉树的节点数
+
+**思路：**
+1. 按先序顺序递归遍历：根 → 左 → 右。
+2. 在每个节点处先判断是否为叶子（左右孩子都为空），若是则打印。
+3. 由于先访问左子树再访问右子树，所以输出的叶子顺序符合先序。
+
+---
+
+## 二叉树的节点数
 ```C
 int count_n(BinTree T){
     if(T == NULL) return 0;
     return count_n(T->Left) + count_n(T->Right) + 1;
 }
 ```
-# 二叉树的建立
+
+**思路：**
+1. 递归求解：空树节点数为 0。
+2. 否则，总节点数 = 左子树节点数 + 右子树节点数 + 1（当前节点）。
+
+---
+
+## 二叉树的建立
 ```C
 BiTree CreatBiTree(){
     TElemType ch;
@@ -794,7 +834,16 @@ BiTree CreatBiTree(){
     return node;
 }
 ```
-# 二叉树的层次遍历
+
+**思路：**
+1. 按**先序遍历**的顺序读入字符，依次构建二叉树。
+2. 读到 `#` 表示空节点，返回 `NULL`。
+3. 否则创建新节点，递归构建左子树和右子树。
+4. 输入序列必须是带空节点标记的先序序列，例如 `AB#D##C##` 表示一棵特定的二叉树。
+
+---
+
+## 二叉树的层次遍历
 ```C
 void Levelorder(BiTree T) {
     if (T == NULL) return;
@@ -815,7 +864,15 @@ void Levelorder(BiTree T) {
 }
 ```
 
-# ⭐二叉树的非递归遍历
+**思路：**
+1. 借助**队列**实现广度优先遍历（BFS）。
+2. **步骤一**：根节点入队。
+3. **步骤二**：循环出队当前节点并访问；若其左、右孩子非空，则依次入队。
+4. **步骤三**：队列空时遍历结束，访问顺序即层次顺序（从根逐层向下、从左到右）。
+
+---
+
+## ⭐二叉树的非递归遍历
 ```C
  void InorderTraversal( BinTree BT ) {
       Stack s = CreateStack();
@@ -864,7 +921,16 @@ void PostorderTraversal( BinTree BT ){
       }
 }
 ```
-# 哈夫曼树的构造
+
+**思路：**
+1. 借助**栈**模拟递归过程，统一框架：沿左链一路入栈，到底后回退处理右子树。
+2. **中序**：左链入栈后，弹栈时访问当前节点，再转向右子树。
+3. **先序**：与中序唯一不同——在节点**入栈时**就访问（顺序为根 → 左 → 右）。
+4. **后序**：需区分第一次回到节点（转右子树）和第二次回到节点（访问并弹出）。给每个节点加 `flag` 标记，第一次 `flag=0` 改为 1 后访问右子树，第二次 `flag=1` 时弹栈输出。
+
+---
+
+## 哈夫曼树的构造
 ```C
 HFTree MakeHFTree(char data[], int weight[], int n){
     if(n == 0)return NULL;
@@ -893,7 +959,17 @@ HFTree MakeHFTree(char data[], int weight[], int n){
     return root;
 }
 ```
-# ⭐哈夫曼编码实现
+
+**思路：**
+1. 借助**最小堆**实现，每次能 O(log n) 取出权重最小的节点。
+2. **步骤一**：把 `n` 个叶子节点（包含字符和权重）全部插入堆中。
+3. **步骤二**：当堆中节点数大于 1 时循环：取出两个最小节点，合成一个新节点（权重为二者之和），左右孩子分别指向取出的两个节点，再将新节点插入堆。
+4. **步骤三**：最终堆中剩下的唯一节点就是哈夫曼树的根。
+5. 该过程保证权重小的字符离根远（编码长）、权重大的字符离根近（编码短），从而构造出最优前缀编码树。
+
+---
+
+## ⭐哈夫曼编码实现
 ```C
 void dfs(HFTree node,char path[],int depth,char data[],char codes[][1001]){
     if(node == NULL) return;
@@ -920,6 +996,17 @@ void Show_HFcoding(HFTree root, char data[], int n){
 }
 
 ```
+
+**思路：**
+1. 在已建好的哈夫曼树上进行**DFS**，用一个 `path[]` 数组动态记录从根到当前节点走过的路径（0/1 串）。
+2. **递归规则**：向左走时 `path[depth] = '0'`，向右走时 `path[depth] = '1'`，`depth` 同步加一。
+3. **叶节点处理**：到达叶节点时，在 `path[depth]` 处加 `'\0'` 结束字符串。
+4. 通过遍历 `data[]` 找到当前字符的下标 `i`，把 `path` 字符串复制到 `codes[i]`。
+5. 最终 `codes[i]` 就是 `data[i]` 这个字符对应的哈夫曼编码。
+6. 由于哈夫曼树叶节点位置唯一，编码具有**前缀性**（任何编码都不是其他编码的前缀），可无歧义解码。
+
+---
+
 # 编程题
 ## 7-1 一元多项式的乘法与加法运算
 **数组映射法**
@@ -1193,5 +1280,14 @@ int main(void){
     return 0;
 }
 ```
+
+**思路：**
+1. **核心思路**：用两个队列 `a`（奇数窗口）、`b`（偶数窗口），按"2A 出 1B 出"的循环节奏输出。
+2. **步骤一**：读入 `n` 个客户号，按奇偶分别入队 `a` 和 `b`。
+3. **步骤二**：若只有 1 个客户，直接输出。
+4. **步骤三**：先输出 `a` 队头两个客户（首位无前导空格，后续每个客户前加空格）。
+5. **步骤四**：进入主循环——只要两队列都非空：先出 1 个 B，再出 1 个 A；若 A 还有元素，再多出 1 个 A，达成"2A : 1B"的节奏。
+6. **步骤五**：循环结束后，把剩余的 A 或 B 队列依次输出。
+7. **关键点**：`a` 优先级高于 `b`，每轮处理 2 个奇数客户和 1 个偶数客户。
 
 ---
