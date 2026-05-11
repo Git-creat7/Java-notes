@@ -893,7 +893,7 @@ HFTree MakeHFTree(char data[], int weight[], int n){
     return root;
 }
 ```
-# 哈夫曼编码实现
+# ⭐哈夫曼编码实现
 ```C
 void dfs(HFTree node,char path[],int depth,char data[],char codes[][1001]){
     if(node == NULL) return;
