@@ -1291,3 +1291,31 @@ int main(void){
 7. **关键点**：`a` 优先级高于 `b`，每轮处理 2 个奇数客户和 1 个偶数客户。
 
 ---
+## 7-4修理牧场
+```C
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+int main() {
+    priority_queue <int,vector<int>,greater<int>> pq;
+    int n; cin >> n;
+    for(int i = 0 ; i < n; i++){
+        int len;
+        cin >> len;
+        pq.push(len);
+    }
+    int cost = 0;
+    while(pq.size() > 1){
+        int len1,len2;
+        len1 = pq.top();
+        pq.pop();
+        len2 = pq.top();
+        pq.pop();
+        int sum = len1 + len2;
+        cost += sum;
+        pq.push(sum);
+    }
+    cout << cost << endl;
+}
+```
