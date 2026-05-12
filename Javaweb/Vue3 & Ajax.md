@@ -385,9 +385,14 @@ import ApiDemo from './views/ApiDemo.vue';
 | **学习曲线**  | 低，适合初学者                   | 略高，需理解响应式原理                   |
 | **TS 支持** | 一般                        | 完美                            |
 ## [Element Plus](https://element-plus.org/zh-CN)
+- **技术栈**：基于 Vue 3 编写，完全支持 **TypeScript**。
+    
+- **设计风格**：延续了经典的桌面端简洁设计。
+    
+- **组件丰富**：提供了从基础的“按钮”、“输入框”到复杂的“表格”、“日期选择器”、“树形控件”等数十个开箱即用的组件
 ### 引入
 `npm install element-plus --save`
-### 常见组件
+
 
 
 
