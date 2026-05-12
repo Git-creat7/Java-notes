@@ -325,31 +325,49 @@ export default {
 
 </style>
 ```
-**示例**
+**示例：APIDemo.vue**
 ```Js
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-
-// 1. 定义响应式状态 (代替 data)
-const count = ref(0)
-
-// 2. 定义计算属性 (代替 computed)
-const doubleCount = computed(() => count.value * 2)
-
-// 3. 定义普通函数 (代替 methods)
-function increment() {
-  count.value++
-}
-
-// 4. 生命周期钩子 (代替 mounted 等)
-onMounted(() => {
-  console.log('组件已挂载')
-})
+	//引入ref函数
+	import {ref,onMounted} from 'vue';
+	//声明响应式数据
+	const count = ref(0);
+	
+	//声明函数 - 组合式API没有this，直接访问和修改响应式数据
+	function increment(){
+	    count.value++; //组合式API中，访问和修改响应式数据需要使用.value
+	}
+	
+	//钩子函数
+	onMounted(() => {
+	
+	    console.log('Vue mounted, count is:', count.value);
+	
+	});
 </script>
 
 <template>
-  <button @click="increment">计数：{{ count }}</button>
+    <button @click="increment">Count: {{ count }}</button>
 </template>
+
+
+<style scoped>
+
+</style>
+```
+**App.vue：引入APIDemo.vue**
+```Js
+<script setup>
+//引入ApiDemo组件
+import ApiDemo from './views/ApiDemo.vue';
+</script>
+
+<template>
+  <ApiDemo />
+</template>
+
+<style scoped>
+</style>
 ```
 ### 为什么选择组合式API？
 - **逻辑关注点聚集**：相同功能的代码排在一起。在维护一个几百行的组件时，你不需要在文件顶部和底部来回滚动。
