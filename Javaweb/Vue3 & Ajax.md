@@ -264,6 +264,119 @@ categories = ["JavaWeb"]
 vue 的单文件组件会将一个组件的逻辑(JS)，模板(HTML)和样式(CSS)封装在同一个文件里(\*.vue)
 
 
+## API 风格：选项式API
+在选项式 API 中，通常会看到以下几个最常用的选项：
+
+- **`data()`**: 定义组件的响应式状态（数据）。
+    
+- **`methods`**: 定义可以在组件中调用的函数。
+    
+- **`computed`**: 定义基于现有数据计算而来的属性（具有缓存机制）。
+    
+- **`watch`**: 监听数据的变化并执行特定的逻辑。
+    
+- **生命周期钩子** (如 `mounted`, `updated`): 在组件生命周期的特定阶段执行代码
+```Js
+export default {
+  // 1. 数据，响应式对象
+  data() {
+    return {
+      count: 0
+    }
+  },
+  
+  // 2. 方法，可以通过组件实例访问
+  methods: {
+    increment() {
+      this.count++
+    }
+  },
+  
+  // 3. 计算属性
+  computed: {
+    doubleCount() { //声明钩子函数
+      return this.count * 2
+    }
+  },
+  
+  // 4. 生命周期钩子
+  mounted() {
+    console.log('组件已挂载！')
+  }
+}
+```
+
+
+---
+## API 风格：选项式API
+
+在选项式 API 中，处理同一个功能（比如“搜索用户”）的代码往往散落在不同的选项中。 而在**组合式 API** 中，可以把“搜索用户”相关的所有数据、方法、生命周期钩子写在一起，甚至提取到一个独立的函数（自定义 Hook）中
+
+`setup` 是组合式 API 的入口。在 `<script setup>` 语法糖下，编写体验非常接近原生 `JavaScript`
+**基本结构**
+```Js
+<script setup>
+
+</script>
+<template>
+
+</template>
+<style scoped>
+
+</style>
+```
+**示例**
+```Js
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+
+// 1. 定义响应式状态 (代替 data)
+const count = ref(0)
+
+// 2. 定义计算属性 (代替 computed)
+const doubleCount = computed(() => count.value * 2)
+
+// 3. 定义普通函数 (代替 methods)
+function increment() {
+  count.value++
+}
+
+// 4. 生命周期钩子 (代替 mounted 等)
+onMounted(() => {
+  console.log('组件已挂载')
+})
+</script>
+
+<template>
+  <button @click="increment">计数：{{ count }}</button>
+</template>
+```
+### 为什么选择组合式API？
+- **逻辑关注点聚集**：相同功能的代码排在一起。在维护一个几百行的组件时，你不需要在文件顶部和底部来回滚动。
+    
+- **极佳的逻辑复用**：你可以轻松地将逻辑提取到以 `use` 开头的函数中（如 `useMousePosition.js`），并在多个组件间共享，彻底解决了 Mixins 的命名冲突和来源不明问题。
+    
+- **更好的类型推导**：对 TypeScript 的支持极其友好，不需要像选项式 API 那样处理复杂的 `this` 类型。
+    
+- **更小的生产包**：由于不依赖 `this` 上下文，代码更容易被压缩工具（如 Terser）进行变量名混淆和优化
+
+| **特性**    | **选项式 API (Options API)** | **组合式 API (Composition API)** |
+| --------- | ------------------------- | ----------------------------- |
+| **逻辑组织**  | 按代码类型（数据、方法、钩子）           | 按业务功能（搜索、分页、排序）               |
+| **复用性**   | Mixins (存在命名冲突风险)         | 组合式函数 (Hooks)                 |
+| **学习曲线**  | 低，适合初学者                   | 略高，需理解响应式原理                   |
+| **TS 支持** | 一般                        | 完美                            |
+
+
+
+
+
+
+
+
+
+
+
 
 
 
