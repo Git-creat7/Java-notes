@@ -260,7 +260,8 @@ categories = ["JavaWeb"]
 # Vue工程化
 **Vue 工程化**是指通过一系列工具和技术栈，将 Vue 项目从传统的“面条式代码”转变为标准化、规模化、自动化的现代前端开发模式
 
-
+\*.vue是vue项目中的组件文件，在vue项目中也称为单文件组件(SFC，Single-Filecomponents)。
+vue 的单文件组件会将一个组件的逻辑(JS)，模板(HTML)和样式(CSS)封装在同一个文件里(\*.vue)
 
 
 
