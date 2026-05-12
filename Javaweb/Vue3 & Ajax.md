@@ -384,8 +384,10 @@ import ApiDemo from './views/ApiDemo.vue';
 | **复用性**   | Mixins (存在命名冲突风险)         | 组合式函数 (Hooks)                 |
 | **学习曲线**  | 低，适合初学者                   | 略高，需理解响应式原理                   |
 | **TS 支持** | 一般                        | 完美                            |
-## Element Plus
+## [Element Plus](https://element-plus.org/zh-CN)
 ### 引入
+`npm install element-plus --save`
+### 常见组件
 
 
 
