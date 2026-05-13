@@ -393,9 +393,24 @@ import ApiDemo from './views/ApiDemo.vue';
 ### 引入
 `npm install element-plus --save`
 
+## Vue路由
+Vue Router 是 Vue.js 的官方路由管理器，它通过控制 **URL** 与 **组件** 之间的映射关系，让我们能够轻松构建单页面应用（SPA）。
 
+在 Vue Router 中，当 URL 发生变化时，页面不会重新加载，而是由 Vue Router 动态地渲染对应的组件
 
+### 路由定义与组件映射
 
+每一个路由都是一个配置对象，包含 `path`（路径）和 `component`（对应的 Vue 组件）。
+
+### `<router-link>`：导航链接
+
+浏览器会解析成 `<a>` 标签，但它通过插件内部逻辑跳转，不会刷新页面。
+```HTML
+<router-link to="/home">首页</router-link>
+```
+### `<router-view>`：渲染出口
+
+动态视图组件，这是路由组件展示的“占位符”。当路径匹配成功时，对应的组件会渲染到这个位置
 
 
 
