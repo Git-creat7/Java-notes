@@ -593,3 +593,80 @@ server: {
 在 `request.js` 中使用 `baseURL: import.meta.env.VITE_APP_BASE_API`，这样程序在不同环境下会自动切换 URL。
 
 ---
+## 表单校验
+
+![](img/Vue3%20&%20Ajax-8.png)
+
+- **绑定模型**：`<el-form :model="formData">`
+    
+- **绑定规则**：`<el-form :rules="rules">`
+    
+- **指定字段**：`<el-form-item prop="username">`
+```Js
+<script setup>
+import { ref,onMounted,reactive } from 'vue';
+import { queryAllDeptApi,addDeptApi } from '@/api/dept';
+import { ElMessage } from 'element-plus';
+
+//钩子函数
+onMounted(()=>{
+  search();
+})
+//模拟数据
+const deptList = ref([]);
+//查询
+const search = async() => {
+  const res = await queryAllDeptApi();
+  if(res.code == 1){
+    deptList.value = res.data;
+  }
+}
+
+//Dialog对话框
+const dialogFormVisible = ref(false);
+const dept = ref({name:''});
+const formTitle = ref('');
+
+//新增部门
+const addDept = () => {
+  dialogFormVisible.value = true;
+  formTitle.value = '新增部门';
+  dept.value = {name:''};
+  //重置表单的校验
+  if(deptFormRef.value){
+    deptFormRef.value.resetFields();
+  }
+}
+
+const save = async() =>{
+  //表单校验
+  if(!deptFormRef.value) return;
+  deptFormRef.value.validate(async(valid) => {//表示是否校验通过
+    if(valid){
+      const res = await addDeptApi(dept.value);
+      if(res.code){
+        ElMessage.success('操作成功');
+        dialogFormVisible.value = false;
+        search();
+      }else{
+          ElMessage.error(res.msg);
+      }
+    }else{
+      ElMessage.error('表单校验未通过');
+    }
+  })
+}
+
+//表单校验
+const rules = reactive({
+  name: [
+    //必填项 blur鼠标离焦触发
+    { required: true, message: '部门名称不能为空', trigger: 'blur' },
+    //长度限制
+    { min: 2, max: 10, message: '部门名称长度必须在2到10个字符之间', trigger: 'blur' },
+  ]
+})
+const deptFormRef = ref();
+
+</script>
+```
