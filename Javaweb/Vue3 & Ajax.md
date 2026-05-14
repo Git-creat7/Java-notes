@@ -563,6 +563,25 @@ const deptList = ref([])
 
 如果没有重写，代理服务器会将 `/api/login` 直接拼接到目标地址，变成 `http://localhost:8080/api/login`。因为后端并没有 `/api` 路径，就会报 **404 Not Found**。
 ![](img/Vue3%20&%20Ajax-7.png)
+
+```js
+server: {
+    proxy: {
+        // 当请求地址以/api开头时
+        // 代理服务器会将请求转发到http://localhost:8080
+        // 并且在转发过程中会去掉/api前缀
+      '/api': {
+        target: 'http://localhost:8080',
+        secure: false,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      }
+    }
+  }
+```
+
+---
+
 ### 环境变量
 可以在项目根目录创建 `.env.development` 和 `.env.production` 文件：
 
