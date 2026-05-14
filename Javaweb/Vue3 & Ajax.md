@@ -457,6 +457,8 @@ const routes = [
 ]
 ```
 
+---
+
 ## 调试数据
 ```JS
 <script setup>
@@ -486,3 +488,75 @@ const deptList = ref([])
 优点：**统一配置基础路径、处理超时、拦截请求/响应（如自动携带 Token 或统一报错）**。
 
 
+### 基础封装示例 (`utils/request.js`)
+
+你可以创建一个实例，将重复的配置抽离出来：
+```js
+import axios from 'axios'
+
+//创建axios实例对象
+const request = axios.create({
+  baseURL: 'http://127.0.0.1:4523/m1/8123520-7880670-default',
+  timeout: 600000
+})
+
+//axios的响应 response 拦截器
+request.interceptors.response.use(
+  (response) => { //成功回调
+    return response.data
+  },
+  (error) => { //失败回调
+    return Promise.reject(error)
+  }
+)
+
+//可导出request对象，在其他组件中使用
+export default request
+```
+
+---
+
+### 2. 模块化管理接口 (`api/dept.js`)
+
+不要在组件里直接调用 `request.js`，而是按照业务模块进一步拆分：
+```js
+import request from "../utils/request";
+//查询全部部门数据
+export const queryAllDept = ()=>request.get('/depts');
+```
+### 3. 组件中简洁调用
+
+```JS
+<script setup>
+import { ref,onMounted } from 'vue'
+import { queryAllDept } from '@/api/dept'
+
+//钩子函数
+onMounted(()=>{
+  search();
+})
+
+//查询
+const search = async() => {
+  const res = await queryAllDept();
+  if(res.code == 1){
+    deptList.value = res.data;
+  }
+}
+
+//模拟数据
+const deptList = ref([])
+
+</script>
+```
+### 环境变量
+可以在项目根目录创建 `.env.development` 和 `.env.production` 文件：
+
+- **开发环境 (`.env.development`)**: `VITE_APP_BASE_API = 'http://localhost:8080'`
+    
+- **生产环境 (`.env.production`)**: `VITE_APP_BASE_API = '[https://api.production.com](https://api.production.com)'`
+    
+
+在 `request.js` 中使用 `baseURL: import.meta.env.VITE_APP_BASE_API`，这样程序在不同环境下会自动切换 URL。
+
+---
