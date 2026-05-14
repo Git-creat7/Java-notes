@@ -457,5 +457,29 @@ const routes = [
 ]
 ```
 
+## 调试数据
+```JS
+<script setup>
+import { ref,onMounted } from 'vue'
+import axios from 'axios'
 
+//钩子函数
+onMounted(()=>{
+  search();
+})
+
+//查询
+const search = async() => {
+  //本地测试
+  const  res = await axios.get('本地Mock')
+  if(res.data.code){ //js隐式类型转换
+      deptList.value = res.data.data
+  }
+}
+//模拟数据
+const deptList = ref([])
+</script>
+```
+### 调试优化
+当程序变多时，每一个测试都需要一个长url调试，所以通常会定义一个**请求处理的工具类-`request.js`**
 
