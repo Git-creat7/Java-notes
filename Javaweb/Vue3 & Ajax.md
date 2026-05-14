@@ -549,6 +549,20 @@ const deptList = ref([])
 
 </script>
 ```
+### 代理服务器重写路径
+在配置代理服务器时，**路径重写（Path Rewrite）** 是最核心的步骤之一。它的主要作用是：**消除前端为了区分请求而人为添加的“路径前缀”**。
+
+> **为什么需要路径重写？**
+
+通常为了方便管理，我们会给所有后端请求统一加一个前缀（例如 `/api`）。
+
+- **前端请求：** `http://localhost:5173/api/login`
+    
+- **后端接口：** `http://localhost:8080/login`
+    
+
+如果没有重写，代理服务器会将 `/api/login` 直接拼接到目标地址，变成 `http://localhost:8080/api/login`。因为后端并没有 `/api` 路径，就会报 **404 Not Found**。
+![](img/Vue3%20&%20Ajax-7.png)
 ### 环境变量
 可以在项目根目录创建 `.env.development` 和 `.env.production` 文件：
 
