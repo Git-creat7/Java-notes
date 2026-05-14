@@ -488,7 +488,7 @@ const deptList = ref([])
 优点：**统一配置基础路径、处理超时、拦截请求/响应（如自动携带 Token 或统一报错）**。
 
 
-### 基础封装示例 (`utils/request.js`)
+### 1. 基础封装示例 (`utils/request.js`)
 
 你可以创建一个实例，将重复的配置抽离出来：
 ```js
@@ -672,3 +672,62 @@ const deptFormRef = ref();
 ```
 
 ---
+## watch侦听
+在 Vue 3 中，`watch` 侦听器是处理侧边效应（Side Effects）的核心工具。当你需要在某个数据发生变化时执行异步操作（如调用 `request.js` 接口）、修改 DOM 或操作本地存储时，`watch` 是最佳选择
+### 基础语法
+
+在 `<script setup>` 中，最基本的用法是侦听一个 `ref` 或一个计算属性：
+```JS
+import { ref, watch } from 'vue'
+
+const question = ref('')
+
+// 侦听 question 的变化
+watch(question, (newValue, oldValue) => {
+  console.log(`从 ${oldValue} 变成了 ${newValue}`)
+  // 这里可以触发请求处理工具类
+  // getSearchResult(newValue)
+})
+```
+### 侦听不同类型的数据源
+
+`watch` 的第一个参数可以是多种形式：
+
+- **Ref**: 直接传入 ref 对象。
+    
+- **Getter 函数**: 侦听响应式对象的某个属性。
+    
+- **多个来源**: 传入数组同时侦听多个数据。
+```Js
+// 侦听 reactive 对象的某个属性
+const user = reactive({ name: 'Zhang', age: 20 })
+watch(
+  () => user.name, 
+  (newName) => console.log('名字变了:', newName)
+)
+
+// 侦听多个数据源
+watch([question, () => user.age], ([newQ, newAge], [oldQ, oldAge]) => {
+  // 数组中的任何一个变化都会触发
+})
+```
+
+```Js
+const user = ref({name: '张三',age: 18});
+watch(() => user.value.age , (newVal,oldVal)=>{ //只侦听age
+
+  console.log('a的值发生了变化:${{newVal}}--->${{oldVal}}',newVal,oldVal)
+
+},{immediate: true, /*立即执行一次 */deep: true /* 深度监听 */}
+```
+### 另外配置
+| **选项**                | **描述**                                                |
+| --------------------- | ----------------------------------------------------- |
+| **`deep: true`**      | **深度侦听**。当侦听一个对象时，如果对象内部属性变化，默认是侦听不到的，需要开启此项。         |
+| **`immediate: true`** | **立即执行**。侦听器创建时立刻执行一次回调（此时 `oldValue` 为 `undefined`）。 |
+| **`once: true`**      | **只执行一次**。触发一次回调后，该侦听器就会被停止（Vue 3.4+）。                |
+```Js
+watch(user, (newValue) => {
+  /* 只有开启 deep 才能监听到 user.name 的修改 */
+}, { deep: true, immediate: true })
+```
