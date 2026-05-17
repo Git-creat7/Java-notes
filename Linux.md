@@ -303,6 +303,39 @@ vim file.txt                        # 打开文件，未存在则新建
 | `:%s/old/new/g` | 全文替换 old 为 new |
 | `:10` | 跳转到第 10 行 |
 
+## nano 编辑器
+
+nano 是一款轻量、上手即用的终端编辑器，适合快速改配置文件。相比 vim 没有「模式」概念，输入即编辑，按底部提示的快捷键操作。
+
+```bash
+nano file.txt                       # 打开（不存在则新建）
+nano +20 file.txt                   # 打开并跳到第 20 行
+nano -w /etc/nginx/nginx.conf       # 关闭自动换行（编辑配置文件推荐）
+nano -B file.txt                    # 保存时自动备份为 file.txt~
+```
+
+界面底部的 `^` 表示 `Ctrl`，`M-` 表示 `Alt`（或 `Esc`）。
+
+常用快捷键：
+
+| 快捷键 | 作用 |
+| --- | --- |
+| `Ctrl + O` | 保存（Write Out），回车确认文件名 |
+| `Ctrl + X` | 退出，未保存会询问 |
+| `Ctrl + G` | 帮助 |
+| `Ctrl + K` | 剪切当前行 |
+| `Ctrl + U` | 粘贴 |
+| `Ctrl + W` | 向下搜索 |
+| `Alt + W` | 重复上一次搜索 |
+| `Ctrl + \` | 查找并替换 |
+| `Ctrl + _` | 跳转到指定行号（再输入行号） |
+| `Alt + U` / `Alt + E` | 撤销 / 重做 |
+| `Alt + #` | 显示行号（部分版本为 `Alt + N`） |
+| `Ctrl + A` / `Ctrl + E` | 跳到行首 / 行尾 |
+| `Ctrl + Y` / `Ctrl + V` | 上 / 下翻页 |
+
+> 在 SSH 终端编辑系统配置时，如果只是顺手改几行，nano 比 vim 更省心；想要高效跳转、宏、批量操作，仍建议用 vim。
+
 ## grep 文本查找
 
 ```bash
@@ -383,6 +416,432 @@ awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -n 10
 # 实时过滤日志中的错误
 tail -f app.log | grep --color "ERROR"
 ```
+
+# 进阶
+
+## 用户与权限
+
+### 用户管理
+
+```bash
+useradd tom                         # 创建用户
+useradd -m -s /bin/bash tom         # 同时创建家目录并指定 shell
+passwd tom                          # 修改用户密码
+userdel tom                         # 删除用户（保留家目录）
+userdel -r tom                      # 删除用户并清理家目录
+usermod -aG docker tom              # 把 tom 加入 docker 附加组
+groupadd dev                        # 创建用户组
+groups tom                          # 查看 tom 所在的组
+id tom                              # 查看 uid/gid/所属组
+who                                 # 当前登录用户
+whoami                              # 当前操作用户
+su - tom                            # 切换到 tom（加载其环境）
+sudo command                        # 以 root 权限执行命令
+```
+
+### 权限位
+
+`ls -l` 输出示例：
+
+```
+-rwxr-xr-- 1 tom dev 1024 May 17 10:00 run.sh
+```
+
+第 1 位是文件类型：`-` 普通文件 / `d` 目录 / `l` 符号链接。
+后 9 位分三组（owner、group、other），每组三位 `rwx`：
+
+| 字符 | 数值 | 含义 |
+| --- | --- | --- |
+| `r` | 4 | 读 |
+| `w` | 2 | 写 |
+| `x` | 1 | 执行（目录则是「可进入」） |
+| `-` | 0 | 无权限 |
+
+### chmod 修改权限
+
+```bash
+chmod 755 run.sh                    # rwxr-xr-x（owner 全部，其他读+执行）
+chmod 644 conf.yml                  # rw-r--r--（owner 读写，其他只读）
+chmod 600 id_rsa                    # rw-------（仅 owner 读写，私钥常用）
+chmod +x run.sh                     # 为所有人添加可执行权限
+chmod u+x run.sh                    # 仅 owner 添加可执行
+chmod g-w file                      # 移除 group 的写权限
+chmod o=r file                      # other 仅保留读权限
+chmod -R 755 dir/                   # 递归修改目录
+```
+
+### chown 修改归属
+
+```bash
+chown tom file.txt                  # 改变 owner
+chown tom:dev file.txt              # 同时改 owner 和 group
+chown -R tom:dev /opt/app           # 递归改变
+chgrp dev file.txt                  # 仅改 group
+```
+
+## 进程管理
+
+```bash
+ps -ef                              # 查看所有进程（完整格式）
+ps aux                              # 查看所有进程（含 CPU/内存占用）
+ps -ef | grep java                  # 查找 java 相关进程
+pgrep -l nginx                      # 按名称查 PID
+pidof nginx                         # 直接获取 PID
+
+top                                 # 实时进程监控（q 退出）
+htop                                # 增强版（需安装，支持鼠标）
+```
+
+### 信号与终止
+
+```bash
+kill 1234                           # 发送默认 SIGTERM（15）
+kill -9 1234                        # 强制终止 SIGKILL
+kill -l                             # 查看所有信号
+killall nginx                       # 按名称终止所有进程
+pkill -f "java -jar app.jar"        # 按命令行模式匹配并终止
+```
+
+### 前台 / 后台
+
+```bash
+./run.sh &                          # 后台启动
+jobs                                # 查看当前 shell 的后台任务
+fg %1                               # 把 1 号任务调回前台
+bg %1                               # 让 1 号任务在后台继续
+Ctrl + Z                            # 当前前台任务挂起
+Ctrl + C                            # 终止当前前台任务
+
+nohup ./run.sh > out.log 2>&1 &     # 脱离终端后台运行（关闭 SSH 不退出）
+disown -h %1                        # 将已运行任务从 shell 中脱离
+```
+
+## 网络与端口
+
+### 网络配置查看
+
+```bash
+ip addr                             # 查看所有网卡（推荐）
+ip a                                # 简写
+ip route                            # 查看路由表
+ifconfig                            # 旧命令，部分系统需安装 net-tools
+hostname                            # 查看主机名
+hostname -I                         # 查看本机 IP
+cat /etc/resolv.conf                # 查看 DNS 配置
+```
+
+### 连接与端口
+
+```bash
+ss -tunlp                           # 查看所有监听端口（推荐替代 netstat）
+ss -tunlp | grep 8080               # 查看 8080 占用
+netstat -tunlp                      # 旧命令，含义同上
+lsof -i:8080                        # 查看占用 8080 的进程
+lsof -p 1234                        # 查看进程 1234 打开的所有文件
+```
+
+### 测试与抓取
+
+```bash
+ping baidu.com                      # 测试连通性（Ctrl+C 退出）
+ping -c 4 baidu.com                 # 仅发 4 次
+traceroute baidu.com                # 路由跟踪
+telnet host 8080                    # 测试 TCP 端口连通性
+nc -zv host 8080                    # 同上，更现代
+curl https://example.com            # 发起 GET 请求
+curl -I https://example.com         # 仅查看响应头
+curl -X POST -d "k=v" url           # POST 表单
+curl -o page.html url               # 保存到文件
+wget https://example.com/file.zip   # 下载文件
+wget -c url                         # 断点续传
+```
+
+## 系统服务（systemd）
+
+```bash
+systemctl start nginx               # 启动服务
+systemctl stop nginx                # 停止服务
+systemctl restart nginx             # 重启
+systemctl reload nginx              # 重新加载配置（不中断）
+systemctl status nginx              # 查看状态
+systemctl enable nginx              # 开机自启
+systemctl disable nginx             # 取消开机自启
+systemctl is-active nginx           # 是否运行中
+systemctl is-enabled nginx          # 是否已开机自启
+systemctl list-units --type=service # 列出所有服务
+systemctl daemon-reload             # 修改 .service 文件后重新加载
+```
+
+### journalctl 日志查看
+
+```bash
+journalctl -u nginx                 # 查看 nginx 服务日志
+journalctl -u nginx -f              # 实时跟踪
+journalctl -u nginx --since today   # 仅今日
+journalctl -u nginx --since "1 hour ago"
+journalctl -p err                   # 仅错误级别
+journalctl --disk-usage             # 日志占用空间
+```
+
+## 磁盘与挂载
+
+```bash
+df -h                               # 查看各挂载点使用情况
+df -hT                              # 同时显示文件系统类型
+du -sh dir/                         # 查看目录总占用
+du -sh *                            # 当前目录下每项占用
+du -h --max-depth=1 /var            # 限制深度
+
+lsblk                               # 树状显示块设备
+fdisk -l                            # 查看分区表（root）
+blkid                               # 查看设备 UUID 与文件系统类型
+free -h                             # 查看内存使用情况
+```
+
+### 挂载与卸载
+
+```bash
+mount /dev/sdb1 /mnt/data           # 挂载分区到目录
+mount -t nfs host:/share /mnt/nfs   # 挂载 NFS
+umount /mnt/data                    # 卸载
+umount -l /mnt/data                 # 懒卸载（占用时）
+```
+
+开机自动挂载：编辑 `/etc/fstab`，每行格式为：
+
+```
+UUID=xxxx  /mnt/data  ext4  defaults  0  2
+```
+
+## 软件包管理
+
+### Debian / Ubuntu（apt）
+
+```bash
+apt update                          # 更新软件源索引
+apt upgrade                         # 升级已装软件
+apt install nginx                   # 安装
+apt remove nginx                    # 卸载（保留配置）
+apt purge nginx                     # 卸载并删除配置
+apt search keyword                  # 搜索
+apt show nginx                      # 查看详情
+apt list --installed                # 已安装列表
+dpkg -i pkg.deb                     # 安装本地 .deb 包
+dpkg -l | grep nginx                # 已安装包查找
+```
+
+### RHEL / CentOS / Rocky（yum / dnf）
+
+```bash
+yum install nginx                   # 旧版 / CentOS 7
+dnf install nginx                   # 新版 / CentOS 8+
+dnf remove nginx
+dnf update
+dnf search keyword
+dnf list installed
+rpm -ivh pkg.rpm                    # 安装本地 .rpm
+rpm -qa | grep nginx                # 已安装查找
+rpm -ql nginx                       # 列出包内所有文件
+```
+
+## 软硬链接
+
+```bash
+ln source.txt hard.txt              # 硬链接：与源共用 inode
+ln -s /opt/app/run.sh /usr/local/bin/run    # 软链接（符号链接）
+ls -l /usr/local/bin/run            # 软链接显示为 -> 目标
+readlink -f link                    # 查看链接最终指向
+unlink link                         # 删除链接
+```
+
+| 区别 | 硬链接 | 软链接 |
+| --- | --- | --- |
+| 跨文件系统 | 不可 | 可 |
+| 链接目录 | 不可 | 可 |
+| 源被删除 | 仍可访问 | 失效（悬空） |
+| inode | 相同 | 不同 |
+
+## 环境变量与 PATH
+
+```bash
+echo $PATH                          # 查看 PATH
+echo $HOME                          # 当前用户家目录
+env                                 # 查看所有环境变量
+export JAVA_HOME=/opt/jdk-17        # 临时设置（仅当前 shell）
+export PATH=$JAVA_HOME/bin:$PATH    # 把 java 加入 PATH
+unset JAVA_HOME                     # 删除变量
+```
+
+持久化（按需选择写入文件）：
+
+| 文件 | 作用范围 |
+| --- | --- |
+| `/etc/profile` | 所有用户，登录时加载 |
+| `/etc/environment` | 所有用户，纯键值对 |
+| `~/.bash_profile` 或 `~/.profile` | 当前用户，登录时加载 |
+| `~/.bashrc` | 当前用户，每次开新 bash 时加载 |
+| `~/.zshrc` | zsh 对应文件 |
+
+```bash
+source ~/.bashrc                    # 让修改立即生效
+. ~/.bashrc                         # 等价写法
+```
+
+## 定时任务
+
+### crontab（周期任务）
+
+```bash
+crontab -e                          # 编辑当前用户任务
+crontab -l                          # 查看
+crontab -r                          # 删除（谨慎）
+```
+
+格式：`分 时 日 月 周  命令`
+
+```cron
+*  *  *  *  *   command       # 每分钟执行
+0  3  *  *  *   /opt/backup.sh    # 每天 3:00
+*/5 *  *  *  *   command      # 每 5 分钟
+0  9  *  *  1-5 command       # 工作日 9 点
+0  0  1  *  *   command       # 每月 1 号
+```
+
+### at（一次性任务）
+
+```bash
+echo "/opt/run.sh" | at 22:00       # 今晚 22:00 执行
+at now + 5 minutes                  # 5 分钟后
+atq                                 # 查看任务队列
+atrm 3                              # 删除编号 3 的任务
+```
+
+## Shell 脚本基础
+
+### 第一个脚本
+
+```bash
+#!/bin/bash
+echo "Hello, $1"
+```
+
+```bash
+chmod +x hello.sh
+./hello.sh world                    # 输出 Hello, world
+```
+
+### 变量
+
+```bash
+name="tom"                          # 等号两边不能有空格
+echo $name
+echo "${name}_log"                  # 拼接时建议用花括号
+
+# 特殊变量
+$0      # 脚本名
+$1..$9  # 第 N 个参数
+$#      # 参数个数
+$@      # 所有参数（逐个）
+$*      # 所有参数（整体）
+$?      # 上条命令退出码（0 表示成功）
+$$      # 当前进程 PID
+```
+
+### 判断
+
+```bash
+if [ "$1" = "start" ]; then
+    echo "starting..."
+elif [ -f /tmp/lock ]; then
+    echo "locked"
+else
+    echo "unknown"
+fi
+```
+
+常用测试：
+
+| 表达式 | 含义 |
+| --- | --- |
+| `-f file` | 是普通文件 |
+| `-d dir` | 是目录 |
+| `-e path` | 存在 |
+| `-r/-w/-x` | 可读 / 可写 / 可执行 |
+| `-z str` | 字符串为空 |
+| `-n str` | 字符串非空 |
+| `=` `!=` | 字符串相等 / 不等 |
+| `-eq -ne -lt -le -gt -ge` | 数值比较 |
+
+### 循环
+
+```bash
+# for
+for i in 1 2 3; do
+    echo $i
+done
+
+for f in *.log; do
+    echo "处理 $f"
+done
+
+for i in {1..5}; do echo $i; done
+
+# while
+i=0
+while [ $i -lt 3 ]; do
+    echo $i
+    i=$((i + 1))
+done
+```
+
+### 函数
+
+```bash
+greet() {
+    local name=$1
+    echo "Hello, $name"
+    return 0
+}
+
+greet "tom"
+echo "退出码: $?"
+```
+
+## 常用快捷键与技巧
+
+| 快捷键 | 作用 |
+| --- | --- |
+| `Tab` | 命令 / 路径补全 |
+| `Ctrl + R` | 历史命令搜索 |
+| `Ctrl + A` / `Ctrl + E` | 移到行首 / 行尾 |
+| `Ctrl + U` / `Ctrl + K` | 删除光标前 / 后所有内容 |
+| `Ctrl + W` | 删除前一个单词 |
+| `Ctrl + L` | 清屏（等价于 `clear`） |
+| `Ctrl + C` | 中断当前命令 |
+| `Ctrl + D` | 退出当前 shell（或结束输入） |
+| `Ctrl + Z` | 挂起当前任务 |
+| `!!` | 重复上一条命令 |
+| `!ssh` | 重复最近以 `ssh` 开头的命令 |
+| `history` | 查看历史命令 |
+| `!100` | 执行历史中第 100 条命令 |
+
+## 系统信息一览
+
+```bash
+uname -a                            # 内核及架构
+cat /etc/os-release                 # 发行版信息
+lsb_release -a                      # 发行版（部分系统需安装）
+uptime                              # 启动时长 + 负载
+date                                # 当前时间
+cal                                 # 日历
+who -b                              # 上次启动时间
+last                                # 登录历史
+dmesg | tail                        # 内核日志（排查硬件问题）
+```
+
+
+
+
 
 
 
