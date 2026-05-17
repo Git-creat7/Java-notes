@@ -743,3 +743,22 @@ watch(user, (newValue) => {
 - **拦截附加**：后续客户端发起任何数据请求，`request.js` 的**请求拦截器**都会自动在 HTTP Header 中加入该 Token。
     
 - **服务端校验**：服务端收到请求，拦截器/中间件校验 Token 是否合法、是否过期。合法则放行，不合法则返回 `401 Unauthorized`
+```Js
+//axios的请求 request 拦截器 - 请求拦截器 获取localStorage中的token
+request.interceptors.request.use(
+  (config) => { //成功回调
+    //解析为字符串
+    const loginUser = JSON.parse(localStorage.getItem('loginUser'));
+    //携带令牌数据到请求头（文件上传时，没有携带token）
+    if(loginUser && loginUser.token) {
+      config.headers.token = loginUser.token;
+    }
+    return config;
+  },
+  (error) => { //失败回调
+    return Promise.reject(error);
+  }
+)
+```
+**注意：文件上传不会使用这个request的token**，需要单独特殊处理
+
