@@ -762,3 +762,22 @@ request.interceptors.request.use(
 ```
 **注意：文件上传不会使用这个request的token**，需要单独特殊处理
 
+---
+
+**问题：**
+- 面同时发了多个请求`（比如 emp 页的 search() + queryAllDepts()）`token 过期后两个请求同时收到 401，各自触发一次`ElMessage + router.push`。
+**解决方法：**
+  用 `isRedirecting` 标志位，第一个 401 触发后置为 `true`，后续的 401 就不会再重复提示和跳转了
+  ```JS
+  let isRedirecting = false;
+  (error) => { //失败回调
+    //如果响应状态码是401，并且没有正在重定向
+    if (error.response.status === 401 && !isRedirecting) { 
+      isRedirecting = true;
+      // 处理401错误，跳转到登录页面
+      ElMessage.error({ showClose: true, message: '登录已过期，请重新登录' });
+      router.push('/login');
+    }
+    return Promise.reject(error)
+  }
+  ```
