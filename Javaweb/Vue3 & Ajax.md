@@ -731,3 +731,5 @@ watch(user, (newValue) => {
   /* 只有开启 deep 才能监听到 user.name 的修改 */
 }, { deep: true, immediate: true })
 ```
+
+## 携带令牌访问服务端
