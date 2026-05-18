@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "PowerShell(Get-ChildItem *)",
-      "Bash(claude skill *)"
+      "Bash(claude skill *)",
+      "Bash(Get-ChildItem -Recurse -Filter \"*.md\")",
+      "Bash(Select-Object -First 30)"
     ]
   }
 }

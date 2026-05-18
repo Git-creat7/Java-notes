@@ -751,6 +751,193 @@ unset JAVA_HOME                     # 删除变量
 source ~/.bashrc                    # 让修改立即生效
 . ~/.bashrc                         # 等价写法
 ```
+## 防火墙
+
+### firewalld（RHEL / CentOS / Fedora）
+
+```bash
+systemctl start firewalld             # 启动
+systemctl enable firewalld            # 开机自启
+firewall-cmd --state                  # 查看运行状态
+firewall-cmd --reload                 # 重载规则（不中断连接）
+```
+
+#### 区域（zone）概念
+
+firewalld 使用区域来定义不同信任级别的网络环境：
+
+| 区域 | 说明 |
+| --- | --- |
+| `public` | 默认区域，仅允许 SSH/DHCP/ping，适合公网 |
+| `trusted` | 信任所有流量 |
+| `block` | 拒绝所有入站并返回明确拒绝 |
+| `drop` | 静默丢弃所有入站（类似黑洞） |
+| `home` / `work` / `internal` | 信任度递增，允许更多服务 |
+
+```bash
+firewall-cmd --get-default-zone       # 查看默认区域
+firewall-cmd --get-active-zones       # 查看当前生效的区域与网卡绑定
+firewall-cmd --set-default-zone=public
+```
+
+#### 开放端口与服务
+
+```bash
+firewall-cmd --permanent --add-service=http       # 永久放行 HTTP
+firewall-cmd --permanent --add-service=https
+firewall-cmd --permanent --add-port=8080/tcp      # 放行指定端口
+firewall-cmd --permanent --add-port=10000-10010/tcp  # 放行端口范围
+firewall-cmd --reload
+```
+
+```bash
+firewall-cmd --permanent --remove-service=http    # 移除服务
+firewall-cmd --permanent --remove-port=8080/tcp   # 移除端口
+firewall-cmd --reload
+```
+
+> `--permanent` 表示写入配置文件，必须配合 `--reload` 才立即生效；不加 `--permanent` 则仅当前生效，重启后丢失。
+
+#### 查看规则
+
+```bash
+firewall-cmd --list-all               # 查看默认区域全部配置
+firewall-cmd --zone=public --list-all # 查看指定区域
+firewall-cmd --list-services          # 已放行的服务
+firewall-cmd --list-ports             # 已放行的端口
+```
+
+### ufw（Ubuntu / Debian 简化版）
+
+```bash
+ufw enable                            # 启用防火墙
+ufw disable                           # 关闭
+ufw status verbose                    # 查看详细状态
+ufw default deny incoming             # 默认拒绝入站
+ufw default allow outgoing            # 默认允许出站
+```
+
+#### 规则管理
+
+```bash
+ufw allow 22/tcp                      # 放行 SSH
+ufw allow 80/tcp                      # 放行 HTTP
+ufw allow 443/tcp                     # 放行 HTTPS
+ufw allow 8080/tcp                    # 放行自定义端口
+ufw allow from 192.168.1.0/24         # 放行整个网段
+ufw allow from 192.168.1.50 to any port 3306  # 仅允许指定 IP 访问 MySQL
+```
+
+```bash
+ufw delete allow 80/tcp               # 删除规则
+ufw deny 3306/tcp                     # 显式拒绝端口
+ufw reset                             # 重置所有规则（谨慎）
+```
+
+#### 按应用名放行
+
+```bash
+ufw app list                          # 查看可用的应用配置
+ufw allow 'Nginx Full'                # 同时放行 80 和 443
+ufw allow 'OpenSSH'
+```
+
+> 应用配置文件位于 `/etc/ufw/applications.d/`，可自定义。
+
+### iptables（底层通用）
+
+iptables 是 Linux 内核 netfilter 框架的用户态工具，firewalld 和 ufw 底层都依赖它。
+
+#### 四表五链
+
+**四表**：
+
+| 表名 | 作用 |
+| --- | --- |
+| `filter` | 过滤（默认最常用），决定放行 / 丢弃 |
+| `nat` | 网络地址转换（端口映射、源/目的 NAT） |
+| `mangle` | 修改数据包头部（如 TTL、TOS） |
+| `raw` | 连接追踪豁免 |
+
+**五链**（数据包流经的关键节点）：
+
+| 链名 | 说明 |
+| --- | --- |
+| `PREROUTING` | 进入本机前（路由判断之前） |
+| `INPUT` | 发往本机进程 |
+| `FORWARD` | 经过本机转发（网关/路由器场景） |
+| `OUTPUT` | 本机进程发出 |
+| `POSTROUTING` | 离开本机前（路由判断之后） |
+
+#### 常用命令
+
+```bash
+iptables -L -n -v                     # 列出所有规则（-n 数字显示，-v 详细）
+iptables -L INPUT -n -v               # 仅查看 INPUT 链
+iptables -F                           # 清空所有规则（谨慎）
+iptables -X                           # 删除用户自定义链
+```
+
+#### 增删规则
+
+```bash
+# 允许已建立和相关的连接（通常放第一条）
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# 放行本地回环
+iptables -A INPUT -i lo -j ACCEPT
+
+# 放行指定端口
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# 放行指定 IP
+iptables -A INPUT -s 192.168.1.50 -j ACCEPT
+
+# 拒绝其余入站
+iptables -A INPUT -j DROP
+```
+
+```bash
+# 删除指定规则（先查看编号）
+iptables -L INPUT --line-numbers
+iptables -D INPUT 3                   # 删除 INPUT 链第 3 条规则
+```
+
+| 参数 | 含义 |
+| --- | --- |
+| `-A` | 追加到链末尾（Append） |
+| `-I` | 插入到链开头（Insert），如 `-I INPUT 1` |
+| `-D` | 删除（Delete） |
+| `-p` | 协议：`tcp` / `udp` / `icmp` / `all` |
+| `--dport` | 目标端口 |
+| `--sport` | 源端口 |
+| `-s` | 源地址 |
+| `-d` | 目标地址 |
+| `-i` | 入站网卡 |
+| `-o` | 出站网卡 |
+| `-j` | 跳转目标：`ACCEPT` / `DROP` / `REJECT` / `LOG` |
+
+> `DROP` 是静默丢弃，`REJECT` 会返回拒绝响应（对外更友好，对内暴露信息稍多）。
+
+#### 保存与恢复
+
+iptables 规则默认重启后丢失，需持久化：
+
+```bash
+# Debian / Ubuntu
+iptables-save > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
+
+# CentOS / RHEL
+iptables-save > /etc/sysconfig/iptables
+```
+
+```bash
+# 恢复
+iptables-restore < /etc/iptables/rules.v4
+```
 
 ## 定时任务
 
