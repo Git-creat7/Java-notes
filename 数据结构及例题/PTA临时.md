@@ -1007,6 +1007,7 @@ void Show_HFcoding(HFTree root, char data[], int n){
 
 ---
 ## 邻接表存储图的广度优先遍历
+![](img/PTA临时-1.png)
 ```C
 /*
 Graph：图
