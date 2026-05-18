@@ -1407,6 +1407,31 @@ int main() {
     cout << cost << endl;
 }
 ```
+## 7-5 公路村村通
+```C
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+struct Edge { int u, v, w; } e[3001];
+int pa[1001], N, M;
+
+int Find(int x){ return pa[x] == x ? x : pa[x] = Find(pa[x]); }
+
+int main(){
+  cin >> N >> M;
+  for(int i = 0; i < M; i++) cin >> e[i].u >> e[i].v >> e[i].w;
+  sort(e, e + M, [](Edge &a, Edge &b){ return a.w < b.w; });
+  for(int i = 1; i <= N; i++) pa[i] = i;
+
+  int cost = 0, cnt = 0;
+  for(int i = 0; i < M && cnt < N-1; i++){
+      int a = Find(e[i].u), b = Find(e[i].v);
+      if(a != b){ pa[a] = b; cost += e[i].w; cnt++; }
+  }
+  cout << (cnt == N-1 ? cost : -1);
+}
+```
 ## 7-6 旅游规划
 ```C
 // 无穷大常量，节点最大数量
