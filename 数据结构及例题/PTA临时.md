@@ -1006,6 +1006,93 @@ void Show_HFcoding(HFTree root, char data[], int n){
 6. 由于哈夫曼树叶节点位置唯一，编码具有**前缀性**（任何编码都不是其他编码的前缀），可无歧义解码。
 
 ---
+## 邻接表存储图的广度优先遍历
+```C
+/*
+Graph：图
+S：起点编号
+Visit：访问函数指针，调用方式 Visit(顶点编号)
+*/
+void BFS ( LGraph Graph, Vertex S, void (*Visit)(Vertex) ){
+    Vertex queue[MaxVertexNum];
+    int front=0,rear=0;
+    Visited[S] = true;//已访问
+    queue[rear++] = S;
+    Visit(S);
+    while(front<rear){
+        Vertex V = queue[front++];
+        PtrToAdjVNode p = Graph->G[V].FirstEdge;
+        while(p!=NULL){
+            if(!Visited[p->AdjV]){
+                Visited[p->AdjV] = true;
+                Visit(p->AdjV);
+                queue[rear++] = p->AdjV;
+            }
+            p = p->Next;
+        }
+    }
+}
+```
+---
+## 最短路径
+```C
+void ShortestDist( LGraph Graph, int dist[], Vertex S ){
+    //初始化
+    for(int i = 0; i < MaxVertexNum; i ++)    dist[i] = -1;
+    dist[S] = 0;
+    Vertex queue[MaxVertexNum];
+    int front=0,rear=0;
+    queue[rear++] = S;
+    while(front < rear){
+        Vertex V = queue[front++];
+        PtrToAdjVNode p = Graph->G[V].FirstEdge;
+        while(p!=NULL){
+            Vertex W = p->AdjV;
+            if(dist[W] == - 1){
+                dist[W] = dist[V] + 1;
+                queue[rear++] = W;
+            }
+            p = p->Next;
+        }
+    }
+}
+```
+---
+## 线性探测法的查找函数
+```C
+Position Find( HashTable H, ElementType Key ){
+    Position pos = Hash(Key,H->TableSize);
+    int count = 0;
+    while(count < H->TableSize){
+        Cell c =  H->Cells[pos];
+        //不在表中 
+        if(c.Info == Empty) return pos;
+        //位置合法且找到了
+        else if(c.Info == Legitimate && c.Data == Key) return pos;
+        //被删除或者不匹配
+        else {
+            count++;
+            pos = (pos+1) % H->TableSize;
+        }
+    }
+    return ERROR;
+}
+```
+---
+## 邻接矩阵存储图的深度优先遍历
+```C
+void DFS( MGraph Graph, Vertex V, void (*Visit)(Vertex) ){
+    Visited[V] = true;
+    Visit(V);
+    for(int W=0; W<Graph->Nv; W++){
+        //判断V W之间是否有边
+        if(Graph->G[V][W] && Graph->G[V][W] != INFINITY && !Visited[W]){
+            DFS(Graph,W,Visit);
+        }
+    }
+}
+```
+---
 
 # 编程题
 ## 7-1 一元多项式的乘法与加法运算
