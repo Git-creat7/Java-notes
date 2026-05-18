@@ -1407,3 +1407,77 @@ int main() {
     cout << cost << endl;
 }
 ```
+## 7-6 旅游规划
+```C
+// 无穷大常量，节点最大数量
+const int INF = 0x3f3f3f3f;
+const int MAXN = 505;
+// N:节点数 M:边数 S:起点 D:终点
+int N, M, S, D;
+// 邻接矩阵：G_dist存距离，G_cost存花费
+int G_dist[MAXN][MAXN];
+int G_cost[MAXN][MAXN];
+// dist[]:起点到各点最短距离  cost[]:对应最短路径的最小花费
+int dist[MAXN];
+int cost[MAXN];
+// 标记节点是否已被收录（Dijkstra算法用）
+bool collected[MAXN];
+int main() {
+    // 输入节点数、边数、起点、终点
+    cin >> N >> M >> S >> D;
+
+    // 初始化邻接矩阵为无穷大
+    memset(G_dist, 0x3f, sizeof(G_dist));
+    memset(G_cost, 0x3f, sizeof(G_cost));
+    // 读入M条无向边
+    while (M--) {
+        int a, b, len, c;
+        cin >> a >> b >> len >> c;
+        // 无向图，双向赋值
+        G_dist[a][b] = G_dist[b][a] = len;
+        G_cost[a][b] = G_cost[b][a] = c;
+    }
+
+    // 初始化距离和花费数组为无穷大
+    memset(dist, 0x3f, sizeof(dist));
+    memset(cost, 0x3f, sizeof(cost));
+    // 起点到自己距离和花费均为0
+    dist[S] = cost[S] = 0;
+
+    // Dijkstra算法主体
+    for (int i = 0; i < N; i++) {
+        // 找到未收录节点中，距离起点最近的节点V
+        int V = -1;
+        for (int j = 0; j < N; j++) {
+            if (!collected[j] && (V == -1 || dist[j] < dist[V])) {
+                V = j;
+            }
+        }
+
+        // 没有可访问的节点，提前退出
+        if (V == -1) break;
+        // 标记V已收录
+        collected[V] = true;
+
+        // 用V更新其他节点W的距离和花费
+        for (int W = 0; W < N; W++) {
+            // W已收录 或 V与W不连通，跳过
+            if (collected[W] || G_dist[V][W] == INF) continue;
+
+            int new_dist = dist[V] + G_dist[V][W];
+            int new_cost = cost[V] + G_cost[V][W];
+
+            // 更短路径 或 路径等长但花费更小 → 更新
+            if (new_dist < dist[W] || (new_dist == dist[W] && new_cost < cost[W])) {
+                dist[W] = new_dist;
+                cost[W] = new_cost;
+            }
+        }
+    }
+
+    // 输出起点到终点的最短距离和最小花费
+    cout << dist[D] << " " << cost[D] << endl;
+
+    return 0;
+}
+```
