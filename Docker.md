@@ -12,14 +12,14 @@ categories = ["部署"]
 
 ## 镜像操作
 
-| 命令 | 说明 |
-|------|------|
-| `docker pull <镜像名>:<tag>` | 拉取镜像 |
-| `docker images` | 查看本地镜像列表 |
-| `docker rmi <镜像名/ID>` | 删除镜像 |
-| `docker build -t <名称>:<tag> .` | 构建镜像 |
+| 命令                                     | 说明           |
+| -------------------------------------- | ------------ |
+| `docker pull <镜像名>:<tag>`              | 拉取镜像         |
+| `docker images`                        | 查看本地镜像列表     |
+| `docker rmi <镜像名/ID>`                  | 删除镜像         |
+| `docker build -t <名称>:<tag> .`         | 构建镜像         |
 | `docker save -o <文件名>.tar <镜像名>:<tag>` | 导出镜像为 tar 文件 |
-| `docker load -i <文件名>.tar` | 从 tar 文件加载镜像 |
+| `docker load -i <文件名>.tar`             | 从 tar 文件加载镜像 |
 
 ## 容器操作
 
