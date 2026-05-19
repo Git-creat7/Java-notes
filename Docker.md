@@ -23,19 +23,19 @@ categories = ["部署"]
 
 ## 容器操作
 
-| 命令 | 说明 |
-|------|------|
-| `docker run` | 创建并运行容器 |
-| `docker ps` | 查看运行中的容器 |
-| `docker ps -a` | 查看所有容器（含已停止） |
-| `docker stop <容器名/ID>` | 停止容器 |
-| `docker start <容器名/ID>` | 启动已停止的容器 |
-| `docker restart <容器名/ID>` | 重启容器 |
-| `docker rm <容器名/ID>` | 删除容器（需先停止） |
-| `docker rm -f <容器名/ID>` | 强制删除容器 |
-| `docker logs <容器名/ID>` | 查看容器日志 |
-| `docker logs -f <容器名/ID>` | 持续跟踪日志输出 |
-| `docker exec -it <容器名/ID> bash` | 进入容器内部 |
+| 命令                              | 说明           |
+| ------------------------------- | ------------ |
+| `docker run`                    | 创建并运行容器      |
+| `docker ps`                     | 查看运行中的容器     |
+| `docker ps -a`                  | 查看所有容器（含已停止） |
+| `docker stop <容器名/ID>`          | 停止容器         |
+| `docker start <容器名/ID>`         | 启动已停止的容器     |
+| `docker restart <容器名/ID>`       | 重启容器         |
+| `docker rm <容器名/ID>`            | 删除容器（需先停止）   |
+| `docker rm -f <容器名/ID>`         | 强制删除容器       |
+| `docker logs <容器名/ID>`          | 查看容器日志       |
+| `docker logs -f <容器名/ID>`       | 持续跟踪日志输出     |
+| `docker exec -it <容器名/ID> bash` | 进入容器内部       |
 
 ## docker run 常用参数
 
