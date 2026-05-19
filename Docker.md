@@ -141,10 +141,15 @@ Dockerfile 是构建镜像的脚本文件，包含一系列指令：
 ## 示例：构建 Java 应用镜像
 
 ```dockerfile
+# 指定基础镜像为 OpenJDK 17 精简版
 FROM openjdk:17-jdk-slim
+# 设置容器内工作目录，后续指令都在此目录下执行
 WORKDIR /app
+# 将宿主机编译好的 jar 包复制到容器的工作目录中
 COPY target/app.jar app.jar
+# 声明容器运行时监听 8080 端口（仅文档作用，实际映射靠 -p）
 EXPOSE 8080
+# 容器启动时执行的命令
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
