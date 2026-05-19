@@ -253,7 +253,7 @@ services:
       - my-net
 
   db:
-    image: mysql:8.0
+    image: mysql:8.4.8
     container_name: mysql
     ports:
       - "3306:3306"
