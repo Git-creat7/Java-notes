@@ -403,7 +403,7 @@ userService.lambdaUpdate()
 # 分页插件
 MP 的分页基于**插件机制**实现，需要先注册分页拦截器。
 
-## 配置分页插件
+	## 配置分页插件
 ```Java
 @Configuration
 public class MybatisPlusConfig {
