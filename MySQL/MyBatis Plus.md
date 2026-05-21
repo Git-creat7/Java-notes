@@ -531,7 +531,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 ---
 
 # 乐观锁
-通过版本号 `version` 实现并发更新冲突检测。
+通过版本号 `version` 实现并发更新冲突检测
 
 ## 配置插件
 ```Java
