@@ -195,23 +195,23 @@ Wrapper 是 MP 的**核心特性**，用于构造灵活的 WHERE 条件。
     - `LambdaUpdateWrapper`
 
 ## 常用条件方法
-| **方法** | **说明** | **示例 SQL** |
-| --- | --- | --- |
-| `eq` | 等于 = | `name = 'Tom'` |
-| `ne` | 不等于 != | `age != 18` |
-| `gt` / `ge` | 大于 / 大于等于 | `age > 18` |
-| `lt` / `le` | 小于 / 小于等于 | `age < 18` |
-| `between` | between A and B | `age between 18 and 30` |
-| `like` / `notLike` | 模糊查询 | `name like '%T%'` |
-| `likeLeft` / `likeRight` | 左/右模糊 | `name like '%T'` |
-| `isNull` / `isNotNull` | 判空 | `name is null` |
-| `in` / `notIn` | 包含 | `id in (1,2,3)` |
-| `orderByAsc` / `orderByDesc` | 排序 | `order by age desc` |
-| `groupBy` | 分组 | `group by dept_id` |
-| `having` | 分组过滤 | `having sum(age) > 100` |
-| `or` / `and` | 拼接 | — |
-| `select` | 指定查询列 | `select id, name` |
-| `last` | 拼接 SQL 末尾（**慎用，有注入风险**） | `limit 10` |
+| **方法**                       | **说明**                  | **示例 SQL**              |
+| ---------------------------- | ----------------------- | ----------------------- |
+| `eq`                         | 等于 =                    | `name = 'Tom'`          |
+| `ne`                         | 不等于 !=                  | `age != 18`             |
+| `gt` / `ge`                  | 大于 / 大于等于               | `age > 18`              |
+| `lt` / `le`                  | 小于 / 小于等于               | `age < 18`              |
+| `between`                    | between A and B         | `age between 18 and 30` |
+| `like` / `notLike`           | 模糊查询                    | `name like '%T%'`       |
+| `likeLeft` / `likeRight`     | 左/右模糊                   | `name like '%T'`        |
+| `isNull` / `isNotNull`       | 判空                      | `name is null`          |
+| `in` / `notIn`               | 包含                      | `id in (1,2,3)`         |
+| `orderByAsc` / `orderByDesc` | 排序                      | `order by age desc`     |
+| `groupBy`                    | 分组                      | `group by dept_id`      |
+| `having`                     | 分组过滤                    | `having sum(age) > 100` |
+| `or` / `and`                 | 拼接                      | —                       |
+| `select`                     | 指定查询列                   | `select id, name`       |
+| `last`                       | 拼接 SQL 末尾（**慎用，有注入风险**） | `limit 10`              |
 
 ## QueryWrapper 示例
 查询：年龄在 18-30 之间，姓名包含 "张"，按年龄降序排列。
@@ -250,8 +250,10 @@ String name = "张";
 Integer minAge = null;
 
 LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-wrapper.like(StringUtils.hasText(name), User::getName, name)  // name 非空才拼接
-       .ge(minAge != null, User::getAge, minAge);              // minAge 非 null 才拼接
+wrapper.like(StringUtils.hasText(name), User::getName, name) 
+// name 非空才拼接
+       .ge(minAge != null, User::getAge, minAge);        
+		 // minAge 非 null 才拼接
 ```
 
 ## UpdateWrapper 示例
