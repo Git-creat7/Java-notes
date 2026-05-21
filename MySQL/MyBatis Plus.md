@@ -571,10 +571,15 @@ WHERE id = ? AND version = ?
 
 # 常见问题
 ## 问：MP 如何在不写 SQL 的情况下完成 CRUD？
-**回答：** MP 在启动时扫描所有继承了 `BaseMapper<T>` 的接口，通过 `T` 的泛型类型获取实体 Class，结合 `@TableName`、`@TableId` 等注解解析出表结构（表名、主键、字段映射）。然后在内部通过**反射 + 模板**为每个 Mapper 动态注册 `MappedStatement`，相当于在运行期为每个接口方法生成了对应的 SQL。所以本质上仍是 MyBatis，只是 SQL 由 MP 在启动期帮我们“预制”好。
+**回答：**
+MP 在启动时扫描所有继承了 `BaseMapper<T>` 的接口，通过 `T` 的泛型类型获取实体 Class，结合 `@TableName`、`@TableId` 等注解解析出表结构（表名、主键、字段映射）。
+然后在内部通过**反射 + 模板**为每个 Mapper 动态注册 `MappedStatement`，相当于在运行期为每个接口方法生成了对应的 SQL。所以本质上仍是 MyBatis，只是 SQL 由 MP 在启动期帮我们“预制”好。
 
 ## 问：`#{}` 防注入，那 Wrapper 拼接条件安全吗？
-**回答：** 安全。Wrapper 内部所有的值都通过参数占位符（`#{}`）传递给 PreparedStatement，不是字符串拼接。但需注意 `last()` 和 `apply()` 是直接拼接 SQL 的，**用户输入禁止直接传入**，否则同样有注入风险。
+**回答：**
+安全。Wrapper 内部所有的值都通过参数占位符（`#{}`）传递给 PreparedStatement，不是字符串拼接。但需注意 `last()` 和 `apply()` 是直接拼接 SQL 的，**用户输入禁止直接传入**，否则同样有注入风险。
 
 ## 问：LambdaQueryWrapper 相比 QueryWrapper 有什么优势？
-**回答：** 主要是**消除字段名硬编码**。`QueryWrapper` 的字段名是字符串，重命名时编译器无法发现错误；而 `LambdaQueryWrapper` 使用 `User::getName` 方法引用，编译期校验，IDE 重构能同步修改。代价是性能略低（需要解析 Lambda），但可忽略。
+**回答：** 
+主要是**消除字段名硬编码**。`QueryWrapper` 的字段名是字符串，重命名时编译器无法发现错误；
+而 `LambdaQueryWrapper` 使用 `User::getName` 方法引用，编译期校验，IDE 重构能同步修改。代价是性能略低（需要解析 Lambda），但可忽略。
