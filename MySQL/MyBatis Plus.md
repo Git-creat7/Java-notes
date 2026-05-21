@@ -270,6 +270,85 @@ userMapper.update(null, wrapper);
 
 ---
 
+## 聚合查询（COUNT、SUM、GROUP BY）
+MP 的 Wrapper 支持 `select`、`groupBy`、`having` 方法，配合 `selectMaps` 可以完成聚合统计。
+
+### selectCount：简单计数
+```Java
+// 统计年龄大于 18 的用户数量
+Long count = userMapper.selectCount(
+    Wrappers.<User>lambdaQuery()
+        .gt(User::getAge, 18)
+);
+// 生成 SQL: SELECT COUNT(*) FROM user WHERE age > 18
+```
+
+### select + groupBy：分组统计
+`selectList` 返回的是实体对象，无法承载 `COUNT(*)`、`SUM()` 等聚合结果。此时使用 **`selectMaps`** 返回 `List<Map<String, Object>>`。
+```Java
+QueryWrapper<User> wrapper = new QueryWrapper<>();
+wrapper.select("dept_id", "COUNT(*) AS count", "AVG(age) AS avg_age")
+       .groupBy("dept_id");
+
+List<Map<String, Object>> result = userMapper.selectMaps(wrapper);
+// 生成 SQL: SELECT dept_id, COUNT(*) AS count, AVG(age) AS avg_age
+//           FROM user GROUP BY dept_id
+```
+每个 Map 对应一行分组结果：
+```Java
+result => [{dept_id=1, count=5, avg_age=28.6}, {dept_id=2, count=3, avg_age=24.0}]
+```
+
+### groupBy + having：分组过滤
+```Java
+QueryWrapper<User> wrapper = new QueryWrapper<>();
+wrapper.select("dept_id", "COUNT(*) AS count")
+       .groupBy("dept_id")
+       .having("COUNT(*) > {0}", 3);  // {0} 是参数占位
+
+List<Map<String, Object>> result = userMapper.selectMaps(wrapper);
+// 生成 SQL: SELECT dept_id, COUNT(*) AS count
+//           FROM user GROUP BY dept_id HAVING COUNT(*) > 3
+```
+
+### 常用聚合函数速查
+| **函数** | **说明** | **select 写法** |
+| --- | --- | --- |
+| `COUNT(*)` | 总行数 | `"COUNT(*) AS total"` |
+| `COUNT(DISTINCT col)` | 去重计数 | `"COUNT(DISTINCT dept_id) AS dept_count"` |
+| `SUM(col)` | 求和 | `"SUM(age) AS sum_age"` |
+| `AVG(col)` | 平均值 | `"AVG(age) AS avg_age"` |
+| `MAX(col)` / `MIN(col)` | 最大/最小值 | `"MAX(age) AS max_age"` |
+
+### LambdaQueryWrapper 的局限
+`LambdaQueryWrapper` 的 `select()` 只能选择实体字段（方法引用），**无法写聚合表达式**。需要聚合时有两种方案：
+
+**方案一**：使用 `QueryWrapper`（字符串写法）。
+```Java
+QueryWrapper<User> wrapper = new QueryWrapper<>();
+wrapper.select("dept_id", "COUNT(*) AS count")
+       .lambda()                          // 后续条件仍可用 Lambda
+       .gt(User::getAge, 18)
+       .groupBy(User::getDeptId);
+// 注意：groupBy 用 Lambda，但 select 必须用字符串
+```
+
+**方案二**：自定义 Mapper 方法 + XML（推荐复杂场景）。
+```Java
+// Mapper 接口
+@Select("SELECT dept_id, COUNT(*) AS count FROM user " +
+        "WHERE age > #{minAge} GROUP BY dept_id HAVING COUNT(*) > #{minCount}")
+List<Map<String, Object>> countByDept(@Param("minAge") Integer minAge,
+                                      @Param("minCount") Integer minCount);
+```
+
+> [!NOTE] selectMaps vs selectList
+> - `selectList` → 返回 `List<T>`，结果映射到实体类，适合常规查询。
+> - `selectMaps` → 返回 `List<Map<String, Object>>`，适合聚合查询、部分字段查询等无法映射到实体的场景。
+> - `selectObjs` → 返回 `List<Object>`，只取第一列的值（如只查 id 列表）。
+
+---
+
 # Service 层封装
 MP 同样提供了 Service 层的封装，进一步减少模板代码。
 
