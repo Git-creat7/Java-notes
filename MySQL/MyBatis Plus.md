@@ -569,6 +569,131 @@ WHERE id = ? AND version = ?
 
 ---
 
+# 代码生成器
+**代码生成器**（Generator）能根据数据库表结构，**一键生成** Entity、Mapper、Mapper.xml、Service、ServiceImpl、Controller，省去大量重复劳动。
+
+## 引入依赖
+代码生成器从 3.5.1 起独立成单独模块，使用时需额外引入；同时需要一个**模板引擎**（推荐 Freemarker）。
+```XML
+<!-- 代码生成器 -->
+<dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-generator</artifactId>
+    <version>3.5.7</version>
+</dependency>
+
+<!-- 模板引擎 -->
+<dependency>
+    <groupId>org.freemarker</groupId>
+    <artifactId>freemarker</artifactId>
+    <version>2.3.32</version>
+</dependency>
+
+<!-- 数据库驱动 -->
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+</dependency>
+```
+
+## 快速生成（FastAutoGenerator）
+3.5.1+ 推荐链式 API `FastAutoGenerator`，配置极简。
+```Java
+public class CodeGenerator {
+    public static void main(String[] args) {
+        FastAutoGenerator.create(
+                "jdbc:mysql://localhost:3306/mp_db?useSSL=false&serverTimezone=UTC",
+                "root",
+                "123456"
+        )
+        // 1. 全局配置
+        .globalConfig(builder -> builder
+                .author("Neo")                                // 作者
+                .outputDir(System.getProperty("user.dir") + "/src/main/java")  // 输出目录
+                .commentDate("yyyy-MM-dd")
+                .disableOpenDir()                             // 生成后不打开目录
+        )
+        // 2. 包配置
+        .packageConfig(builder -> builder
+                .parent("org.example")                        // 父包
+                .entity("pojo")                               // Entity 子包
+                .mapper("mapper")
+                .service("service")
+                .serviceImpl("service.impl")
+                .controller("controller")
+                .xml("mapper.xml")
+                .pathInfo(Collections.singletonMap(
+                        OutputFile.xml,
+                        System.getProperty("user.dir") + "/src/main/resources/mapper"))
+        )
+        // 3. 策略配置
+        .strategyConfig(builder -> builder
+                .addInclude("user", "dept")                   // 要生成的表名
+                .addTablePrefix("tb_")                        // 去掉表前缀
+                .entityBuilder()
+                    .enableLombok()                           // 启用 Lombok
+                    .enableTableFieldAnnotation()             // 字段加 @TableField
+                    .logicDeleteColumnName("deleted")         // 逻辑删除列
+                .controllerBuilder()
+                    .enableRestStyle()                        // @RestController
+                .mapperBuilder()
+                    .enableMapperAnnotation()                 // @Mapper
+                    .enableBaseResultMap()                    // 生成基础 ResultMap
+                    .enableBaseColumnList()                   // 生成基础 SQL 片段
+        )
+        // 4. 模板引擎（默认 Velocity，推荐 Freemarker）
+        .templateEngine(new FreemarkerTemplateEngine())
+        .execute();
+    }
+}
+```
+
+## 核心配置项
+| **配置块** | **常用方法** | **作用** |
+| --- | --- | --- |
+| **globalConfig** | `author(...)` | 注释中的作者署名 |
+|  | `outputDir(...)` | 代码输出根目录 |
+|  | `enableSwagger()` | 生成 Swagger 注解 |
+|  | `disableOpenDir()` | 生成完毕不自动打开文件夹 |
+| **packageConfig** | `parent(...)` | 顶层包名 |
+|  | `entity / mapper / service / controller` | 各层子包名 |
+|  | `pathInfo(...)` | 单独指定某类文件的输出路径（如 XML） |
+| **strategyConfig** | `addInclude(...)` | 仅生成指定表 |
+|  | `addExclude(...)` | 排除指定表 |
+|  | `addTablePrefix(...)` | 自动去除表前缀 |
+| **entityBuilder** | `enableLombok()` | 使用 `@Data` 替代 getter/setter |
+|  | `enableChainModel()` | 链式 set，便于构造对象 |
+|  | `logicDeleteColumnName(...)` | 自动加 `@TableLogic` |
+|  | `naming(NamingStrategy.underline_to_camel)` | 表名/字段名命名转换策略 |
+| **controllerBuilder** | `enableRestStyle()` | 生成 `@RestController` |
+|  | `enableHyphenStyle()` | URL 用短横线（如 `/sys-user`） |
+| **mapperBuilder** | `enableMapperAnnotation()` | 接口加 `@Mapper` |
+|  | `superClass(...)` | 指定父类（用于扩展自定义 BaseMapper） |
+
+## 生成产物结构
+执行后会得到完整的分层代码：
+```
+src/main/java/org/example/
+├── pojo/User.java                # 实体类（带 @TableName、@TableId）
+├── mapper/UserMapper.java        # 继承 BaseMapper<User>
+├── service/UserService.java      # 继承 IService<User>
+├── service/impl/UserServiceImpl.java  # 继承 ServiceImpl<UserMapper, User>
+└── controller/UserController.java     # @RestController + 基础路由
+src/main/resources/mapper/
+└── UserMapper.xml                # 空的 XML 框架
+```
+
+## 使用建议
+- **首次生成可用**：项目启动初期一次性生成全表骨架，节省大量样板代码。
+- **避免反复生成**：一旦业务代码写入生成的文件，再次生成会**覆盖修改**。建议生成后将文件纳入 git，或将生成器配置为只生成"未修改部分"。
+- **企业模板定制**：可通过 `templatePath()` 指定自定义模板文件，把公司风格的注释、导入、注解模板化。
+- **数据库列要有注释**：生成的实体字段注释来自 `COLUMN_COMMENT`，建表时养成写注释的习惯。
+
+> [!WARNING] 旧版 API 已废弃
+> 网上常见的 `AutoGenerator` + `DataSourceConfig` + `StrategyConfig` 等老式配置方式属于 3.5.1 之前的写法，新项目请直接使用 `FastAutoGenerator` 链式 API。
+
+---
+
 # 常见问题
 ## 问：MP 如何在不写 SQL 的情况下完成 CRUD？
 **回答：**
