@@ -1178,416 +1178,69 @@ void SelectSort(SqList L){
       }
   }
 ```
----
-
-# 编程题
-## 7-1 一元多项式的乘法与加法运算
-**数组映射法**
+## 6-47堆排序
 ```C
-#include <iostream>
-using namespace std;
-
-int poly1[1001] = {0}; 
-int ans_sum[1001] = {0};
-int ans_mul[2001] = {0};
-
-// 打印多项式
-void print_poly(int arr[], int max_expon) {
-    bool first = true;
-    // 从高次到低次输出
-    for (int i = max_expon; i >= 0; --i) {
-        if (arr[i] != 0) {
-            if (!first) cout << " ";
-            cout << arr[i] << " " << i;
-            first = false;
+void HeapAdjust(HeapType H, int s, int m) {
+    KeyType rc = H.elem[s]; // 暂存当前的根节点
+    int j;
+    
+    // 沿 key 较大的孩子节点向下筛选
+    for (j = 2 * s; j <= m; j *= 2) {
+        // 如果有右孩子，且右孩子比左孩子大，则把 j 指向右孩子
+        if (j < m && H.elem[j] < H.elem[j + 1]) {
+            j++;
         }
-    }
-    // 空多项式输出 0 0
-    if (first) cout << "0 0";
-    cout << endl;
-}
-
-int main() {
-    int n1, n2, c, e;
-
-    // 读取第一个多项式
-    cin >> n1;
-    int a_c[1001], a_e[1001];
-    for (int i = 0; i < n1; ++i) {
-        cin >> c >> e;
-        a_c[i] = c;
-        a_e[i] = e;
-        ans_sum[e] += c;
-    }
-
-    // 读取第二个多项式，同时计算加法与乘法
-    cin >> n2;
-    for (int i = 0; i < n2; ++i) {
-        cin >> c >> e;
-        ans_sum[e] += c;
         
-        // 乘法：逐项相乘累加
-        for (int j = 0; j < n1; ++j) {
-            ans_mul[e + a_e[j]] += c * a_c[j];
+        // 如果当前根节点已经大于等于最大的孩子，说明找到了合适的位置，不用再下沉了
+        if (rc >= H.elem[j]) {
+            break;
         }
+        
+        // 否则，把大孩子往上移，覆盖父亲的位置
+        H.elem[s] = H.elem[j];
+        s = j; // 父亲节点的指针下沉到孩子的位置，准备下一轮更深层的比较
     }
-
-    // 输出：先乘法 后加法
-    print_poly(ans_mul, 2000);
-    print_poly(ans_sum, 1000);
-
-    return 0;
+    
+    H.elem[s] = rc; // 将最初的根节点放到最终腾出来的位置
 }
 ```
-
-**思路（数组映射法）：**
-1. **步骤一**：创建三个整型数组——`poly1[]` 存第一个多项式，`ans_sum[]` 存加法结果，`ans_mul[]` 存乘法结果。数组下标对应指数，下标处的值对应系数。
-2. **步骤二**：读入第一个多项式的 `n1` 项，将每项系数累加到 `ans_sum[指数]` 和 `poly1[指数]` 中（`poly1` 备份以便后续乘法使用）。
-3. **步骤三**：读入第二个多项式的 `n2` 项，做两件事：
-   - 加法：直接累加到 `ans_sum[指数]`；
-   - 乘法：遍历第一个多项式的每一项，将 `c * a_c[j]` 累加到 `ans_mul[e + a_e[j]]`（指数相加，系数相乘）。
-4. **步骤四**：按指数从高到低遍历数组，输出所有系数非零项（`ans_mul` 先输出，`ans_sum` 后输出）。
-5. **步骤五**：若没有任何非零项，输出 `0 0`。
-
----
-
-**正常链表解决**
+## 6-48归并排序
 ```C
-#include <stdio.h>
-#include <stdlib.h>
+void Merge(SqList L, int low, int m, int high) {
+    // 创建一个辅助数组，大小需容纳当前待合并的所有元素
+    // 注意：题目数组下标从 1 开始，为了方便映射，可以直接开辟 high + 1 大小
+    int *B = (int *)malloc((high + 1) * sizeof(int));
+    
+    int i = low;     // 左半部分序列的指针
+    int j = m + 1;   // 右半部分序列的指针
+    int k = low;     // 辅助数组 B 的写入指针
 
-// 定义多项式节点
-struct PolyNode {
-    int coef; // 系数
-    int expon; // 指数
-    struct PolyNode *next;
-};
-typedef struct PolyNode *Polynomial;
-
-// 辅助函数：将新项接到链表尾部
-void Attach(int c, int e, Polynomial *pRear) {
-    Polynomial P = (Polynomial)malloc(sizeof(struct PolyNode));
-    P->coef = c;
-    P->expon = e;
-    P->next = NULL;
-    (*pRear)->next = P;
-    *pRear = P; // 更新尾指针
-}
-
-// 读入多项式
-Polynomial ReadPoly() {
-    int N, c, e;
-    scanf("%d", &N);
-    Polynomial head = (Polynomial)malloc(sizeof(struct PolyNode));
-    head->next = NULL;
-    Polynomial rear = head;
-    while (N--) {
-        scanf("%d %d", &c, &e);
-        Attach(c, e, &rear);
-    }
-    return head;
-}
-
-// 两个多项式相加
-Polynomial Add(Polynomial P1, Polynomial P2) {
-    Polynomial t1 = P1->next;
-    Polynomial t2 = P2->next;
-    Polynomial head = (Polynomial)malloc(sizeof(struct PolyNode));
-    head->next = NULL;
-    Polynomial rear = head;
-
-    while (t1 && t2) {
-        if (t1->expon > t2->expon) {
-            Attach(t1->coef, t1->expon, &rear);
-            t1 = t1->next;
-        } else if (t1->expon < t2->expon) {
-            Attach(t2->coef, t2->expon, &rear);
-            t2 = t2->next;
+    // 两个子序列都在范围内时，挑小的放入辅助数组
+    while (i <= m && j <= high) {
+        if (L.elem[i] <= L.elem[j]) {
+            B[k++] = L.elem[i++];
         } else {
-            int sum = t1->coef + t2->coef;
-            if (sum != 0) Attach(sum, t1->expon, &rear);
-            t1 = t1->next;
-            t2 = t2->next;
+            B[k++] = L.elem[j++];
         }
     }
-    while (t1) { Attach(t1->coef, t1->expon, &rear); t1 = t1->next; }
-    while (t2) { Attach(t2->coef, t2->expon, &rear); t2 = t2->next; }
-    return head;
-}
 
-// 两个多项式相乘
-Polynomial Mult(Polynomial P1, Polynomial P2) {
-    Polynomial t1 = P1->next;
-    Polynomial t2 = P2->next;
-    if (!t1 || !t2) return NULL;
-
-    Polynomial head = (Polynomial)malloc(sizeof(struct PolyNode));
-    head->next = NULL;
-
-    // 用 P1 的每一项去乘 P2 的每一项
-    while (t1) {
-        Polynomial tempHead = (Polynomial)malloc(sizeof(struct PolyNode));
-        tempHead->next = NULL;
-        Polynomial tempRear = tempHead;
-        Polynomial p2 = t2;
-        
-        while (p2) {
-            Attach(t1->coef * p2->coef, t1->expon + p2->expon, &tempRear);
-            p2 = p2->next;
-        }
-        
-        // 将乘出来的这一行加到总结果里
-        Polynomial oldRes = head;
-        head = Add(head, tempHead);
-        
-        // 释放临时链表空间（此处略，考试时可不写，但在工程中很重要）
-        t1 = t1->next;
+    // 如果左半部分有剩余，直接复制过去
+    while (i <= m) {
+        B[k++] = L.elem[i++];
     }
-    return head;
-}
 
-// 打印多项式
-void PrintPoly(Polynomial P) {
-    if (!P || !P->next) {
-        printf("0 0\n");
-        return;
+    // 如果右半部分有剩余，直接复制过去
+    while (j <= high) {
+        B[k++] = L.elem[j++];
     }
-    Polynomial t = P->next;
-    int first = 1;
-    while (t) {
-        if (!first) printf(" ");
-        printf("%d %d", t->coef, t->expon);
-        first = 0;
-        t = t->next;
+
+    // 将排好序的辅助数组 B 中的内容，复制回原数组 L.elem 的对应区间
+    for (i = low; i <= high; i++) {
+        L.elem[i] = B[i];
     }
-    printf("\n");
-}
 
-int main() {
-    Polynomial P1 = ReadPoly();
-    Polynomial P2 = ReadPoly();
-
-    Polynomial PP = Mult(P1, P2);
-    PrintPoly(PP);
-
-    Polynomial PS = Add(P1, P2);
-    PrintPoly(PS);
-
-    return 0;
+    // 释放动态开辟的内存，防止内存泄漏
+    free(B);
 }
 ```
-
-**思路（链表法）：**
-
-**ReadPoly 部分：**
-1. **步骤一**：读取项数 `N`，创建带头结点的空链表 `head`，尾指针 `rear` 初始指向 `head`。
-2. **步骤二**：循环读取 `N` 次系数 `c` 和指数 `e`，调用 `Attach(c, e, &rear)` 将新节点接到链表尾部。
-3. **步骤三**：返回链表头指针 `head`。
-
-**Add 部分：**
-1. **步骤一**：用 `t1`、`t2` 分别指向两链表的第一个数据节点（跳过头结点）。
-2. **步骤二**：同时遍历两链表，按指数大小分情况处理：
-   - 若 `t1->expon > t2->expon`，将 `t1` 接入结果链表，`t1` 后移；
-   - 若 `t1->expon < t2->expon`，将 `t2` 接入结果链表，`t2` 后移；
-   - 若指数相等，系数相加后若非零则接入，`t1`、`t2` 同时后移。
-3. **步骤三**：当任一链表遍历完后，将另一链表的剩余节点全部接入结果链表。
-4. **步骤四**：返回结果链表的头指针。
-
-**Mult 部分：**
-1. **步骤一**：处理边界情况——任一多项式为空则返回 `NULL`。
-2. **步骤二**：用 `t1` 遍历第一个多项式的每一项，对每一项：
-   - 步骤二.1：用 `t2` 遍历第二个多项式的每一项，调用 `Attach` 生成 `t1->coef * t2->coef`、`t1->expon + t2->expon` 的节点，构成临时结果链表 `tempHead`。
-   - 步骤二.2：将 `tempHead` 与已有的 `head` 通过 `Add` 函数合并，更新 `head`。
-3. **步骤三**：`t1` 后移，重复以上过程直到 `P1` 所有项遍历完毕。
-
-**PrintPoly 部分：**
-1. **步骤一**：检查链表是否为空或只有头结点，若是则输出 `0 0`。
-2. **步骤二**：从第一个数据节点开始遍历，用 `first` 标记控制空格输出格式，逐个打印系数和指数。
-3. **步骤三**：遍历完毕换行。
-## 7-2 银行业务队列简单模拟
-```C
-#include<bits/stdc++.h>
-using namespace std;
-int main(void){
-    int n;
-    cin >> n;
-    int x;
-    queue<int>a,b;
-    for(int i=0;i<n;i++){
-        cin >> x;
-        if(x%2 & 1) a.push(x);
-        else b.push(x);
-    }
-    if(n == 1){
-        cout << x ;
-    }else{
-        x = a.front();
-		cout << x;
-		a.pop();
-		x = a.front();
-		cout << " " << x;
-		a.pop();
-        while(!a.empty() && !b.empty()){
-            //B
-            x = b.front();
-            cout << " " << x; b.pop();
-            //A
-            x = a.front();
-            cout << " " << x; a.pop();
-            if(!a.empty()){
-                x = a.front();
-                cout << " " << x; a.pop();
-            }
-        }
-        while (!a.empty()) {
-			x = a.front();
-			cout << " " << x;
-			a.pop();
-		}
-		while (!b.empty()) {
-			x = b.front();
-			cout << " " << x;
-			b.pop();
-		}  
-    }
-    return 0;
-}
-```
-
-**思路：**
-1. **核心思路**：用两个队列 `a`（奇数窗口）、`b`（偶数窗口），按"2A 出 1B 出"的循环节奏输出。
-2. **步骤一**：读入 `n` 个客户号，按奇偶分别入队 `a` 和 `b`。
-3. **步骤二**：若只有 1 个客户，直接输出。
-4. **步骤三**：先输出 `a` 队头两个客户（首位无前导空格，后续每个客户前加空格）。
-5. **步骤四**：进入主循环——只要两队列都非空：先出 1 个 B，再出 1 个 A；若 A 还有元素，再多出 1 个 A，达成"2A : 1B"的节奏。
-6. **步骤五**：循环结束后，把剩余的 A 或 B 队列依次输出。
-7. **关键点**：`a` 优先级高于 `b`，每轮处理 2 个奇数客户和 1 个偶数客户。
-
 ---
-## 7-4修理牧场
-```C
-#include <iostream>
-#include <vector>
-#include <queue>
-using namespace std;
-int main() {
-    priority_queue <int,vector<int>,greater<int>> pq;
-    int n; cin >> n;
-    for(int i = 0 ; i < n; i++){
-        int len;
-        cin >> len;
-        pq.push(len);
-    }
-    int cost = 0;
-    while(pq.size() > 1){
-        int len1,len2;
-        len1 = pq.top();
-        pq.pop();
-        len2 = pq.top();
-        pq.pop();
-        int sum = len1 + len2;
-        cost += sum;
-        pq.push(sum);
-    }
-    cout << cost << endl;
-}
-```
-## 7-5 公路村村通
-```C
-#include <iostream>
-#include <algorithm>
-using namespace std;
-
-struct Edge { int u, v, w; } e[3001];
-int pa[1001], N, M;
-
-int Find(int x){ return pa[x] == x ? x : pa[x] = Find(pa[x]); }
-
-int main(){
-  cin >> N >> M;
-  for(int i = 0; i < M; i++) cin >> e[i].u >> e[i].v >> e[i].w;
-  sort(e, e + M, [](Edge &a, Edge &b){ return a.w < b.w; });
-  for(int i = 1; i <= N; i++) pa[i] = i;
-
-  int cost = 0, cnt = 0;
-  for(int i = 0; i < M && cnt < N-1; i++){
-      int a = Find(e[i].u), b = Find(e[i].v);
-      if(a != b){ pa[a] = b; cost += e[i].w; cnt++; }
-  }
-  cout << (cnt == N-1 ? cost : -1);
-}
-```
-## 7-6 旅游规划
-```C
-// 无穷大常量，节点最大数量
-const int INF = 0x3f3f3f3f;
-const int MAXN = 505;
-// N:节点数 M:边数 S:起点 D:终点
-int N, M, S, D;
-// 邻接矩阵：G_dist存距离，G_cost存花费
-int G_dist[MAXN][MAXN];
-int G_cost[MAXN][MAXN];
-// dist[]:起点到各点最短距离  cost[]:对应最短路径的最小花费
-int dist[MAXN];
-int cost[MAXN];
-// 标记节点是否已被收录（Dijkstra算法用）
-bool collected[MAXN];
-int main() {
-    // 输入节点数、边数、起点、终点
-    cin >> N >> M >> S >> D;
-
-    // 初始化邻接矩阵为无穷大
-    memset(G_dist, 0x3f, sizeof(G_dist));
-    memset(G_cost, 0x3f, sizeof(G_cost));
-    // 读入M条无向边
-    while (M--) {
-        int a, b, len, c;
-        cin >> a >> b >> len >> c;
-        // 无向图，双向赋值
-        G_dist[a][b] = G_dist[b][a] = len;
-        G_cost[a][b] = G_cost[b][a] = c;
-    }
-
-    // 初始化距离和花费数组为无穷大
-    memset(dist, 0x3f, sizeof(dist));
-    memset(cost, 0x3f, sizeof(cost));
-    // 起点到自己距离和花费均为0
-    dist[S] = cost[S] = 0;
-
-    // Dijkstra算法主体
-    for (int i = 0; i < N; i++) {
-        // 找到未收录节点中，距离起点最近的节点V
-        int V = -1;
-        for (int j = 0; j < N; j++) {
-            if (!collected[j] && (V == -1 || dist[j] < dist[V])) {
-                V = j;
-            }
-        }
-
-        // 没有可访问的节点，提前退出
-        if (V == -1) break;
-        // 标记V已收录
-        collected[V] = true;
-
-        // 用V更新其他节点W的距离和花费
-        for (int W = 0; W < N; W++) {
-            // W已收录 或 V与W不连通，跳过
-            if (collected[W] || G_dist[V][W] == INF) continue;
-
-            int new_dist = dist[V] + G_dist[V][W];
-            int new_cost = cost[V] + G_cost[V][W];
-
-            // 更短路径 或 路径等长但花费更小 → 更新
-            if (new_dist < dist[W] || (new_dist == dist[W] && new_cost < cost[W])) {
-                dist[W] = new_dist;
-                cost[W] = new_cost;
-            }
-        }
-    }
-
-    // 输出起点到终点的最短距离和最小花费
-    cout << dist[D] << " " << cost[D] << endl;
-
-    return 0;
-}
-```
