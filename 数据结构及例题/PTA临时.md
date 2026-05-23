@@ -1096,6 +1096,7 @@ void DFS( MGraph Graph, Vertex V, void (*Visit)(Vertex) ){
 
 ---
 ## 6-41 直接插入排序
+> **思路**：哨兵 `L.elem[0]` 暂存待插元素，前方较大值依次后移，腾位后填入。形象地说就是"摸牌插手牌"。
 ```C
 void InsertSort(SqList L){
       int j;
@@ -1109,6 +1110,7 @@ void InsertSort(SqList L){
   }
 ```
 ## 6-42 希尔排序的实现 ·可插入
+> **思路**：分组版插入排序——把直接插入的步长 `1` 换成 `dk`，对各子序列做插入；`dk` 递减到 1 时整体有序。
 ```C
 void ShellInsert(SqList L,int dk){
       int j;
@@ -1122,6 +1124,7 @@ void ShellInsert(SqList L,int dk){
   }
 ```
 ## 6-44 正负数分类 
+> **思路**：双指针对撞。`l` 从左找非负、`r` 从右找负数，找到即交换，直至相遇。负数在左、非负数在右，组内不保序。
 ```C
 void Partition( ElemSet *a, int n ){
     int l=0,r=n;
@@ -1137,6 +1140,10 @@ void Partition( ElemSet *a, int n ){
 }
 ```
 ## 6-45 分类排序
+> **思路**：荷兰国旗三指针，`l` 标大写右界、`m` 当前扫描位、`r` 标小写左界。
+> - `a[m]` 是大写：与 `a[l]` 交换，`l++`、`m++`
+> - `a[m]` 是数字：`m++`
+> - `a[m]` 是小写：与 `a[r]` 交换，`r--`（`m` 不动，新值未判过）
 ```C
 // | 大写字母 | 数字 | 未处理 | 小写字母 |
 // 0        low    mid     high      n-1
@@ -1160,6 +1167,7 @@ void Partition( ElemSet *a, int n ){
 }
 ```
 ## 6-46 简单选择排序 ·可插入
+> **思路**：每轮在未排序区 `[i, n]` 找最小值下标 `min`，与 `i` 交换；共 `n-1` 轮，每轮锁定一个位置。
 ```C
 void SelectSort(SqList L){
       for(int i=1; i<=L.Length-1; i++){
@@ -1179,6 +1187,7 @@ void SelectSort(SqList L){
   }
 ```
 ## 6-47堆排序
+> **思路**：下沉操作维护大根堆。暂存根 `rc`，沿较大孩子向下：孩子大于 `rc` 则上移、`s` 跟到孩子位继续；否则停止，将 `rc` 落入空位。
 ```C
 void HeapAdjust(HeapType H, int s, int m) {
     KeyType rc = H.elem[s]; // 暂存当前的根节点
@@ -1205,6 +1214,7 @@ void HeapAdjust(HeapType H, int s, int m) {
 }
 ```
 ## 6-48归并排序
+> **思路**：合并两段有序区间 `[low, m]` 与 `[m+1, high]`。双指针挑较小者写入辅助数组 `B`，剩余追加后整体复制回原数组。
 ```C
 void Merge(SqList L, int low, int m, int high) {
     // 创建一个辅助数组，大小需容纳当前待合并的所有元素
