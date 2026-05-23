@@ -1108,7 +1108,7 @@ void InsertSort(SqList L){
       }
   }
 ```
-## 6-42 希尔排序的实现
+## 6-42 希尔排序的实现 ·可插入
 ```C
 void ShellInsert(SqList L,int dk){
       int j;
@@ -1121,7 +1121,7 @@ void ShellInsert(SqList L,int dk){
       }
   }
 ```
-## 6-44 正负数分类
+## 6-44 正负数分类 
 ```C
 void Partition( ElemSet *a, int n ){
     int l=0,r=n;
@@ -1138,7 +1138,45 @@ void Partition( ElemSet *a, int n ){
 ```
 ## 6-45 分类排序
 ```C
-
+// | 大写字母 | 数字 | 未处理 | 小写字母 |
+// 0        low    mid     high      n-1
+void Partition( ElemSet *a, int n ){
+    int l=0,m=0,r=n-1;
+    while(m <= r){
+        if(a[m] <= 'Z' && a[m] >= 'A'){
+            char temp = a[l];
+            a[l] = a[m];
+            a[m] = temp;
+            l++;
+            m++;
+        }else if(a[m] <= '9' && a[m] >= '0') m++;
+        else{
+            char temp = a[m];
+            a[m] = a[r];
+            a[r] = temp;
+            r--;
+        }
+    }
+}
+```
+## 6-46 简单选择排序 ·可插入
+```C
+void SelectSort(SqList L){
+      for(int i=1; i<=L.Length-1; i++){
+          int min = i;
+          for(int j=i+1; j<= L.Length; j++){
+              if(L.elem[j] < L.elem[min]){
+                  min = j;
+              }
+              
+          }
+          if(min != i){
+                  int temp = L.elem[i];
+                  L.elem[i] = L.elem[min];
+                  L.elem[min] = temp;
+              }
+      }
+  }
 ```
 ---
 
