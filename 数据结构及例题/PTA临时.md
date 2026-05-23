@@ -1096,7 +1096,50 @@ void DFS( MGraph Graph, Vertex V, void (*Visit)(Vertex) ){
 
 ---
 ## 6-41 直接插入排序
+```C
+void InsertSort(SqList L){
+      int j;
+      for(int i = 2; i <= L.Length; i++){
+          L.elem[0] = L.elem[i];
+          for(j = i-1; L.elem[j] > L.elem[0]; j--){
+              L.elem[j+1] = L.elem[j];
+          }
+          L.elem[j+1] = L.elem[0];
+      }
+  }
+```
 ## 6-42 希尔排序的实现
+```C
+void ShellInsert(SqList L,int dk){
+      int j;
+      for(int i = 2; i <= L.Length; i++){
+          L.elem[0] = L.elem[i];
+          for(j = i-dk;j>0 && L.elem[j]>L.elem[0];j-=dk){
+              L.elem[j+dk] = L.elem[j];
+          }
+          L.elem[j+dk] = L.elem[0];
+      }
+  }
+```
+## 6-44 正负数分类
+```C
+void Partition( ElemSet *a, int n ){
+    int l=0,r=n;
+    while(l < r){
+        while(l < r && a[l] < 0) l++;
+        while(l < r && a[r] >= 0) r--;
+        if(l < r){
+            int temp = a[l];
+            a[l] = a[r];
+            a[r] = temp;
+        }
+    }
+}
+```
+## 6-45 分类排序
+```C
+
+```
 ---
 
 # 编程题
