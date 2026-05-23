@@ -1093,6 +1093,10 @@ void DFS( MGraph Graph, Vertex V, void (*Visit)(Vertex) ){
     }
 }
 ```
+
+---
+## 6-41 直接插入排序
+## 6-42 希尔排序的实现
 ---
 
 # 编程题
