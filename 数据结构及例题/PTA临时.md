@@ -1151,6 +1151,7 @@ void Partition( ElemSet *a, int n ){
     int l=0,m=0,r=n-1;
     while(m <= r){
         if(a[m] <= 'Z' && a[m] >= 'A'){
+	        //交换a[l] a[m]
             char temp = a[l];
             a[l] = a[m];
             a[m] = temp;
@@ -1158,6 +1159,7 @@ void Partition( ElemSet *a, int n ){
             m++;
         }else if(a[m] <= '9' && a[m] >= '0') m++;
         else{
+	        //交换a[m] a[r]
             char temp = a[m];
             a[m] = a[r];
             a[r] = temp;
@@ -1212,6 +1214,19 @@ void HeapAdjust(HeapType H, int s, int m) {
     
     H.elem[s] = rc; // 将最初的根节点放到最终腾出来的位置
 }
+```
+
+```C
+void HeapAdjust(HeapType H, int s, int m) {
+      KeyType rc = H.elem[s];
+      for (int j = 2 * s; j <= m; j *= 2) {
+          if (j < m && H.elem[j] < H.elem[j + 1]) j++;
+          if (rc >= H.elem[j]) break;
+          H.elem[s] = H.elem[j];
+          s = j;
+      }
+      H.elem[s] = rc;
+  }
 ```
 ## 6-48归并排序
 > **思路**：合并两段有序区间 `[low, m]` 与 `[m+1, high]`。双指针挑较小者写入辅助数组 `B`，剩余追加后整体复制回原数组。
