@@ -29,6 +29,10 @@ categories = ["TeamDocs"]
 - **分片（Shard）**：索引可以被拆分成多个分片，分布在不同节点上，实现水平扩展
 - **副本（Replica）**：分片的复制，提供高可用和负载均衡
 
+> **⚠️ "type" 有两个含义，容易混淆：**
+> 1. **概念层的 Type**（已废弃）：上表中对应 MySQL "表"的那层，7.x 后一个 Index 只保留 `_doc` 一种 Type。
+> 2. **Mapping 中的 `"type"` 属性**：声明字段的**数据类型**（如 `text`、`keyword`、`float`），等同于 MySQL 中的 `VARCHAR`、`INT` 等，**没有废弃，是必须的**。
+
 ## 倒排索引原理
 
 传统正排索引：文档 → 关键词（遍历扫描，慢）
@@ -162,6 +166,8 @@ PUT /products
 }
 ```
 
+> 上面 mapping 中每字段里的 `"type": "text"` / `"type": "float"` 等，声明的是**字段数据类型**，和概念层的 Type 废弃无关。
+
 ## 常用字段类型
 
 | 类型          | 说明                            |
@@ -188,6 +194,130 @@ GET /products/_settings
 
 // 删除索引
 DELETE /products
+```
+
+---
+
+# 映射（Mapping）
+
+Mapping 定义索引中文档的结构——有哪些字段、每个字段的类型、如何分词等，类似 MySQL 中定义表结构。
+
+## 动态映射 vs 显式映射
+
+| 方式     | 说明                                | 适用场景           |
+|--------|-----------------------------------|----------------|
+| 动态映射   | 插入文档时 ES 自动推断字段类型并创建 mapping       | 快速原型、日志等非严格场景  |
+| 显式映射   | 创建索引时手动指定每个字段的类型和属性              | 生产环境，需要精确控制类型  |
+
+**动态映射的问题**：ES 推断可能不准。例如插入 `"price": 100`，ES 会被推断为 `long`，后续插入 `"price": 99.9` 就会报类型冲突。生产中建议显式映射。
+
+## 动态映射推断规则
+
+ES 首次遇到未知字段时，根据值自动推断类型：
+
+| JSON 值              | 推断的 ES 类型     |
+|----------------------|---------------|
+| `null`               | 不创建字段          |
+| `true` / `false`     | `boolean`      |
+| `123`                | `long`         |
+| `1.23`               | `float`        |
+| `"2026-01-01"`       | `date`（匹配日期格式时）|
+| `"hello"`            | `text` + `keyword` 子字段 |
+| `{ "k": "v" }`       | `object`       |
+| `["a", "b"]`         | `text` + `keyword` 子字段 |
+
+> 字符串默认同时生成 `text`（全文检索）和 `keyword`（精确匹配）子字段，可通过 `title.keyword` 访问。
+
+## 动态映射控制
+
+通过 `dynamic` 参数控制遇到新字段时的行为：
+
+| 值        | 说明                            |
+|-----------|-------------------------------|
+| `true`    | 自动推断类型并添加新字段（默认）              |
+| `false`   | 忽略新字段，文档可写入但新字段不被索引，无法搜索     |
+| `"strict"`| 遇到新字段直接报错，文档写入失败             |
+
+```json
+PUT /products
+{
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "title": { "type": "text" }
+    }
+  }
+}
+```
+
+> `dynamic` 可以设在索引级别，也可以设在某个 `object` 字段内部，实现精细控制。
+
+## 常用字段属性
+
+Mapping 中每个字段除了 `type`，还可以配置多种属性：
+
+| 属性               | 适用类型          | 说明                                  |
+|------------------|---------------|-------------------------------------|
+| `type`           | 所有            | 字段数据类型（必填）                          |
+| `analyzer`       | `text`        | 索引时使用的分词器                           |
+| `search_analyzer`| `text`        | 搜索时使用的分词器（不指定则用 `analyzer`）         |
+| `index`          | 所有            | 是否建索引，`false` 则该字段不可搜索（默认 `true`）   |
+| `store`          | 所有            | 是否独立存储原始值（默认 `false`，从 `_source` 取） |
+| `doc_values`     | 除 `text` 外    | 是否启用列式存储，用于排序/聚合（默认 `true`）        |
+| `format`         | `date`        | 日期格式，如 `"yyyy-MM-dd HH:mm:ss"`     |
+| `copy_to`        | 所有            | 将字段值复制到另一个字段，用于组合搜索                 |
+| `ignore_above`   | `keyword`     | 超过指定长度的字符串不索引（默认 256）              |
+
+### index 示例
+
+```json
+"password": {
+  "type": "keyword",
+  "index": false
+}
+```
+
+> `index: false` 的字段不能被搜索，但会存在于 `_source` 中可以获取。适合存储但不需要搜索的字段。
+
+### copy_to 示例
+
+将 `title` 和 `description` 的值合并到 `all` 字段，实现一键全文搜索：
+
+```json
+"all": {
+  "type": "text",
+  "analyzer": "ik_max_word"
+},
+"title": {
+  "type": "text",
+  "analyzer": "ik_max_word",
+  "copy_to": "all"
+},
+"description": {
+  "type": "text",
+  "analyzer": "ik_max_word",
+  "copy_to": "all"
+}
+```
+
+搜索时对 `all` 字段检索即可同时匹配 `title` 和 `description`，效果类似 `multi_match` 但写法更简洁。
+
+## 已有映射的修改限制
+
+| 操作     | 是否允许 | 说明                          |
+|--------|-----|-----------------------------|
+| 新增字段   | ✅  | 往 mapping 中加新字段，不影响已有数据     |
+| 修改字段类型 | ❌  | 已有字段类型不能改，例如 `text` → `keyword` 不行 |
+| 删除字段   | ❌  | 不能删除 mapping 中的字段           |
+
+**字段类型冲突的解决方案**：创建新索引 → 用 `_reindex` 迁移数据 → 删除旧索引 → 给旧索引名创建别名指向新索引。
+
+```json
+POST /_reindex
+{
+  "source": { "index": "products_old" },
+  "dest": { "index": "products_new" }
+}
 ```
 
 ---
