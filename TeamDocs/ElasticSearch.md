@@ -530,7 +530,7 @@ GET /products/_search
 | `should`  | 至少匹配一个，参与算分（OR） |
 | `must_not`| 必须不匹配，不算分（NOT）  |
 | `filter`  | 必须匹配，不算分，性能更好   |
-
+> bool 里有 must 或 filter $\rightarrow$ should 不强制，匹配了加分，不匹配也行
 ```json
 GET /products/_search
 {
