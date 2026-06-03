@@ -2,15 +2,17 @@
 
 # 单词区
 
-| 单词              | 中文   | 备注                      |
-| --------------- | ---- | ----------------------- |
-| proposal        | 建议   |                         |
-| ambitious       | 有抱负的 |                         |
-| aggressive      | 强势的  |                         |
-| spotted         | 有斑点的 |                         |
-| Journey to West | 西游记  |                         |
-| obvious         | 显而易见 | `It is obvious that...` |
-| youngsters      | 年轻人们 |                         |
+| 单词              | 中文    | 备注                      |
+| --------------- | ----- | ----------------------- |
+| proposal        | 建议    |                         |
+| ambitious       | 有抱负的  |                         |
+| aggressive      | 强势的   |                         |
+| spotted         | 有斑点的  |                         |
+| Journey to West | 西游记   |                         |
+| obvious         | 显而易见  | `It is obvious that...` |
+| youngsters      | 年轻人们  |                         |
+| reshape         | 重塑    |                         |
+| crucial         | 至关重要的 |                         |
 
 # 短语区
 | 短语                                 | 中文       |
@@ -19,6 +21,7 @@
 | a global issue                     | 全球性问题    |
 | with the rapid progress of         | 随着...的加快 |
 | Journey to West                    | 西游记      |
+| be recognized as                   | 被认为      |
 |                                    |          |
 # 写作题型概述与提分秘诀
 
@@ -150,3 +153,43 @@
 ## 改写
 将基础的英文表达转换成不同句式
 
+### 例句 1：我绝不嫁给你
+
+> [!quote] 原句
+> I will never marry you.
+
+| 句式   | 改写句                                                                    | 说明                                   |
+| ---- | ---------------------------------------------------------------------- | ------------------------------------ |
+| 简单句  | I will never marry you.                                                | 最直接的表达。                              |
+| 定语从句 | You are the man ==that I will never marry（定语从句）==.                     | 用 `that` 引出定语从句，修饰 `the man`。        |
+| 倒装句  | ==Never will I marry you（倒装句）==.                                       | `never` 放句首时，后面用部分倒装。                |
+| 从句   | ==It is beyond dispute that I will never marry you（主语从句）==.            | 用正式表达强调“这件事毫无争议”。                    |
+| 状语从句 | I will not marry you ==unless the sun rises in the west（条件状语从句）==.     | 用 `unless` 表示“除非”。                   |
+| 虚拟语气 | If you were the last man in the world, ==I would become a nun（虚拟语气）==. | 用 `If + were` 和 `would` 表示与现实相反的假设。  |
+| 强调句  | ==It is you that I will never marry（强调句）==.                            | 结构是 `It is / was + 被强调部分 + that...`。 |
+
+> [!info] 翻译
+> 我绝不会嫁给你。  
+> 除非太阳从西边出来，否则我不会嫁给你。  
+> 如果你是世界上最后一个男人，我也会去当修女。  
+> 我绝不会嫁的人就是你。
+
+### 例句 2：创新很重要
+
+> [!quote] 原句
+> Innovation is important.
+
+| 句式 | 改写句 | 说明 |
+| --- | --- | --- |
+| 简单句 | Innovation is very important. | 最直接的表达。 |
+| 定语从句 | Innovation remains a process ==which is critically important（定语从句）==. | 用 `which` 引出定语从句，修饰 `process`。 |
+| 倒装句 | ==So crucial is innovation that it fundamentally reshapes our world（倒装句）==. | `so + 形容词` 放句首，后面使用部分倒装。 |
+| 被动句 | Innovation is widely recognized as ==a crucial force for development（补充说明）==. | 用被动表达让句子更正式。 |
+| 虚拟语气 | If there were no innovation, ==our society would stop progressing（虚拟语气）==. | 用 `If + were` 和 `would` 表示假设。 |
+
+> [!info] 翻译
+> 创新非常重要。  
+> 创新仍然是一个极其重要的过程。  
+> 创新如此关键，以至于它从根本上重塑了我们的世界。  
+> 创新被广泛认为是推动发展的关键力量。  
+> 如果没有创新，我们的社会将停止进步。
