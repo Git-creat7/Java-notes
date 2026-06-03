@@ -149,6 +149,18 @@
 > Reading books ==that are beneficial to mental as well as physical health（定语从句 + as well as 并列补充）== can broaden ==the horizons of young people（补充对象）== ==in their spare time（时间状语）==.
 > 年轻人在空闲时间阅读有益于身心健康的书籍，可以拓宽他们的视野。
 
+### 例句 4：家乡位置
+
+> [!quote] 原句
+> My hometown is located in the east of Henan Province.
+
+> [!example] 扩写句
+> My hometown, ==a small village（同位语）,== is located in the east of Henan Province, ==which has a large population（定语从句，修饰 Henan Province）==.
+> 我的家乡是一个小村庄，位于河南省东部，而河南省人口众多。
+
+>[!example] 扩写句
+  My hometown, ==a colorful and beautiful city（同位语）== ==located in the east of Henan Province（后置定语）==, has given me many unforgettable memories.
+
 ---
 ## 改写
 将基础的英文表达转换成不同句式
