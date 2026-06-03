@@ -110,6 +110,15 @@
 # 扩写与改写的句子
 ## 扩写
 
+> [!tip] 万能定语
+> `as well as`：表示“以及 / 也”，常用来补充另一个方面。  
+> ==作用：把一个表达扩成两个并列内容，让句子更具体。==
+
+> [!tip] 复数名词后加 `such as`
+> 结构：`复数名词 + such as + 具体例子`  
+> ==作用：在复数名词后面举例，让表达更具体。==  
+> 例：`negative behaviors such as violence and aggression`
+
 ### 例句 1：电子游戏对孩子的影响
 
 > [!quote] 原句
@@ -134,7 +143,5 @@
 > Reading books can broaden the horizons.
 
 > [!example] 扩写句
-> Reading books ==that are beneficial to both mental and physical health（定语从句）== can broaden ==the horizons of young people（补充对象）== ==in their spare time（时间状语）==.
+> Reading books ==that are beneficial to mental as well as physical health（定语从句 + as well as 并列补充）== can broaden ==the horizons of young people（补充对象）== ==in their spare time（时间状语）==.
 > 年轻人在空闲时间阅读有益于身心健康的书籍，可以拓宽他们的视野。
-
-
