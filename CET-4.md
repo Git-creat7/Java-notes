@@ -2,17 +2,16 @@
 
 # 单词区
 
-| 单词              | 中文    | 备注                      |
-| --------------- | ----- | ----------------------- |
-| proposal        | 建议    |                         |
-| ambitious       | 有抱负的  |                         |
-| aggressive      | 强势的   |                         |
-| spotted         | 有斑点的  |                         |
-| Journey to West | 西游记   |                         |
-| obvious         | 显而易见  | `It is obvious that...` |
-| youngsters      | 年轻人们  |                         |
-| reshape         | 重塑    |                         |
-| crucial         | 至关重要的 |                         |
+| 单词         | 中文    | 备注                      |
+| ---------- | ----- | ----------------------- |
+| proposal   | 建议    |                         |
+| ambitious  | 有抱负的  |                         |
+| aggressive | 强势的   |                         |
+| spotted    | 有斑点的  |                         |
+| obvious    | 显而易见  | `It is obvious that...` |
+| youngsters | 年轻人们  |                         |
+| reshape    | 重塑    |                         |
+| crucial    | 至关重要的 |                         |
 
 # 短语区
 | 短语                                 | 中文       |
@@ -191,13 +190,13 @@
 > [!quote] 原句
 > Innovation is important.
 
-| 句式 | 改写句 | 说明 |
-| --- | --- | --- |
-| 简单句 | Innovation is very important. | 最直接的表达。 |
-| 定语从句 | Innovation remains a process ==which is critically important（定语从句）==. | 用 `which` 引出定语从句，修饰 `process`。 |
-| 倒装句 | ==So crucial is innovation that it fundamentally reshapes our world（倒装句）==. | `so + 形容词` 放句首，后面使用部分倒装。 |
-| 被动句 | Innovation is widely recognized as ==a crucial force for development（补充说明）==. | 用被动表达让句子更正式。 |
-| 虚拟语气 | If there were no innovation, ==our society would stop progressing（虚拟语气）==. | 用 `If + were` 和 `would` 表示假设。 |
+| 句式   | 改写句                                                                           | 说明                             |
+| ---- | ----------------------------------------------------------------------------- | ------------------------------ |
+| 简单句  | Innovation is very important.                                                 | 最直接的表达。                        |
+| 定语从句 | Innovation remains a process ==which is critically important（定语从句）==.         | 用 `which` 引出定语从句，修饰 `process`。 |
+| 倒装句  | ==So crucial is innovation that it fundamentally reshapes our world（倒装句）==.   | `so + 形容词` 放句首，后面使用部分倒装。       |
+| 被动句  | Innovation is widely recognized as ==a crucial force for development（补充说明）==. | 用被动表达让句子更正式。                   |
+| 虚拟语气 | If there were no innovation, ==our society would stop progressing（虚拟语气）==.    | 用 `If + were` 和 `would` 表示假设。  |
 
 > [!info] 翻译
 > 创新非常重要。  
