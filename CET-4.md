@@ -145,3 +145,8 @@
 > [!example] 扩写句
 > Reading books ==that are beneficial to mental as well as physical health（定语从句 + as well as 并列补充）== can broaden ==the horizons of young people（补充对象）== ==in their spare time（时间状语）==.
 > 年轻人在空闲时间阅读有益于身心健康的书籍，可以拓宽他们的视野。
+
+---
+## 改写
+将基础的英文表达转换成不同句式
+
