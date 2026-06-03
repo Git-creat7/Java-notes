@@ -9,6 +9,8 @@ aggressive 强势的
 spotted 有斑点的
 Journey to West 西游记
  obvious 显而易见 `It is obvious that...`
+ youngsters 年轻人们
+ 
  
  
 
