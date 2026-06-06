@@ -14,14 +14,15 @@
 | crucial    | 至关重要的 |                         |
 
 # 短语区
-| 短语                                 | 中文       |
-| ---------------------------------- | -------- |
-| urbanization and industrialization | 城市化与工业化  |
-| a global issue                     | 全球性问题    |
-| with the rapid progress of         | 随着...的加快 |
-| Journey to West                    | 西游记      |
-| be recognized as                   | 被认为      |
-| broaden one’s horizons             | 拓宽眼界     |
+| 短语                                              | 中文           |
+| ----------------------------------------------- | ------------ |
+| urbanization and industrialization              | 城市化与工业化      |
+| a global issue                                  | 全球性问题        |
+| with the rapid progress of                      | 随着...的加快     |
+| Journey to West                                 | 西游记          |
+| be recognized as                                | 被认为          |
+| broaden one’s horizons                          | 拓宽眼界         |
+| allowing residents access help spread knowledge | 让居民获得帮助，传播知识 |
 # 写作题型概述与提分秘诀
 
 > [!tip] 写作复习重点
@@ -44,13 +45,13 @@
 
 ### 多用逻辑关系词
 
-| 逻辑作用  | 可替换表达                                                 |
-| ----- | ----------------------------------------------------- |
-| 表示对   | for / to / towards / with regard to                   |
-| 递进    | in addition / furthermore / moreover / what's more    |
-| 引出新对象 | as for / when it comes to / in terms of / speaking of |
-| 转折    | conversely/                                           |
-| 总结    | in conclusion / to sum up / in short / all in all     |
+| 逻辑作用  | 可替换表达                                                               |
+| ----- | ------------------------------------------------------------------- |
+| 表示对   | for / to / towards / with regard to                                 |
+| 递进    | in addition / furthermore / moreover / what's more                  |
+| 引出新对象 | as for / when it comes to / in terms of / speaking of               |
+| 转折    | Conversely / however / nevertheless / in contrast / on the contrary |
+| 总结    | in conclusion / to sum up / in short / all in all                   |
 
 > [!example] 简短解析
 > - 递进词适合放在第二个理由前，让段落更连贯。
@@ -227,7 +228,7 @@ If ..., ...
 Conversely, if ..., ...
 ```
 
-#### 例题：为什么要阅读世界名著？
+#### 例题 1：为什么要阅读世界名著？
 
 > [!quote] 思路拆分
 > - 正面：如果年轻人阅读世界名著，会拓宽眼界。
@@ -238,6 +239,18 @@ Conversely, if ..., ...
 
 > [!info] 翻译
 > 如果年轻人花时间阅读世界名著，他们会培养更开阔的眼界。相反，那些从不接触这些经典文本的人可能会缺乏文化素养。
+
+#### 例题 2：大学图书馆是否应该向公众开放？
+
+> [!quote] 思路拆分
+> - 正面：如果大学图书馆向公众开放，资源可以被更有效地利用，也能营造更强的学习氛围。
+> - 反面：如果限制公众进入，资源可能被浪费，还可能加剧教育不平等。
+
+> [!example] 示例句
+> ==If university libraries are open to the public,== their resources can be used more effectively, and a stronger learning atmosphere can be created. Besides, allowing residents to access these libraries helps spread knowledge and encourages lifelong learning. ==If access is limited, however,== resources may be underused, which could increase educational inequality.
+
+> [!info] 翻译
+> ==如果大学图书馆向公众开放==，它们的资源可以被更有效地利用，也可以营造更强的学习氛围。此外，允许居民使用这些图书馆有助于传播知识，并鼓励终身学习。==然而，如果进入受到限制==，资源可能会被闲置，这可能会加剧教育不平等。
 
 ### 分类论证
 **从对国家、社会/集体、个人三方面切入支持论点**
