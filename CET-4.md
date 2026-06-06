@@ -25,7 +25,7 @@
 | urbanization and industrialization              | 城市化与工业化      |
 | a global issue                                  | 全球性问题        |
 | with the rapid progress of                      | 随着...的加快     |
-| Journey to West                                 | 西游记          |
+| *Journey to West*                               | 西游记          |
 | be recognized as                                | 被认为          |
 | broaden one’s horizons                          | 拓宽眼界         |
 | allowing residents access help spread knowledge | 让居民获得帮助，传播知识 |
