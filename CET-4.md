@@ -29,6 +29,7 @@
 | invest                 | 投资/投入 |                                                     |
 | competitiveness        | 竞争力   |                                                     |
 | enhancement            | 增强    | `The enhancement of the core competitiveness of...` |
+| seize                  | 抓住    |                                                     |
 
 # 短语区
 | 短语                                              | 中文           |
