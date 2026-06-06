@@ -21,7 +21,7 @@
 | with the rapid progress of         | 随着...的加快 |
 | Journey to West                    | 西游记      |
 | be recognized as                   | 被认为      |
-|                                    |          |
+| broaden one’s horizons             | 拓宽眼界     |
 # 写作题型概述与提分秘诀
 
 > [!tip] 写作复习重点
@@ -109,8 +109,8 @@
 
 ---
 
-# 扩写与改写的句子
-## 扩写
+## 扩写与改写的句子
+### 扩写
 
 > [!tip] 万能定语
 > `as well as`：表示“以及 / 也”，常用来补充另一个方面。  
@@ -121,7 +121,7 @@
 > ==作用：在复数名词后面举例，让表达更具体。==  
 > 例：`negative behaviors such as violence and aggression`
 
-### 例句 1：电子游戏对孩子的影响
+#### 例句 1：电子游戏对孩子的影响
 
 > [!quote] 原句
 > Violent video games may cause children to become violent.
@@ -130,7 +130,7 @@
 > Violent video games, ==which are widely popular online（定语从句）,== may cause children to become violent ==in their daily life（状语）== ==because they tend to imitate these negative behaviors（原因状语从句）==.
 >  暴力电子游戏在网上十分流行，可能会导致孩子们在日常生活中变得暴力，因为他们容易模仿这些负面行为。
 
-### 例句 2：污染问题
+#### 例句 2：污染问题
 
 > [!quote] 原句
 > Pollution remains exceedingly serious.
@@ -139,7 +139,7 @@
 > Pollution, ==a global issue（同位语）,== remains exceedingly serious ==with rapid urbanization and industrialization（状语）==.
 > 污染作为一个全球性问题，随着城市化和工业化的迅速发展，仍然非常严重。
 
-### 例句 3：阅读的作用
+#### 例句 3：阅读的作用
 
 > [!quote] 原句
 > Reading books can broaden the horizons.
@@ -148,7 +148,7 @@
 > Reading books ==that are beneficial to mental as well as physical health（定语从句 + as well as 并列补充）== can broaden ==the horizons of young people（补充对象）== ==in their spare time（时间状语）==.
 > 年轻人在空闲时间阅读有益于身心健康的书籍，可以拓宽他们的视野。
 
-### 例句 4：家乡位置
+#### 例句 4：家乡位置
 
 > [!quote] 原句
 > My hometown is located in the east of Henan Province.
@@ -161,10 +161,10 @@
   My hometown, ==a colorful and beautiful city（同位语）== ==located in the east of Henan Province（后置定语）==, has given me many unforgettable memories.
 
 ---
-## 改写
+### 改写
 将基础的英文表达转换成不同句式
 
-### 例句 1：我绝不嫁给你
+#### 例句 1：我绝不嫁给你
 
 > [!quote] 原句
 > I will never marry you.
@@ -185,7 +185,7 @@
 > 如果你是世界上最后一个男人，我也会去当修女。  
 > 我绝不会嫁的人就是你。
 
-### 例句 2：创新很重要
+#### 例句 2：创新很重要
 
 > [!quote] 原句
 > Innovation is important.
@@ -204,3 +204,14 @@
 > 创新如此关键，以至于它从根本上重塑了我们的世界。  
 > 创新被广泛认为是推动发展的关键力量。  
 > 如果没有创新，我们的社会将停止进步。
+
+---
+
+## 写作常用论证方式
+### 正反论证
+**从正反两方面切入 论述主题成立/不成立 的影响**
+
+### 分类论证
+**从对国家、社会/集体、个人三方面切入支持论点**
+### 举例论证
+**通过具体事例或事实支持论点**
