@@ -2,16 +2,21 @@
 
 # 单词区
 
-| 单词         | 中文    | 备注                      |
-| ---------- | ----- | ----------------------- |
-| proposal   | 建议    |                         |
-| ambitious  | 有抱负的  |                         |
-| aggressive | 强势的   |                         |
-| spotted    | 有斑点的  |                         |
-| obvious    | 显而易见  | `It is obvious that...` |
-| youngsters | 年轻人们  |                         |
-| reshape    | 重塑    |                         |
-| crucial    | 至关重要的 |                         |
+| 单词                     | 中文    | 备注                      |
+| ---------------------- | ----- | ----------------------- |
+| proposal               | 建议    |                         |
+| ambitious              | 有抱负的  |                         |
+| aggressive             | 强势的   |                         |
+| spotted                | 有斑点的  |                         |
+| obvious                | 显而易见  | `It is obvious that...` |
+| youngsters             | 年轻人们  |                         |
+| reshape                | 重塑    |                         |
+| crucial                | 至关重要的 |                         |
+| exceed                 | 超过    |                         |
+| enterprise/corporation | 企业    |                         |
+| steadily               | 稳定地   |                         |
+| structure              | 结构    |                         |
+|                        |       |                         |
 
 # 短语区
 | 短语                                              | 中文           |
@@ -25,6 +30,7 @@
 | allowing residents access help spread knowledge | 让居民获得帮助，传播知识 |
 | roll out                                        | 出台           |
 | pay attention  to/attach great importance to    | 重视           |
+| by the end of March 2025                        | 截止2025年三月    |
 # 写作题型概述与提分秘诀
 
 > [!tip] 写作复习重点
