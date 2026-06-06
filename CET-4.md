@@ -49,6 +49,7 @@
 | 表示对   | for / to / towards / with regard to                   |
 | 递进    | in addition / furthermore / moreover / what's more    |
 | 引出新对象 | as for / when it comes to / in terms of / speaking of |
+| 转折    | conversely/                                           |
 | 总结    | in conclusion / to sum up / in short / all in all     |
 
 > [!example] 简短解析
@@ -209,7 +210,34 @@
 
 ## 写作常用论证方式
 ### 正反论证
-**从正反两方面切入 论述主题成立/不成立 的影响**
+
+> [!tip] 核心思路
+> ==从正反两方面切入，论述“做了会怎样 / 不做会怎样”。==
+
+#### 适用场景
+
+- 题目要求说明某件事的重要性。
+- 题目要求讨论某种行为是否值得提倡。
+- 题目要求分析某个现象的影响。
+
+#### 基本模板
+
+```text
+If ..., ...
+Conversely, if ..., ...
+```
+
+#### 例题：为什么要阅读世界名著？
+
+> [!quote] 思路拆分
+> - 正面：如果年轻人阅读世界名著，会拓宽眼界。
+> - 反面：如果年轻人不接触经典文本，可能会缺少文化素养。
+
+> [!example] 示例句
+> If young people devote time to reading world-famous literary works, they will cultivate a broader horizon. ==Conversely==, those who never engage with these classic texts might suffer from cultural illiteracy.
+
+> [!info] 翻译
+> 如果年轻人花时间阅读世界名著，他们会培养更开阔的眼界。相反，那些从不接触这些经典文本的人可能会缺乏文化素养。
 
 ### 分类论证
 **从对国家、社会/集体、个人三方面切入支持论点**
