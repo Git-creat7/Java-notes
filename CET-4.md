@@ -23,6 +23,8 @@
 | be recognized as                                | 被认为          |
 | broaden one’s horizons                          | 拓宽眼界         |
 | allowing residents access help spread knowledge | 让居民获得帮助，传播知识 |
+| roll out                                        | 出台           |
+| pay attention  to/attach great importance to    | 重视           |
 # 写作题型概述与提分秘诀
 
 > [!tip] 写作复习重点
