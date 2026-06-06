@@ -33,6 +33,7 @@
 | chance                 | 机会/概率     |                                                     |
 | deposit                | 存放        |                                                     |
 | present                | 呈现/提供/在场的 |                                                     |
+| Phenomenon             | 现象        |                                                     |
 
 # 短语区
 | 短语                                              | 中文           |
