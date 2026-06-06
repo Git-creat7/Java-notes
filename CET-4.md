@@ -16,7 +16,8 @@
 | enterprise/corporation | 企业    |                         |
 | steadily               | 稳定地   |                         |
 | structure              | 结构    |                         |
-|                        |       |                         |
+| constantly             | 持续    |                         |
+| invest                 | 投资/投入 |                         |
 
 # 短语区
 | 短语                                              | 中文           |
@@ -31,6 +32,8 @@
 | roll out                                        | 出台           |
 | pay attention  to/attach great importance to    | 重视           |
 | by the end of March 2025                        | 截止2025年三月    |
+| the high-quality development of                 | 高质量发展        |
+|                                                 |              |
 # 写作题型概述与提分秘诀
 
 > [!tip] 写作复习重点
@@ -56,7 +59,7 @@
 | 逻辑作用  | 可替换表达                                                               |
 | ----- | ------------------------------------------------------------------- |
 | 表示对   | for / to / towards / with regard to                                 |
-| 递进    | in addition / furthermore / moreover / what's more                  |
+| 递进    | Besides/in addition / furthermore / moreover / what's more          |
 | 引出新对象 | as for / when it comes to / in terms of / speaking of               |
 | 转折    | Conversely / however / nevertheless / in contrast / on the contrary |
 | 总结    | in conclusion / to sum up / in short / all in all                   |
