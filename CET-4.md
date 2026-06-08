@@ -1,4 +1,4 @@
-> 本文更新于 2026-06-03
+>本文更新于 2026-06-08
 
 
 | 时间     | 内容          | 时长      |
@@ -34,6 +34,8 @@
 | deposit                | 存放        |                                                     |
 | present                | 呈现/提供/在场的 |                                                     |
 | Phenomenon             | 现象        |                                                     |
+| route                  | 路线        |                                                     |
+| Unlike...              | 与...不同    |                                                     |
 
 # 短语区
 | 短语                                              | 中文           |
@@ -49,6 +51,8 @@
 | pay attention  to/attach great importance to    | 重视           |
 | by the end of March 2025                        | 截止2025年三月    |
 | the high-quality development of                 | 高质量发展        |
+| tourist attractions                             | 旅游胜地         |
+| aim to                                          | 旨在           |
 |                                                 |              |
 # 写作题型概述与提分秘诀
 
