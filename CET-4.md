@@ -56,7 +56,7 @@
 | *Journey to West*                               | 西游记          |
 | be recognized as                                | 被认为          |
 | broaden one’s horizons                          | 拓宽眼界         |
-| allowing residents access help spread knowledge | 让居民获得帮助，传播知识 |
+| allowing residents to access... helps spread knowledge | 允许居民使用……有助于传播知识 |
 | roll out                                        | 出台           |
 | pay attention  to/attach great importance to    | 重视           |
 | by the end of March 2025                        | 截止2025年三月    |
@@ -67,14 +67,93 @@
 |                                                 |              |
 
 ## 议论文
-### 论述观点
-| 第一段                                                                           |                            |      |
-| ----------------------------------------------------------------------------- | -------------------------- | ---- |
-| the phenomenon unprecedented rapid development of...                          | 史无前例快速发展的现象                | 引出话题 |
-| an important bridge connecting...                                             | 一个联系A和B的中亚桥梁               |      |
-| As far as I'm concerned、From my prospective、                                  |                            |      |
-| As far as I'm concerned, ...... has had a significant impact on people's life | 就我而言，.......已经对人们的生活产生深远影响 | 个人观点 |
-|                                                                               |                            |      |
+
+> [!tip] 核心原则
+> 议论文先明确观点，再用理由、例子或对比支撑观点，最后总结并提出行动建议。
+
+### 题型判断
+
+| 题目关键词 / 要求       | 对应写法     |
+| ---------------- | -------- |
+| `write an essay` | 优先按议论文处理 |
+| 分析原因 / 说明情况      | 论点分析型    |
+| 解决问题 / 提出举措      | 问题解决型    |
+| 讨论 A 还是 B / 是否应该 | 对比分析型    |
+
+==议论文重点是观点清楚、段落完整、逻辑词明显。==
+
+### 三段式结构
+
+#### 第一段：引出话题 + 表明观点
+
+| 功能 | 可用表达 | 中文 |
+| --- | --- | --- |
+| 引出话题 | the unprecedented rapid development of... | ……史无前例的快速发展 |
+| 引出话题 | the phenomenon of... | ……的现象 |
+| 说明作用 | an important bridge connecting A and B | 连接 A 和 B 的重要桥梁 |
+| 表明观点 | As far as I am concerned, ... | 就我而言，…… |
+| 表明观点 | From my perspective, ... | 在我看来，…… |
+| 表明影响 | ... has had a significant impact on people's lives. | ……已经对人们的生活产生深远影响。 |
+
+#### 第二段：分析原因 + 支撑观点
+
+```text
+There are several reasons why I hold this view.
+To begin with, ...
+In addition, ...
+Furthermore, ...
+A case in point is that ...
+As a result, it not only ... but also ...
+```
+
+| 功能   | 可用表达                                                     | 中文              |
+| ---- | -------------------------------------------------------- | --------------- |
+| 引出理由 | There are several reasons why I hold this view.          | 我持有这一观点有几个原因。   |
+| 第一理由 | To begin with, ...                                       | 首先，……           |
+| 递进理由 | In addition, ... / Furthermore, ...                      | 此外，……           |
+| 强调重点 | another crucial aspect that cannot be ignored is that... | 另一个不可忽视的关键方面是…… |
+| 举例论证 | A case in point is that...                               | 一个恰当的例子是……      |
+| 说明结果 | As a result, it not only ... but also ...                | 因此，它不仅……而且……    |
+
+#### 第三段：总结观点 + 提出建议
+
+```text
+In short, it is a conclusion that can be drawn that ...
+Therefore, it is necessary for us to ...
+```
+
+| 功能   | 可用表达                                         | 中文          |
+| ---- | -------------------------------------------- | ----------- |
+| 总结观点 | In short, ...                                | 总而言之，……     |
+| 得出结论 | it is a conclusion that can be drawn that... | 可以得出一个结论：…… |
+| 提出行动 | it is necessary for us to...                 | 我们有必要……     |
+| 呼吁重视 | we should attach great importance to...      | 我们应该重视……    |
+
+### 常用论证素材
+
+#### 对个人有益
+
+- improve physical health（改善身体健康）
+- broaden our horizons（开阔视野）
+- relieve stress（缓解压力）
+- improve efficiency（提高效率）
+- develop good habits（培养良好习惯）
+
+#### 对社会有益
+
+- promote social harmony（促进社会和谐）
+- contribute to economic development（促进经济发展）
+- improve public awareness（提高公众意识）
+- encourage lifelong learning（鼓励终身学习）
+
+### 写作检查清单
+
+- 第一段有没有明确表态。
+- 第二段有没有至少两个理由。
+- 理由之间有没有使用 `To begin with`、`In addition`、`Furthermore` 等逻辑词。
+- 是否至少使用了一种论证方式：举例、正反对比、分类分析。
+- 第三段有没有总结观点并提出建议。
+
 # 写作题型概述与提分秘诀
 
 > [!tip] 写作复习重点
@@ -305,6 +384,110 @@ Conversely, if ..., ...
 > ==如果大学图书馆向公众开放==，它们的资源可以被更有效地利用，也可以营造更强的学习氛围。此外，允许居民使用这些图书馆有助于传播知识，并鼓励终身学习。==然而，如果进入受到限制==，资源可能会被闲置，这可能会加剧教育不平等。
 
 ### 分类论证
-**从对国家、社会/集体、个人三方面切入支持论点**
+
+> [!tip] 核心思路
+> ==从个人、社会/集体、国家三个层面展开，让论证更有层次。==
+
+#### 适用场景
+
+- 题目要求说明某件事的意义或价值。
+- 题目对象同时影响个人和社会。
+- 第二段需要写两个或三个并列理由。
+
+#### 基本模板
+
+```text
+For individuals, ...
+For society, ...
+For the country, ...
+```
+
+#### 常用角度
+
+| 角度 | 可写内容 | 常用表达 |
+| --- | --- | --- |
+| 个人 | 健康、效率、视野、习惯 | improve physical health / broaden our horizons / develop good habits |
+| 社会 | 和谐、意识、资源利用 | promote social harmony / improve public awareness / make better use of resources |
+| 国家 | 发展、竞争力、文化传播 | contribute to economic development / enhance competitiveness / spread traditional culture |
+
+#### 例题：为什么要重视阅读？
+
+> [!quote] 思路拆分
+> - 个人：阅读可以拓宽视野、提升表达能力。
+> - 社会：阅读能提高公众意识，营造学习氛围。
+> - 国家：阅读有利于文化传承和长期发展。
+
+> [!example] 示例句
+> For individuals, reading can broaden their horizons and improve their ability to express ideas clearly. For society, it helps create a stronger learning atmosphere and improve public awareness. For the country, reading plays an important role in spreading culture and supporting long-term development.
+
 ### 举例论证
-**通过具体事例或事实支持论点**
+
+> [!tip] 核心思路
+> ==用具体例子支撑观点，避免第二段只喊口号。==
+
+#### 适用场景
+
+- 题目比较抽象，需要具体化。
+- 已经写完理由，但段落不够有说服力。
+- 想说明某个做法确实有效。
+
+#### 基本模板
+
+```text
+A case in point is that ...
+For example, ...
+This example shows that ...
+```
+
+#### 例题：创新为什么重要？
+
+> [!quote] 思路拆分
+> - 观点：创新能推动社会发展。
+> - 例子：新技术改变学习、工作和生活方式。
+> - 回扣：创新不仅提高效率，也创造更多机会。
+
+> [!example] 示例句
+> A case in point is that new technologies have changed the way people study, work and communicate. This example shows that innovation not only improves efficiency but also creates more opportunities for individuals and society.
+
+
+---
+
+---
+
+---
+
+## 议论文
+### 论述观点类
+
+| 第一段                                                                           |                            |      |
+| ----------------------------------------------------------------------------- | -------------------------- | ---- |
+| the phenomenon unprecedented rapid development of...                          | 史无前例快速发展的现象                | 引出话题 |
+| an important bridge connecting...                                             | 一个联系A和B的中亚桥梁               |      |
+| As far as I'm concerned、From my prospective、                                  |                            |      |
+| As far as I'm concerned, ...... has had a significant impact on people's life | 就我而言，.......已经对人们的生活产生深远影响 | 个人观点 |
+**第二段：原因分析论述观点**
+There are several reasons why I hold this view.
+To begin with, In addition,As a result,……
+
+|                                                                      |                           |       |
+| -------------------------------------------------------------------- | ------------------------- | ----- |
+| Furthermore, another crucial aspect that cannot be ignored is that   | 此外，另一个不可忽视的关键方面是          | 并列、递进 |
+| A case in point is that... / As a result, it not only... but also... | 一个恰当的例子是…… / 结果，它不仅……而且…… | 举例论证  |
+|                                                                      |                           |       |
+
+**对个人有益**
+- improve physical health（改善身体健康）
+- broaden our horizons（开阔视野）
+- relieve stress（缓解压力）
+- improve efficiency（提高效率）
+- develop good habits（培养良好习惯）
+**对社会有益**
+- promote social harmony（促进社会和谐）
+- contribute to economic development（促进经济发展）
+- improve public awareness（提高公众意识）
+
+| 第三段                                               |                  |      |
+| ------------------------------------------------- | ---------------- | ---- |
+| Inshort                                           |                  |      |
+| Inshort,it is a conclusion that can be drawn that | 总而言之，可以得出一个合理的结论 | 总结观点 |
+| However,it is necessary that                      |                  | 具体行动 |
