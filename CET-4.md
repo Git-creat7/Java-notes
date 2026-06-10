@@ -491,3 +491,17 @@ To begin with, In addition,As a result,……
 | Inshort                                           |                  |      |
 | Inshort,it is a conclusion that can be drawn that | 总而言之，可以得出一个合理的结论 | 总结观点 |
 | However,it is necessary that                      |                  | 具体行动 |
+### 问题解决型
+
+| 第一段                                                                                                                 |                                        |      |
+| ------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---- |
+| With the enhancement of China's global influence, traditional Chinese culture has attracted international interest. | 随着**中国文化**的影响，越来越多的**外国人**开始关注**中国文化** | 引出话题 |
+| It is my belief that college students should                                                                        | 我认为大学生应该                               | 提出观点 |
+
+| 第二段                                     |      |
+| --------------------------------------- | ---- |
+|                                         |      |
+| For instance,my English teacher Mr.Wang | 举例论证 |
+|                                         |      |
+- The key to solving this problem lies in joint efforts from all parties. 解决这一问题的关键在于各方共同努力。
+- ... has a profound impact on people's lives. ……对人们的生活产生深远影响。
