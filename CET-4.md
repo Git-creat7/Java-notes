@@ -514,10 +514,10 @@ To begin with, In addition,As a result,……
 - The key to solving this problem lies in joint efforts from all parties. 解决这一问题的关键在于各方共同努力。
 - ... has a profound impact on people's lives. ……对人们的生活产生深远影响。
 ### 对比选择型
-| 第一段                                                                                                       |                         |      |
-| --------------------------------------------------------------------------------------------------------- | ----------------------- | ---- |
-| With the advance of science andtechnology, the<br>issue of humans becoming lazy has aroused wide concern. | 随着科学技术的进步，……的问题引起了广泛关注。 | 引出话题 |
-| In my opinion,rather than casuing laziness,……                                                             | 在我看来，与其导致懒惰，……          | 说明观点 |
+| 第一段                                                                                                    |                         |      |
+| ------------------------------------------------------------------------------------------------------ | ----------------------- | ---- |
+| With the advance of science andtechnology, the issue of humans becoming lazy has aroused wide concern. | 随着科学技术的进步，……的问题引起了广泛关注。 | 引出话题 |
+| In my opinion,rather than casuing laziness,……                                                          | 在我看来，与其导致懒惰，……          | 说明观点 |
 
 | 第二段 |     |     |
 | --- | --- | --- |
@@ -544,3 +544,9 @@ To begin with, In addition,As a result,……
 中段分析论述：
 	分析原因：总述（有无均可）
 	- The majority of people would agree that the problem has its deep roots.
+	提出措施：总述（有无均可）
+	- There are several measures that can be taken to deal with the issue.
+	 三种论证方式……
+
+末段总结倡议：总结+措施
+	- As a result, just as a coin has two sides, the development of science and technology is no exception.
