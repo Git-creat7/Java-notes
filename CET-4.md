@@ -463,7 +463,7 @@ This example shows that ...
 | ----------------------------------------------------------------------------- | -------------------------- | ---- |
 | the phenomenon unprecedented rapid development of...                          | 史无前例快速发展的现象                | 引出话题 |
 | an important bridge connecting...                                             | 一个联系A和B的中亚桥梁               |      |
-| As far as I'm concerned、From my prospective、                                  |                            |      |
+| ==As far as I'm concerned、From my prospective==                               | 观点                         |      |
 | As far as I'm concerned, ...... has had a significant impact on people's life | 就我而言，.......已经对人们的生活产生深远影响 | 个人观点 |
 **第二段：原因分析论述观点**
 There are several reasons why I hold this view.
@@ -522,3 +522,8 @@ To begin with, In addition,As a result,……
 | 第二段 |     |     |
 | --- | --- | --- |
 |     |     |     |
+
+| 第三段                                                                                                        |                                 |      |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------- | ---- |
+| All in all, technology plays  a key role in shaping our lives, careers, and even futures.                  | 总的来说，技术在塑造我们的生活、职业乃至未来方面起着关键作用。 | 总结观点 |
+| However, only by harnessing its power appropriately can we move towards a<br>more prosperous civilization. | 然而，只有适当地利用其力量，我们才能迈向更加繁荣的文明。    | 提出倡议 |
