@@ -500,8 +500,24 @@ To begin with, In addition,As a result,……
 
 | 第二段                                     |      |
 | --------------------------------------- | ---- |
-|                                         |      |
+|                                         | 总述句  |
+|                                         | 提出措施 |
 | For instance,my English teacher Mr.Wang | 举例论证 |
-|                                         |      |
+
+
+| 第三段                                                                                                   |                       |      |
+| ----------------------------------------------------------------------------------------------------- | --------------------- | ---- |
+| Overall, it is these approaches that provide effective ways to enrich traditional cultural knowledge. | 总而言之，这些方法提供了有效的途径去... | 总结措施 |
+| It is high time that active steps were taken to promote ...                                           | 是时候去采取措施促进...         | 提出倡议 |
+
+
 - The key to solving this problem lies in joint efforts from all parties. 解决这一问题的关键在于各方共同努力。
 - ... has a profound impact on people's lives. ……对人们的生活产生深远影响。
+### 对比选择型
+| 第一段                                                                                                       |                         |      |
+| --------------------------------------------------------------------------------------------------------- | ----------------------- | ---- |
+| With the advance of science andtechnology, the<br>issue of humans becoming lazy has aroused wide concern. | 随着科学技术的进步，……的问题引起了广泛关注。 | 引出话题 |
+| In my opinion,rather than casuing laziness,……                                                             | 在我看来，与其导致懒惰，……          | 说明观点 |
+
+| 第一段                                                                                                       |                         |      |
+| --------------------------------------------------------------------------------------------------------- | ----------------------- | ---- |
