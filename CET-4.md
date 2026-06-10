@@ -48,23 +48,23 @@
 | glimpse                | 偏见        |                                                     |
 
 # 短语区
-| 短语                                              | 中文           |
-| ----------------------------------------------- | ------------ |
-| urbanization and industrialization              | 城市化与工业化      |
-| a global issue                                  | 全球性问题        |
-| with the rapid progress of                      | 随着...的加快     |
-| *Journey to West*                               | 西游记          |
-| be recognized as                                | 被认为          |
-| broaden one’s horizons                          | 拓宽眼界         |
+| 短语                                                     | 中文              |
+| ------------------------------------------------------ | --------------- |
+| urbanization and industrialization                     | 城市化与工业化         |
+| a global issue                                         | 全球性问题           |
+| with the rapid progress of                             | 随着...的加快        |
+| *Journey to West*                                      | 西游记             |
+| be recognized as                                       | 被认为             |
+| broaden one’s horizons                                 | 拓宽眼界            |
 | allowing residents to access... helps spread knowledge | 允许居民使用……有助于传播知识 |
-| roll out                                        | 出台           |
-| pay attention  to/attach great importance to    | 重视           |
-| by the end of March 2025                        | 截止2025年三月    |
-| the high-quality development of                 | 高质量发展        |
-| tourist attractions                             | 旅游胜地         |
-| aim to                                          | 旨在           |
-| sustainable development                         | 可持续发展        |
-|                                                 |              |
+| roll out                                               | 出台              |
+| pay attention  to/attach great importance to           | 重视              |
+| by the end of March 2025                               | 截止2025年三月       |
+| the high-quality development of                        | 高质量发展           |
+| tourist attractions                                    | 旅游胜地            |
+| aim to                                                 | 旨在              |
+| sustainable development                                | 可持续发展           |
+|                                                        |                 |
 
 ## 议论文
 
