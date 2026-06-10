@@ -533,3 +533,14 @@ To begin with, In addition,As a result,……
 	- 近年来有少部分写作题目会给出开头句这种情况下直接照抄句子即可。
 - 第二段:总述句+结合论证方法==分析原因/提出措施/分析影响==
 - 第三段:总结论点+==具体措施/提出倡议==
+
+
+首段第一句：
+- With the development of science andtechnology, the topic of innovation has aroused wide concern.
+- Nowadays, it is undeniable that...has almost become biggest concern of the present-day world.
+- 如今，毫无疑问……已成为当今世界最令人担忧的问题。
+首段第二句：表达观点
+
+中段分析论述：
+	分析原因：总述（有无均可）
+	- The majority of people would agree that the problem has its deep roots.
