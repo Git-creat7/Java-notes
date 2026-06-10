@@ -527,3 +527,9 @@ To begin with, In addition,As a result,……
 | ---------------------------------------------------------------------------------------------------------- | ------------------------------- | ---- |
 | All in all, technology plays  a key role in shaping our lives, careers, and even futures.                  | 总的来说，技术在塑造我们的生活、职业乃至未来方面起着关键作用。 | 总结观点 |
 | However, only by harnessing its power appropriately can we move towards a<br>more prosperous civilization. | 然而，只有适当地利用其力量，我们才能迈向更加繁荣的文明。    | 提出倡议 |
+
+### 议论文·结构总结
+- 第一段:引出话题+个人观点
+	- 近年来有少部分写作题目会给出开头句这种情况下直接照抄句子即可。
+- 第二段:总述句+结合论证方法==分析原因/提出措施/分析影响==
+- 第三段:总结论点+==具体措施/提出倡议==
