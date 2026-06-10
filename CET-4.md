@@ -519,5 +519,6 @@ To begin with, In addition,As a result,……
 | With the advance of science andtechnology, the<br>issue of humans becoming lazy has aroused wide concern. | 随着科学技术的进步，……的问题引起了广泛关注。 | 引出话题 |
 | In my opinion,rather than casuing laziness,……                                                             | 在我看来，与其导致懒惰，……          | 说明观点 |
 
-| 第一段                                                                                                       |                         |      |
-| --------------------------------------------------------------------------------------------------------- | ----------------------- | ---- |
+| 第二段 |     |     |
+| --- | --- | --- |
+|     |     |     |
