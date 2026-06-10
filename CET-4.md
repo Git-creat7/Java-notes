@@ -36,6 +36,16 @@
 | Phenomenon             | 现象        |                                                     |
 | route                  | 路线        |                                                     |
 | Unlike...              | 与...不同    |                                                     |
+| case                   | 情况，案件     |                                                     |
+| deposit                | 存放        |                                                     |
+| seize                  | 抓住        | =catch                                              |
+| present                | 呈现，在场     |                                                     |
+| announce               | 宣布        |                                                     |
+| council                | 抗议        |                                                     |
+| ruin                   | 破坏        |                                                     |
+| protest                | 抵制        |                                                     |
+| section                | 部分        |                                                     |
+| glimpse                | 偏见        |                                                     |
 
 # 短语区
 | 短语                                              | 中文           |
