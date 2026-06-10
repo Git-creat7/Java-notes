@@ -86,13 +86,13 @@
 
 #### 第一段：引出话题 + 表明观点
 
-| 功能 | 可用表达 | 中文 |
-| --- | --- | --- |
-| 引出话题 | the unprecedented rapid development of... | ……史无前例的快速发展 |
-| 引出话题 | the phenomenon of... | ……的现象 |
-| 说明作用 | an important bridge connecting A and B | 连接 A 和 B 的重要桥梁 |
-| 表明观点 | As far as I am concerned, ... | 就我而言，…… |
-| 表明观点 | From my perspective, ... | 在我看来，…… |
+| 功能   | 可用表达                                                | 中文                |
+| ---- | --------------------------------------------------- | ----------------- |
+| 引出话题 | the unprecedented rapid development of...           | ……史无前例的快速发展       |
+| 引出话题 | the phenomenon of...                                | ……的现象             |
+| 说明作用 | an important bridge connecting A and B              | 连接 A 和 B 的重要桥梁    |
+| 表明观点 | As far as I am concerned, ...                       | 就我而言，……           |
+| 表明观点 | From my perspective, ...                            | 在我看来，……           |
 | 表明影响 | ... has had a significant impact on people's lives. | ……已经对人们的生活产生深远影响。 |
 
 #### 第二段：分析原因 + 支撑观点
