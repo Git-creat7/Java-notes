@@ -41,11 +41,11 @@
 | seize                  | 抓住        | =catch                                              |
 | present                | 呈现，在场     |                                                     |
 | announce               | 宣布        |                                                     |
-| council                | 抗议        |                                                     |
+| council                | 委员会       |                                                     |
 | ruin                   | 破坏        |                                                     |
 | protest                | 抵制        |                                                     |
 | section                | 部分        |                                                     |
-| glimpse                | 偏见        |                                                     |
+| glimpse                | 一瞥；瞥见     |                                                     |
 
 # 短语区
 | 短语                                                     | 中文              |
