@@ -70,7 +70,9 @@
 | ----------------------------------------------------------------------------- | -------------------------- | ---- |
 | the phenomenon unprecedented rapid development of...                          | 史无前例快速发展的现象                | 引出话题 |
 | an important bridge connecting...                                             | 一个联系A和B的中亚桥梁               |      |
+| As far as I'm concerned、From my prospective、                                  |                            |      |
 | As far as I'm concerned, ...... has had a significant impact on people's life | 就我而言，.......已经对人们的生活产生深远影响 | 个人观点 |
+|                                                                               |                            |      |
 # 写作题型概述与提分秘诀
 
 > [!tip] 写作复习重点
