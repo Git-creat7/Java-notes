@@ -82,6 +82,7 @@
 | strive to/try to                                       |                 |
 | neglect                                                | 忽略              |
 | essential                                              | 重要的             |
+| be to blame                                            |                 |
 ## 上位词、替换词、大词小词
 
 ## **非谓语动词**
