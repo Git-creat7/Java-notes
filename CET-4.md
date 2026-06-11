@@ -55,6 +55,8 @@
 | universal              | 普遍        |                                                        |
 | once                   | 曾经        |                                                        |
 | invent                 | 发明        |                                                        |
+| promising              | 有希望的      |                                                        |
+|                        |           |                                                        |
 
 # 短语区
 | 短语                                                     | 中文              |
