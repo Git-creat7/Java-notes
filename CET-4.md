@@ -64,7 +64,7 @@
 | tourist attractions                                    | 旅游胜地            |
 | aim to                                                 | 旨在              |
 | sustainable development                                | 可持续发展           |
-|                                                        |                 |
+| look up                                                |                 |
 
 ## 议论文
 
