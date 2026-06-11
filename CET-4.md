@@ -118,6 +118,17 @@ besides 表示递进：in addition,  furthermore,
 Only引出的状语位于句首时（自己加状语）
 - When love comes,I will hold his hands
 - ==Only== when loves comes ==will I== hold his hands
+
+**议论文结构**
+第一段
+- 引出话题
+- Recently with the development / advance / progress of science and technology, the phenomenon of …… has aroused wide concern.
+- 表达观点
+- As far as I am concerned
+第二段
+无话可说->举例论证、
+
+
 ## 议论文
 
 > [!tip] 核心原则
