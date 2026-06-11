@@ -77,9 +77,17 @@
 |                                                        |                 |
 |                                                        |                 |
 上位词、替换词、大词小词
+**并列句**
 **非谓语动词**
 - 前后两句主语一致，都可以把其中一个句子写成非谓语动词
-
+**逻辑关系词词**
+表示原因：in that, as, since
+表示结果：hence, therefore,  thus, in consequence 
+表示并列：likewise, simultaneously, in the meanwhile
+表示转折：by contrast, on the contrary
+表示递进：in addition,  furthermore, 
+表示引出新对象：When it comes to……
+表示总结：on/as the whole
 ## 议论文
 
 > [!tip] 核心原则
