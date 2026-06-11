@@ -54,6 +54,7 @@
 | allow                  | 允许，让      |                                                        |
 | universal              | 普遍        |                                                        |
 | once                   | 曾经        |                                                        |
+| invent                 | 发明        |                                                        |
 
 # 短语区
 | 短语                                                     | 中文              |
