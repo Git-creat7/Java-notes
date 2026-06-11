@@ -107,7 +107,14 @@ besides 表示递进：in addition,  furthermore,
 #### 强调句 It is/was ... that/who
 - 作文中的所有句子都能写成强调句型
 #### 倒装
-否定词
+**否定词位于句首**
+- Never have I been so happy.
+- 在任何情况下我们绝不能忽略…… 的重要性 / 严重性
+	- We can ignore the gravity/severity of sth ==under no circumstances.==
+	- 倒装==Under no circumstances== can we ignore the gravity/severity of sth.
+Only引出的状语位于句首时（自己加状语）
+- When love comes,I will hold his hands
+- ==Only== when loves comes ==will I== hold his hands
 ## 议论文
 
 > [!tip] 核心原则
@@ -218,21 +225,10 @@ Therefore, it is necessary for us to ...
 
 ### 多用逻辑关系词
 
-| 逻辑作用  | 可替换表达                                                               |
-| ----- | ------------------------------------------------------------------- |
-| 表示对   | for / to / towards / with regard to                                 |
-| 递进    | Besides/in addition / furthermore / moreover / what's more          |
-| 引出新对象 | as for / when it comes to / in terms of / speaking of               |
-| 转折    | Conversely / however / nevertheless / in contrast / on the contrary |
-| 总结    | in conclusion / to sum up / in short / all in all                   |
-
 > [!example] 简短解析
 > - 递进词适合放在第二个理由前，让段落更连贯。
 > - 引出新对象的表达适合换角度分析问题。
 > - 总结词适合放在最后一段开头，提示文章收尾。
-
-> [!note] 替换词使用原则
-> ==不要为了高级而硬换词。四级作文更看重表达清楚、结构完整、错误少。==
 
 ## 英语写作分类
 
