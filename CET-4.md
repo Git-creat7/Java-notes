@@ -70,7 +70,7 @@
 | sustainable development                                | 可持续发展           |
 | look up materials                                      | 查阅资料            |
 | ==cultural heritage==                                  | 文化遗产            |
-|                                                        |                 |
+| streets and alleys                                     | 大街小巷            |
 |                                                        |                 |
 |                                                        |                 |
 
