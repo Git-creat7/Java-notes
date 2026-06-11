@@ -11,49 +11,49 @@
 | 睡前     | 背作文模板、高频表达  | 15分钟    |
 # 单词区
 
-| 单词                     | 中文        | 备注                                                  |
-| ---------------------- | --------- | --------------------------------------------------- |
-| proposal               | 建议        |                                                     |
-| ambitious              | 有抱负的      |                                                     |
-| aggressive             | 强势的       |                                                     |
-| spotted                | 有斑点的      |                                                     |
-| obvious                | 显而易见      | `It is obvious that...`                             |
-| youngsters             | 年轻人们      |                                                     |
-| reshape                | 重塑        |                                                     |
-| crucial                | 至关重要的     |                                                     |
-| exceed                 | 超过        |                                                     |
-| enterprise/corporation | 企业        |                                                     |
-| steadily               | 稳定地       |                                                     |
-| structure              | 结构        |                                                     |
-| constantly             | 持续        |                                                     |
-| invest                 | 投资/投入     |                                                     |
-| competitiveness        | 竞争力       |                                                     |
-| enhancement            | 增强        | `The enhancement of the core competitiveness of...` |
-| seize                  | 抓住        |                                                     |
-| chance                 | 机会/概率     |                                                     |
-| deposit                | 存放        |                                                     |
-| present                | 呈现/提供/在场的 |                                                     |
-| Phenomenon             | 现象        |                                                     |
-| route                  | 路线        |                                                     |
-| Unlike...              | 与...不同    |                                                     |
-| case                   | 情况，案件     |                                                     |
-| deposit                | 存放        |                                                     |
-| seize                  | 抓住        | =catch                                              |
-| present                | 呈现，在场     |                                                     |
-| announce               | 宣布        |                                                     |
-| council                | 委员会       |                                                     |
-| ruin                   | 破坏        |                                                     |
-| protest                | 抵制        |                                                     |
-| section                | 部分        |                                                     |
-| glimpse                | 一瞥；瞥见     |                                                     |
-| precious               | 宝贵的       |                                                     |
-| climatic               | 气候        |                                                     |
-| forest                 | 森林        |                                                     |
-| substant               | 实质        |                                                     |
-| Substantial            | 可观的，相当    |                                                     |
-| allow                  | 允许，让      |                                                     |
-| universal              | 普遍        |                                                     |
-| once                   | 曾经        |                                                     |
+| 单词                     | 中文        | 备注                                                     |
+| ---------------------- | --------- | ------------------------------------------------------ |
+| proposal               | 建议        |                                                        |
+| ambitious              | 有抱负的      |                                                        |
+| aggressive             | 强势的       |                                                        |
+| spotted                | 有斑点的      |                                                        |
+| obvious                | 显而易见      | `It is obvious that...`<br>`It is beyond dispute that` |
+| youngsters             | 年轻人们      |                                                        |
+| reshape                | 重塑        |                                                        |
+| crucial                | 至关重要的     |                                                        |
+| exceed                 | 超过        |                                                        |
+| enterprise/corporation | 企业        |                                                        |
+| steadily               | 稳定地       |                                                        |
+| structure              | 结构        |                                                        |
+| constantly             | 持续        |                                                        |
+| invest                 | 投资/投入     |                                                        |
+| competitiveness        | 竞争力       |                                                        |
+| enhancement            | 增强        | `The enhancement of the core competitiveness of...`    |
+| seize                  | 抓住        |                                                        |
+| chance                 | 机会/概率     |                                                        |
+| deposit                | 存放        |                                                        |
+| present                | 呈现/提供/在场的 |                                                        |
+| Phenomenon             | 现象        |                                                        |
+| route                  | 路线        |                                                        |
+| Unlike...              | 与...不同    |                                                        |
+| case                   | 情况，案件     |                                                        |
+| deposit                | 存放        |                                                        |
+| seize                  | 抓住        | =catch                                                 |
+| present                | 呈现，在场     |                                                        |
+| announce               | 宣布        |                                                        |
+| council                | 委员会       |                                                        |
+| ruin                   | 破坏        |                                                        |
+| protest                | 抵制        |                                                        |
+| section                | 部分        |                                                        |
+| glimpse                | 一瞥；瞥见     |                                                        |
+| precious               | 宝贵的       |                                                        |
+| climatic               | 气候        |                                                        |
+| forest                 | 森林        |                                                        |
+| substant               | 实质        |                                                        |
+| Substantial            | 可观的，相当    |                                                        |
+| allow                  | 允许，让      |                                                        |
+| universal              | 普遍        |                                                        |
+| once                   | 曾经        |                                                        |
 
 # 短语区
 | 短语                                                     | 中文              |
@@ -76,8 +76,11 @@
 | ==cultural heritage==                                  | 文化遗产            |
 | streets and alleys                                     | 大街小巷            |
 | the young and the old                                  |                 |
-|                                                        |                 |
-|                                                        |                 |
+| be exposed to                                          | 接触，暴露           |
+| by and large                                           | 总之              |
+| strive to/try to                                       |                 |
+| neglect                                                | 忽略              |
+| essential                                              | 重要的             |
 ## 上位词、替换词、大词小词
 
 ## **非谓语动词**
