@@ -52,6 +52,8 @@
 | substant               | 实质        |                                                     |
 | Substantial            | 可观的，相当    |                                                     |
 | allow                  | 允许，让      |                                                     |
+| universal              | 普遍        |                                                     |
+| once                   | 曾经        |                                                     |
 
 # 短语区
 | 短语                                                     | 中文              |
@@ -76,18 +78,31 @@
 | the young and the old                                  |                 |
 |                                                        |                 |
 |                                                        |                 |
-上位词、替换词、大词小词
-**并列句**
-**非谓语动词**
+## 上位词、替换词、大词小词
+
+## **非谓语动词**
 - 前后两句主语一致，都可以把其中一个句子写成非谓语动词
-**逻辑关系词词**
-表示原因：in that, as, since
-表示结果：hence, therefore,  thus, in consequence 
-表示并列：likewise, simultaneously, in the meanwhile
-表示转折：by contrast, on the contrary
-表示递进：in addition,  furthermore, 
+## **并列句**
+### **逻辑关系词词**
+because 表示原因：in that, as, since
+so 表示结果：hence, therefore,  thus, as a consequence
+and 表示并列：likewise, simultaneously, in the meanwhile
+but 表示转折：by contrast, on the contrary
+besides 表示递进：in addition,  furthermore, 
 表示引出新对象：When it comes to……
 表示总结：on/as the whole
+## 复合句
+### 主语从句
+> `It is common knowledge that……`
+> `It is has been found that……`
+### 定语从句
+非限制性：
+- 只要前后两句话==主语==一致，后面这句都可以写成非限制性定语从句
+- 非限制性定语从句可以指前面一句话，which翻译成“==这==”
+
+### 状语和状语从句
+
+
 ## 议论文
 
 > [!tip] 核心原则
