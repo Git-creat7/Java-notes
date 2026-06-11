@@ -49,7 +49,9 @@
 | precious               | 宝贵的       |                                                     |
 | climatic               | 气候        |                                                     |
 | forest                 | 森林        |                                                     |
-|                        |           |                                                     |
+| substant               | 实质        |                                                     |
+| Substantial            | 可观的，相当    |                                                     |
+| allow                  | 允许，让      |                                                     |
 
 # 短语区
 | 短语                                                     | 中文              |
@@ -73,8 +75,10 @@
 | streets and alleys                                     | 大街小巷            |
 | the young and the old                                  |                 |
 |                                                        |                 |
-
-		
+|                                                        |                 |
+上位词、替换词、大词小词
+**非谓语动词**
+- 前后两句主语一致，都可以把其中一个句子写成非谓语动词
 
 ## 议论文
 
