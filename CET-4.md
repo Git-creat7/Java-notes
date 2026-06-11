@@ -46,6 +46,7 @@
 | protest                | 抵制        |                                                     |
 | section                | 部分        |                                                     |
 | glimpse                | 一瞥；瞥见     |                                                     |
+| precious               | 宝贵的       |                                                     |
 
 # 短语区
 | 短语                                                     | 中文              |
@@ -65,6 +66,7 @@
 | aim to                                                 | 旨在              |
 | sustainable development                                | 可持续发展           |
 | look up materials                                      | 查阅资料            |
+| ==cultural heritage==                                  | 文化遗产            |
 
 ## 议论文
 
