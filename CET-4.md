@@ -101,8 +101,13 @@ besides 表示递进：in addition,  furthermore,
 - 非限制性定语从句可以指前面一句话，which翻译成“==这==”
 
 ### 状语和状语从句
-
-
+- The Chinese government, ==in order to improve the competitiveness of its products in the market==, has encouraged new energy vehicle enterprises to continuously enhance technological innovation ==by increasing investment and providing policy guidance.==
+- China, ==in recent years==, has achieved remarkable results in reducing air, water and soil pollution. At the same time, China, ==to continuously improve people's living environment==, has adopted a series of effective measures.
+### 两大句型
+#### 强调句 It is/was ... that/who
+- 作文中的所有句子都能写成强调句型
+#### 倒装
+否定词
 ## 议论文
 
 > [!tip] 核心原则
