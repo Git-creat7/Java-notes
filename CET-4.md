@@ -78,9 +78,9 @@
 ## 上位词、替换词、大词小词
 
 ## **非谓语动词**
-- 前后两句主语一致，都可以把其中一个句子写成非谓语动词
-## **并列句**
-### **逻辑关系词词**
+- ==前后两句主语一致，都可以把其中一个句子写成非谓语动词==
+## 并列句
+### 逻辑关系词
 because 表示原因：in that, as, since
 so 表示结果：hence, therefore,  thus, as a consequence
 and 表示并列：likewise, simultaneously, in the meanwhile
