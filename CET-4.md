@@ -555,3 +555,86 @@ To begin with, In addition,As a result,……
 
 末段总结倡议：总结+措施
 	- As a result, just as a coin has two sides, the development of science and technology is no exception.
+
+---
+
+# 🏛️ 首尾段灵活套用（高分模板）
+
+## 第一段：引出话题 + 灵活表态
+
+第一段的核心任务是：把题目里的现象拉出来，然后用最狠的句式甩出你的观点。
+
+### 1. 铺垫背景（引入万能组合）
+
+不要只写 `With the development of...`，结合笔记，把它和主语从句或同位语结合：
+
+> [!tip] 万能公式 1（主语从句引出重大关注 · 按话题盲套）
+> **科技 / 创新 / 校园类话题：**
+> It is common knowledge that with the rapid progress of information technology / the knowledge economy, the topic of **[innovation / lifelong learning]** has aroused wide concern.
+>
+> **环境 / 社会 / 传统类话题：**
+> It is common knowledge that with the rapid progress of urbanization and industrialization, the topic of **[pollution / cultural preservation]** has aroused wide concern.
+>
+> 众所周知，随着……的快速推进，……的话题引起了广泛关注。
+> ⚠️ 关键：前面的铺垫词要和核心词语义对齐，别用"城市化"去引"创新"，否则因果断裂。
+
+> [!tip] 万能公式 2（同位语破题法——专门针对“负面/全球性现象”）
+> **[题目核心现象，如 environmental pollution]**, a global issue, has had a significant impact on people's lives in recent years.
+> ……作为一个全球性问题，近年来已经对人们的生活产生了深远的影响。
+
+### 2. 甩出观点（高级句式改写）
+
+普通人只会写 `As far as I am concerned, I think X is important.`，你直接上笔记里的主语从句（毫无争议）或强调句：
+
+> [!example] 高分表态 1（主语从句替换 think）
+> It is beyond dispute that **[你的观点，如 innovation remains a crucial force for development]**.
+> 毫无争议的是，创新仍然是发展的关键力量。
+>
+> ⚠️ 主谓一致防呆铁律（落笔统一用一般现在时 is / remain）：
+> - 动名词 / 单数作主语 → 锁定单数：starting a business **is / remains** a crucial force...
+> - 复数名词作主语 → 用复数：these innovations **are / remain** crucial forces...
+> - 💡 稳妥起见：考场优先写**动名词作主语**，强行锁定单数 is，绝不出错。
+
+> [!example] 高分表态 2（绝对崇高——强调句型表态）
+> As far as I am concerned, it is **[核心词，如 cultural heritage]** that plays a key role in shaping our lives and futures.
+> 就我而言，正是文化遗产在塑造我们的生活和未来中起到了关键作用。
+
+## 第三段：总结观点 + 极限倒装倡议
+
+第三段的核心任务是：一句话总结，然后用一个极强的复合句/倒装句作为整篇文章的“压轴戏”。
+
+### 1. 完美收尾（总结句）
+
+> [!tip] 万能公式 1（高级主语从句收尾）
+> In short, it has been found that **[核心话题]** is an important bridge connecting our present and future.
+> 简而言之，研究表明……是连接我们现在与未来的重要桥梁。
+
+> [!tip] 万能公式 2（两面性辩证收尾）
+> All in all, just as a coin has two sides, **[核心技术/现象，如 AI]** is no exception, which plays a key role in reshaping our society.
+> 总而言之，正如一枚硬币有两面一样，……也不例外，它在重塑我们的社会中起到了关键作用。
+
+### 2. 压轴输出（临考保命倒装句 💥）
+
+阅卷老师最爱看的就是大作文结尾的倒装句。把笔记里那两句倒装，直接做成终极填空题：
+
+> [!example] 临考保命尾段（只留一个倒装，直接落地到具体行动）
+> In short, it is a conclusion that can be drawn that **[核心话题]** plays an essential role in our development. Therefore, only by **[具体行动，如 increasing investment / encouraging citizens to read]** can we fundamentally enhance our competitiveness and move towards a better future.
+> 简而言之，可以得出结论：……在我们的发展中起着至关重要的作用。因此，只有通过……，我们才能从根本上增强竞争力，迈向更美好的未来。
+>
+> ⚠️ 杜绝"连环倒装"：结尾**只用一个**倒装句就够，两个并排（Under no... + Only by...）显得做作；且收尾要落到**具体行动**，别用 reshaping society 这类空洞口号。
+
+## 🛠️ 实战演练：拿到题目怎么套？
+
+假设题目是：**论大学毕业生自主创业（Entrepreneurship）的重要性。**
+
+直接从笔记里提取模块，这样组装首尾段：
+
+> [!note] 真实考场组装效果
+>
+> **【第一段】**
+> It is common knowledge that with the rapid progress of market economy, the phenomenon of college students choosing entrepreneurship has aroused wide concern. It is beyond dispute that starting a business is widely recognized as a crucial force for personal development, which can broaden youngsters' horizons and reshape their futures.
+>
+> *（中间第二段尽情用 To begin with, In addition 加上分类论证去写……）*
+>
+> **【第三段】**
+> In short, it is a conclusion that can be drawn that entrepreneurship plays an essential role in our development. Therefore, only by creating a flexible market environment and providing policy guidance can we fundamentally enhance our competitiveness and move towards a better future.
