@@ -441,8 +441,7 @@ For the country, ...
 
 ```text
 A case in point is that ...
-For example, ...
-This example shows that ...
+This example shows that
 ```
 
 #### 例题：创新为什么重要？
@@ -453,7 +452,7 @@ This example shows that ...
 > - 回扣：创新不仅提高效率，也创造更多机会。
 
 > [!example] 示例句
-> A case in point is that new technologies have changed the way people study, work and communicate. This example shows that innovation not only improves efficiency but also creates more opportunities for individuals and society.
+> ==A case in point is that ==new technologies have changed the way people study, work and communicate. This example shows that innovation not only improves efficiency but also creates more opportunities for individuals and society.
 
 
 ---
@@ -520,10 +519,10 @@ To begin with, In addition,As a result,……
 - The key to solving this problem lies in joint efforts from all parties. 解决这一问题的关键在于各方共同努力。
 - ... has a profound impact on people's lives. ……对人们的生活产生深远影响。
 ### 对比选择型
-| 第一段                                                                                                    |                         |      |
-| ------------------------------------------------------------------------------------------------------ | ----------------------- | ---- |
-| With the advance of science andtechnology, the issue of humans becoming lazy has aroused wide concern. | 随着科学技术的进步，……的问题引起了广泛关注。 | 引出话题 |
-| In my opinion,rather than casuing laziness,……                                                          | 在我看来，与其导致懒惰，……          | 说明观点 |
+| 第一段                                                                                                     |                         |      |
+| ------------------------------------------------------------------------------------------------------- | ----------------------- | ---- |
+| With the advance of science and technology, the issue of humans becoming lazy has aroused wide concern. | 随着科学技术的进步，……的问题引起了广泛关注。 | 引出话题 |
+| In my opinion,rather than casuing laziness,……                                                           | 在我看来，与其导致懒惰，……          | 说明观点 |
 
 | 第二段 |     |     |
 | --- | --- | --- |
