@@ -19,9 +19,9 @@
 | invest                 | 投资/投入     |                                                        |
 | competitiveness        | 竞争力       |                                                        |
 | enhancement            | 增强        | `The enhancement of the core competitiveness of...`    |
-| seize                  | 抓住        |                                                        |
+|                        |           |                                                        |
 | chance                 | 机会/概率     |                                                        |
-| deposit                | 存放        |                                                        |
+|                        |           |                                                        |
 | present                | 呈现/提供/在场的 |                                                        |
 | Phenomenon             | 现象        |                                                        |
 | route                  | 路线        |                                                        |
@@ -29,7 +29,7 @@
 | case                   | 情况，案件     |                                                        |
 | deposit                | 存放        |                                                        |
 | seize                  | 抓住        | =catch                                                 |
-| present                | 呈现，在场     |                                                        |
+|                        |           |                                                        |
 | announce               | 宣布        |                                                        |
 | council                | 委员会       |                                                        |
 | ruin                   | 破坏        |                                                        |
@@ -37,7 +37,7 @@
 | section                | 部分        |                                                        |
 | glimpse                | 一瞥；瞥见     |                                                        |
 | precious               | 宝贵的       |                                                        |
-| climatic               | 气候        |                                                        |
+| climatic               | 气候的       |                                                        |
 | forest                 | 森林        |                                                        |
 | substant               | 实质        |                                                        |
 | Substantial            | 可观的，相当    |                                                        |
