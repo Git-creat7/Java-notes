@@ -177,6 +177,7 @@ rv.setAdapter(new RvAdapter(dataList));              // 【必填】
 ```
 
 **ListView vs RecyclerView 区别**：
+
 | | ListView | RecyclerView |
 |---|---|---|
 | 适配器基类 | BaseAdapter | RecyclerView.Adapter |
