@@ -151,6 +151,13 @@ listView.setAdapter(new MyAdapter(this, dataList)); // 【必填】
 ```java
 class RvAdapter extends RecyclerView.Adapter<RvAdapter.MyHolder> {
 
+	private List<Item> dataList;
+
+    // 构造方法，接收外部数据
+    public RvAdapter(List<Item> dataList) {
+        this.dataList = dataList;
+    }
+
     @NonNull @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // 【必填】加载布局，创建ViewHolder
@@ -192,6 +199,7 @@ rv.setAdapter(new RvAdapter(dataList));              // 【必填】
 ```
 
 **ListView vs RecyclerView 区别**：
+
 | | ListView | RecyclerView |
 |---|---|---|
 | 适配器基类 | BaseAdapter | RecyclerView.Adapter |
