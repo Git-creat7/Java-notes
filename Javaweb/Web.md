@@ -25,7 +25,7 @@ public class HelloController {
 }
 ```
 
-# [HTTP协议](基础#HTTP)
+# [HTTP协议](Javaweb/基础.md#HTTP)
 概念:`Hyper Text Transfer Protocol`，超文本传输协议，规定了浏览器和服务器之间数据传输的规则
 
 - **特点:**
