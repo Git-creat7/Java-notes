@@ -457,4 +457,59 @@ private void unlock(String key) {
 > [!note] 记一句
 > catch 了 `InterruptedException` → 先 `interrupt()` 恢复标志，再抛或返回。练习代码不写多数接口也能跑；线程池 / 可取消任务里是规范写法。
 
+
+---
+
+## 逻辑过期
+![](Redis缓存-6.png)
+```Java
+public User queryWithLogicalExpire(Long id) throws InterruptedException {  
+    String key = CACHE_USER_PREFIX + id;  
+    Thread.sleep(200);  
+    //从Redis查询缓存  
+    String userJson = stringRedisTemplate.opsForValue().get(key);  
+    if(StrUtil.isBlank(userJson)) {  
+        throw new BusinessException("用户不存在");  
+    }  
+    //命中，判断是否过期  
+    RedisData redisData = JSONUtil.toBean(userJson, RedisData.class);  
+    User user = JSONUtil.toBean((JSONObject) redisData.getData(), User.class);  
+    LocalDateTime expireTime = redisData.getExpireTime();  
+  
+    if(expireTime.isAfter(LocalDateTime.now())){  
+        //未过期，返回用户  
+        return user;  
+    }  
+    //已过期，缓存重建  
+    //1 获取互斥锁  
+    String lockKey = LOCK_USER_KEY + id;  
+    boolean isLock = tryLock(lockKey);  
+    //2 判断是否获取成功  
+    if(isLock){  
+        //3 成功，开启独立线程，实现缓存重建  
+        //DoubleCheck 缓存未过期就不要重建缓存  
+        String lastestJson = stringRedisTemplate.opsForValue().get(key);  
+        if(StrUtil.isNotBlank(lastestJson)){  
+            redisData = JSONUtil.toBean(lastestJson, RedisData.class);  
+            if(redisData.getExpireTime() != null && redisData.getExpireTime().isAfter(LocalDateTime.now())) {  
+                //提前return需要解锁  
+                unlock(lockKey);  
+                return JSONUtil.toBean((JSONObject) redisData.getData(), User.class);  
+            }  
+        }  
+        //过期，重建  
+        CACHE_REBUILD_EXECUTOR.submit(()->{  
+            try {  
+                this.saveUserToRedis(id, 20L);  
+            } catch (Exception e) {  
+                throw new RuntimeException(e);  
+            } finally {  
+                unlock(lockKey);  
+            }  
+        });  
+    }  
+    //4 返回用户信息  
+    return user;  
+}
+```
 ---
