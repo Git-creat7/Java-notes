@@ -240,28 +240,221 @@ return list;
 
 ---
 # 缓存穿透
-是指客户端请求的数据再缓存中和数据库中都不存在，这样缓存就会失效，请求就会打到数据库
+
+是指客户端请求的数据在**缓存中和数据库中都不存在**，缓存起不到拦截作用，请求会打到数据库。
+
+**原因：**
+
+- 业务上本来就没有的 id（误传、脏链接）
+- 恶意扫描不存在的 id，绕过缓存直打 DB
+- 未做参数校验，非法 id 也会查库
+
+**解决方案：**
+
+- 缓存空对象（null / `""`），短 TTL
+- 布隆过滤：不存在的 id 直接拦截，不进 DB
+- 增强 id 复杂度，避免被连续猜测
+- 做好数据基础格式校验（类型、范围）
+- 热点参数 / 异常流量限流
+
 ## 缓存空对象
+
+| | `""`（空字符串） | `null`（get 结果） |
+| --- | --- | --- |
+| Redis | key **存在**，value 为空串 | key **不存在**（或已过期） |
+| 业务含义 | 查过 DB，确认不存在（防穿透） | 未命中：没查过 / 已过期 |
+| 是否查库 | 否 | 是 |
+
+![[Redis缓存-2.png]]
+
+> [!note] 读流程
+> - `isNotBlank` 为 true → 正常 JSON → `toBean`
+> - `isNotBlank` 为 false 且 `!= null` → `""` / `" "` → 空对象 → 抛异常，**不查库**
+> - 两个都不进 → `null` → miss → **才查 DB**
+
+```java
+public User getById(Long id) {
+    String key = CACHE_USER_PREFIX + id;
+    String userJson = stringRedisTemplate.opsForValue().get(key);
+
+    // 等价于 userJson != null && !userJson.isBlank()
+    if (StrUtil.isNotBlank(userJson)) {
+        // 真正有值才返回
+        return JSONUtil.toBean(userJson, User.class);
+    }
+    if (userJson != null) {
+        // 空对象：有 key、值为 blank
+        throw new BusinessException("用户不存在");
+    }
+    // miss：仅 null 时查库
+    User user = userMapper.selectById(id);
+    if (user == null) {
+        // 空对象 TTL 要短
+        stringRedisTemplate.opsForValue().set(key, "", Duration.ofMinutes(2));
+        throw new BusinessException("用户不存在");
+    }
+    stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(user), CACHE_USER_TTL);
+    return user;
+}
+```
+
+> [!warning] 注意
+> 空对象必须用 `""`（或 blank）才能和上面的 `isNotBlank` + `!= null` 配套；若标记写成 `"null"`，`isNotBlank` 为 true，会误进 `toBean`。
+
 ## 布隆过滤
+
+用位图 + 多个哈希函数，判断「某个 id **一定不存在** / **可能存在**」：
+
+- 判定**不存在** → 直接拒绝，不查缓存、不查库（防穿透主力之一）
+- 判定**可能存在** → 再走正常 Cache-Aside（仍可能误判存在，但不会误杀「一定不存在」）
+
+优点：省内存、拦截无效 id 能力强。  
+缺点：有误判（假阳性）；元素删除麻烦；要提前把合法 id 灌进过滤器。
+
+练习阶段优先掌握**缓存空对象**；布隆多在海量非法 id 扫描时上。
+
 ---
 
-# 分层
+# 缓存雪崩
 
-| 层 | 职责 |
+在同一时段大量缓存 key **同时失效**，或 Redis 宕机，导致大量请求直打数据库，压力骤增。
+
+**解决方案：**
+
+- 给不同 key 的 TTL 加随机值，避免同一时刻批量过期
+- Redis 集群 / 主从，提高可用性
+- 降级、限流，保护 DB
+- 多级缓存（本地 + Redis）
+
+---
+
+# 缓存击穿
+
+也叫**热点 key 问题**：一个被高并发访问、重建成本高的 key 突然失效，大量请求同时打到 DB。
+
+**和穿透 / 雪崩的区别（一句话）**
+
+| 问题 | 关键 |
 | --- | --- |
-| Service | 查库、查/写/删缓存；返回 `User` 或抛 `BusinessException`，**不**返回 `Result` |
-| Controller | 调 Service → `Result.success(data)` |
-| 全局异常 | 捕获业务异常 → `Result.error(msg)` |
+| 穿透 | 查**根本不存在**的数据，缓存拦不住 |
+| 击穿 | **热点 key** 刚好过期，并发全打 DB |
+| 雪崩 | **大批 key** 同时过期，或 Redis 挂了 |
 
-缓存逻辑放 Service，不要散在 Controller。
+**解决方案：**
+
+- **互斥锁**：只有拿到锁的线程查库并回写；其它线程 sleep 后重试
+- **逻辑过期**：key 不设 Redis TTL，value 里带逻辑过期时间；过期后异步重建，请求可先返回旧数据
+
+![[Redis缓存-4.png]]
+
+| | 互斥锁 | 逻辑过期 |
+| --- | --- | --- |
+| 优点 | 无额外内存；一致性较好；实现相对简单 | 线程无需干等，吞吐更好 |
+| 缺点 | 等待影响性能；实现不当可能死锁 / 误删锁 | 额外内存；实现复杂；短暂不一致 |
+| 一致性 | 较强（重建完成前别人等或重试） | 较弱（过期窗口可能返回旧数据） |
+
+> [!tip] 练习选型
+> 热点 + 想讲清一致性 → **互斥锁**。要极致吞吐、可接受短暂旧数据 → 逻辑过期。生产锁优先考虑 Redisson，手写用来练原理。
+
+## 互斥锁
+
+```text
+1. 查缓存（含空对象判断，同穿透）
+2. miss → tryLock(lock:user:{id})
+3. 失败 → sleep 一小会 → 递归/重试本方法
+4. 成功 → 双重检查缓存（别人可能已重建）
+5. 仍 miss → 查 DB → 回写缓存（有数据 / 空对象）
+6. finally：仅自己持锁时 unlock
+```
+
+![[Redis缓存-5.png]]
+
+```java
+public User queryWithMutex(Long id) {
+    String key = CACHE_USER_PREFIX + id;
+    String userJson = stringRedisTemplate.opsForValue().get(key);
+    if (StrUtil.isNotBlank(userJson)) {
+        return JSONUtil.toBean(userJson, User.class);
+    }
+    if (userJson != null) {
+        throw new BusinessException("用户不存在");
+    }
+
+    // 缓存重建：互斥锁
+    String lockKey = "lock:user:" + id;
+    User user = null;
+    boolean isLock = tryLock(lockKey);
+    try {
+        if (!isLock) {
+            Thread.sleep(50);
+            return queryWithMutex(id); // 重试互斥，不要改成 PassThrough
+        }
+        // 双重检查：拿到锁后再看一次缓存
+        userJson = stringRedisTemplate.opsForValue().get(key);
+        if (StrUtil.isNotBlank(userJson)) {
+            return JSONUtil.toBean(userJson, User.class);
+        }
+        if (userJson != null) {
+            throw new BusinessException("用户不存在");
+        }
+
+        user = userMapper.selectById(id); // 注意：参数是 id，不是 key
+        if (user == null) {
+            stringRedisTemplate.opsForValue().set(key, "", CACHE_NULL_KEY); // 空对象，防穿透
+            throw new BusinessException("用户不存在");
+        }
+        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(user), CACHE_USER_TTL);
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt(); // 恢复中断标志
+        throw new RuntimeException(e);
+    } finally {
+        // 只有自己抢到锁才删，否则会误删别人的锁
+        if (isLock) {
+            unlock(lockKey);
+        }
+    }
+    return user;
+}
+
+private boolean tryLock(String key) {
+    // SET NX + 过期，避免死锁
+    Boolean flag = stringRedisTemplate.opsForValue()
+            .setIfAbsent(key, "1", Duration.ofSeconds(10));
+    return BooleanUtil.isTrue(flag); // 防 NPE：Boolean 可能为 null
+}
+
+private void unlock(String key) {
+    stringRedisTemplate.delete(key);
+}
+```
+
+**易错点**
+
+| 坑 | 正确做法 |
+| --- | --- |
+| 抢锁失败后 `return queryWithPassThrough` | 应 `return queryWithMutex`，否则不再互斥 |
+| `finally` 里无条件 `unlock` | 必须 `if (isLock) unlock`，否则误删别人的锁 |
+| `selectById(key)` | 必须 `selectById(id)` |
+| DB 无数据不写空对象 | 互斥路径也要 `set("", 短 TTL)` |
+| 锁 key 写成 `look:` | 统一 `lock:user:{id}` |
+
+### `Thread.currentThread().interrupt()`
+
+`sleep` / `wait` 等被中断时会：
+
+1. **抛出 `InterruptedException`**
+2. **清掉中断标志**（`true` → `false`）
+
+若 catch 后只包成 `RuntimeException` 抛出，上层就不知道「这个线程曾被要求停止」。
+
+```java
+} catch (InterruptedException e) {
+    Thread.currentThread().interrupt(); // 把中断标志补回 true
+    throw new RuntimeException(e);
+}
+```
+
+> [!note] 记一句
+> catch 了 `InterruptedException` → 先 `interrupt()` 恢复标志，再抛或返回。练习代码不写多数接口也能跑；线程池 / 可取消任务里是规范写法。
 
 ---
-
-
----
-
-# 能讲清的三句话
-
-1. MySQL 是主数据，Redis 只做加速；Cache-Aside = 读旁路 + 写后删缓存。
-2. TTL 是过期时间，兜底脏数据和内存；**不能**替代写路径失效。
-3. 业务列表用 String 存 JSON；`opsForList` 是 Redis 列表结构，场景不同。
