@@ -343,6 +343,8 @@ aliases = ['Redis面试题']
 > - **读写**：客户端直连任意节点，key 不在该节点时返回 `MOVED` 重定向（槽迁移时返回 `ASK`）
 > - **优点**：数据分散多节点，单节点内存压力小，可水平扩容
 > - **局限**：多 key 操作需在同一节点（可用 hash tag，如 `{user1}`，把相关 key 落到同槽）
+>
+> ![分片集群结构](Redis-4.png)
 
 > [!question]- redis 集群脑裂是什么？怎么解决？
 > **总**：master、slave 与 sentinel **处于不同的网络分区**，sentinel 心跳感知不到 master，就选举提升一个 slave 为 master，于是**存在了两个 master**（像大脑分裂一样）；网络恢复后 old master 被降为 slave 并从新 master 同步，导致 **old master 那段时间写入的大量数据丢失**。解决核心是**限制失联旧主的写入**。
@@ -394,5 +396,3 @@ aliases = ['Redis面试题']
 > > **面试官**：怎么保证 Redis 的高并发高可用
 > >
 > > **候选人**：首先可以搭建主从集群，再加上使用 redis 中的哨兵模式，哨兵模式可以实现主从集群的自动故障恢复，里面就包含了对主从服务的监控、自动故障恢复、通知：如果 master 故障，Sentinel 会将一个 slave 提升为 master。当故障实例恢复后也以新的 master 为主；同时 Sentinel 也充当 Redis 客户端的服务发现来源，当集群发生故障转移时，会将最新信息推送给 Redis 的客户端，所以一般项目都会采用哨兵的模式来保证 redis 的高并发高可用
-
-![分片集群结构](Redis-4.png)

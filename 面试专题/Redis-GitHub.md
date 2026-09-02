@@ -448,6 +448,8 @@ WATCH key  # 乐观锁：key 被改则事务执行失败
 - **优点**：数据分散多节点，单节点内存压力小，可水平扩容
 - **局限**：多 key 操作需在同一节点（可用 hash tag，如 `{user1}`，把相关 key 落到同槽）
 
+![分片集群结构](../img/Redis-4.png)
+
 </details>
 
 <details>
@@ -519,6 +521,4 @@ WATCH key  # 乐观锁：key 被改则事务执行失败
 </details>
 
 </details>
-
-![分片集群结构](../img/Redis-4.png)
 
