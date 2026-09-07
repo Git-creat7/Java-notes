@@ -57,44 +57,44 @@
 
 ```mermaid
 graph TB
-    subgraph ClientLayer [表现层 / 客户端]
-        Browser[Vue 3 前端应用 / Postman / 移动端]
+    subgraph ClientLayer ["表现层 / 客户端"]
+        Browser["Vue 3 前端应用 / Postman / 移动端"]
     end
 
-    subgraph SecurityLayer [网络与安全过滤层]
-        Tomcat[内嵌 Tomcat 容器]
-        JwtFilter[JwtAuthenticationFilter<br/>(继承 OncePerRequestFilter)]
-        SecurityContext[SecurityContextHolder<br/>(ThreadLocal 存 LoginUser)]
-        AuthEntryPoint[RestAuthenticationEntryPoint<br/>(统一 401 JSON 处理器)]
+    subgraph SecurityLayer ["网络与安全过滤层"]
+        Tomcat["内嵌 Tomcat 容器"]
+        JwtFilter["JwtAuthenticationFilter<br/>(继承 OncePerRequestFilter)"]
+        SecurityContext["SecurityContextHolder<br/>(ThreadLocal 存 LoginUser)"]
+        AuthEntryPoint["RestAuthenticationEntryPoint<br/>(统一 401 JSON 处理器)"]
     end
 
-    subgraph AspectLayer [AOP 横切切面层]
-        RoleAspect[SpaceRoleAspect<br/>(@RequireSpaceRole 权限拦截)]
-        SpaceCtx[SpaceContext<br/>(ThreadLocal 存 SpaceMember)]
-        LogAspect[OperationLogAspect<br/>(@OperationLog 操作审计)]
+    subgraph AspectLayer ["AOP 横切切面层"]
+        RoleAspect["SpaceRoleAspect<br/>(@RequireSpaceRole 权限拦截)"]
+        SpaceCtx["SpaceContext<br/>(ThreadLocal 存 SpaceMember)"]
+        LogAspect["OperationLogAspect<br/>(@OperationLog 操作审计)"]
     end
 
-    subgraph ServiceLayer [业务核心层 (Service)]
-        UserSvc[UserServiceImpl]
-        SpaceSvc[SpaceServiceImpl]
-        DocSvc[DocumentServiceImpl]
-        FolderSvc[FolderServiceImpl]
-        CommentSvc[CommentServiceImpl]
-        TagSvc[TagServiceImpl]
-        RecentSvc[RecentDocumentServiceImpl]
-        RateLimitSvc[RateLimitServiceImpl]
-        TokenSvc[TokenRevocationServiceImpl]
-        MinioSvc[MinioFileStorageServiceImpl]
-        LogSvc[OperationLogServiceImpl]
+    subgraph ServiceLayer ["业务核心层 (Service)"]
+        UserSvc["UserServiceImpl"]
+        SpaceSvc["SpaceServiceImpl"]
+        DocSvc["DocumentServiceImpl"]
+        FolderSvc["FolderServiceImpl"]
+        CommentSvc["CommentServiceImpl"]
+        TagSvc["TagServiceImpl"]
+        RecentSvc["RecentDocumentServiceImpl"]
+        RateLimitSvc["RateLimitServiceImpl"]
+        TokenSvc["TokenRevocationServiceImpl"]
+        MinioSvc["MinioFileStorageServiceImpl"]
+        LogSvc["OperationLogServiceImpl"]
     end
 
-    subgraph InfraLayer [基础设施与存储层]
-        MySQL[(MySQL 8.0<br/>InnoDB 引擎)]
-        Redis[(Redis 7.0<br/>缓存 / 撤销 / 限流 / ZSet)]
-        MinIO[(MinIO 存储桶<br/>私有桶 / 公共桶)]
+    subgraph InfraLayer ["基础设施与存储层"]
+        MySQL[("MySQL 8.0<br/>InnoDB 引擎")]
+        Redis[("Redis 7.0<br/>缓存 / 撤销 / 限流 / ZSet")]
+        MinIO[("MinIO 存储桶<br/>私有桶 / 公共桶")]
     end
 
-    Browser -->|HTTP 请求 带 Bearer Token| Tomcat
+    Browser --> Tomcat
     Tomcat --> JwtFilter
     JwtFilter -.->|验证失败| AuthEntryPoint
     JwtFilter -->|写入身份| SecurityContext
@@ -114,7 +114,7 @@ graph TB
     RateLimitSvc -->|Lua 脚本| Redis
     TokenSvc -->|撤销黑名单 / 水位| Redis
     MinioSvc -->|内网调用| MinIO
-    Browser -.->|使用预签名 URL 直传/直取| MinIO
+    Browser -.->|预签名直链| MinIO
 ```
 
 ---
@@ -130,32 +130,32 @@ sequenceDiagram
     participant Security as JwtAuthenticationFilter
     participant Redis as Redis
     participant AOP as SpaceRoleAspect
-    participant ThreadLocal as SpaceContext (ThreadLocal)
+    participant ThreadLocal as SpaceContext
     participant DocService as DocumentServiceImpl
-    participant DB as MySQL (InnoDB)
+    participant DB as MySQL
     participant MinIO as MinIO Client
 
-    Client->>Security: GET /spaces/1/documents/10/preview (Header: Bearer <Token>)
-    Security->>Security: 校验 Header 格式，提取 Token
-    Security->>Redis: isRevoked(jti)? 检查单 Token 黑名单
-    Security->>Redis: isUserSessionInvalid(userId, iat)? 检查修改密码水位
+    Client->>Security: GET /spaces/1/documents/10/preview (带 Token)
+    Security->>Security: 校验 Header 格式并提取 Token
+    Security->>Redis: 检查单 Token 撤销黑名单 isRevoked
+    Security->>Redis: 检查改密水位 isUserSessionInvalid
     Security->>Security: 构造 LoginUser 写入 SecurityContextHolder
     
-    Security->>AOP: 进入 Controller 代理，被 @RequireSpaceRole 拦截
+    Security->>AOP: 进入 Controller 代理，触发 @RequireSpaceRole 切面
     AOP->>AOP: 反射解析 @SpaceId 参数与 LoginUser
-    AOP->>DB: 查询 space 表验证空间存在，查 space_member 验证角色
-    AOP->>ThreadLocal: SpaceContext.set(member) 存入当前线程
+    AOP->>DB: 验证空间存在并校验 space_member 角色
+    AOP->>ThreadLocal: 写入当前线程 SpaceContext.set(member)
     
     AOP->>DocService: pjp.proceed() 执行业务方法
-    DocService->>DB: checkDocument: 验证 document_id=10 是否属于 space_id=1
-    DocService->>MinIO: 调用 minioPublicClient 生成 1小时内有效的预签名 URL<br/>(附加 response-content-disposition=inline)
-    DocService->>Redis: (异步 @Async) recentDocumentService.recordRecentDocument
+    DocService->>DB: checkDocument 验证文档归属
+    DocService->>MinIO: 调用 minioPublicClient 生成1小时有效预签名URL (inline)
+    DocService->>Redis: 异步调用 recordRecentDocument
     DocService-->>AOP: 返回 DocumentPreviewVO
     
-    AOP->>ThreadLocal: 【关键】finally { SpaceContext.clear(); } 清理线程上下文
-    AOP-->>Security: 返回响应包装
-    Security-->>Client: 200 OK，包含 MinIO 直链
-    Client->>MinIO: 浏览器直接请求 MinIO 预签名 URL 下载/预览文件流
+    AOP->>ThreadLocal: finally 块强制清理 SpaceContext.clear()
+    AOP-->>Security: 返回响应结果
+    Security-->>Client: 200 OK (含 MinIO 预签名 URL)
+    Client->>MinIO: 浏览器使用预签名直链在线预览文件
 ```
 
 ---
@@ -175,23 +175,23 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    subgraph Layer1 [第一层：单 Token 退出注销 (主动 Logout)]
-        A[客户端调 /user/logout] --> B[解析 Token 拿到 jti 与 expiration]
+    subgraph Layer1 ["第一层：单 Token 退出注销 (主动 Logout)"]
+        A["客户端调 /user/logout"] --> B["解析 Token 拿到 jti 与 expiration"]
         B --> C["计算剩余时间: ttl = expiration - now"]
         C --> D["存入 Redis: teamdocs:auth:revoked:{jti} = '1'<br/>TTL = 剩余毫秒数 (自然过期自动清除)"]
     end
 
-    subgraph Layer2 [第二层：全局会话失效 (修改密码 / 强制下线)]
-        E[用户修改密码成功] --> F["存入 Redis: teamdocs:auth:user-invalid-before:{userId} = 当前时间戳<br/>TTL = JWT最大生命周期"]
-        F --> G[该账号在所有设备之前签发的 Token 全部废弃]
+    subgraph Layer2 ["第二层：全局会话失效 (修改密码 / 强制下线)"]
+        E["用户修改密码成功"] --> F["存入 Redis: teamdocs:auth:user-invalid-before:{userId} = 当前时间戳<br/>TTL = JWT最大生命周期"]
+        F --> G["该账号在所有设备之前签发的 Token 全部废弃"]
     end
 
-    subgraph Verify [过滤器中的校验流程 JwtAuthenticationFilter]
-        H[收到请求 Token] --> I{jti 是否在 revoked 黑名单中?}
-        I -->|是| J[抛 BadCredentialsException -> 401]
-        I -->|否| K{iat 签发时间 < user-invalid-before 水位?}
+    subgraph Verify ["过滤器中的校验流程 JwtAuthenticationFilter"]
+        H["收到请求 Token"] --> I{"jti 是否在 revoked 黑名单中?"}
+        I -->|是| J["抛 BadCredentialsException -> 401"]
+        I -->|否| K{"iat 签发时间是否早于水位线?"}
         K -->|是| J
-        K -->|否| L[放行，写入 SecurityContext]
+        K -->|否| L["放行，写入 SecurityContext"]
     end
 ```
 
@@ -324,24 +324,24 @@ try {
 
 ```mermaid
 graph LR
-    subgraph SpaceCache [空间详情]
-        S1[读请求] --> S2{查 Redis: teamdocs:space:{id}}
-        S2 -->|命中 'NULL'| S3[抛异常: 空间不存在]
-        S2 -->|命中 JSON| S4[反序列化返回]
-        S2 -->|未命中| S5[查 MySQL]
-        S5 -->|DB无此数据| S6["写 Redis: 'NULL'<br/>TTL: 60秒 (防穿透)"]
-        S5 -->|DB有数据| S7["写 Redis: JSON<br/>TTL: 30分 + 0~300秒抖动 (防雪崩)"]
+    subgraph SpaceCache ["空间详情"]
+        S1["读请求"] --> S2{"查 Redis 空间缓存"}
+        S2 -->|命中 NULL| S3["抛异常: 空间不存在"]
+        S2 -->|命中 JSON| S4["反序列化返回"]
+        S2 -->|未命中| S5["查 MySQL"]
+        S5 -->|DB无此数据| S6["写 Redis 哨兵 NULL<br/>TTL: 60秒 (防穿透)"]
+        S5 -->|DB有数据| S7["写 Redis 空间 JSON<br/>TTL: 30分 + 随机抖动 (防雪崩)"]
     end
 
-    subgraph RateLimit [登录限流]
-        R1[登录请求] --> R2["执行 Lua: window_rate_limit.lua<br/>(INCR + EXPIRE 原子操作)"]
-        R2 -->|count > 10| R3[拒绝: 请求过于频繁]
-        R2 -->|count <= 10| R4[放行登录]
+    subgraph RateLimit ["登录限流"]
+        R1["登录请求"] --> R2["执行 Lua 脚本<br/>(INCR 与 EXPIRE 原子操作)"]
+        R2 -->|超过阈值| R3["拒绝: 请求过于频繁"]
+        R2 -->|未超阈值| R4["放行登录"]
     end
 
-    subgraph RecentDocs [最近浏览]
-        D1[下载/预览成功] -->|@Async 异步| D2["ZADD teamdocs:user:recent:{uid}<br/>Member: docId, Score: 时间戳"]
-        D2 --> D3["ZREMRANGEBYRANK 0 -21<br/>(裁剪保持最新20条)"]
+    subgraph RecentDocs ["最近浏览"]
+        D1["下载/预览成功"] -->|异步执行| D2["ZADD 写入最近浏览<br/>Member: docId, Score: 时间戳"]
+        D2 --> D3["ZREMRANGEBYRANK<br/>(裁剪保持最新20条)"]
     end
 ```
 
